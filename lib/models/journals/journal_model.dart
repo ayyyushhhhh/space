@@ -3,26 +3,30 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
-enum MoodType { happy, sad, angry, neutral, cheerful, worried }
+enum MoodType { happy, sad, angry, neutral, worried }
 
 class JournalModel {
+  int journalId;
   DateTime createdOn;
   String mood;
   List<dynamic> journalData;
 
   JournalModel({
+    required this.journalId,
     required this.createdOn,
     required this.mood,
     required this.journalData,
   });
 
   JournalModel copyWith({
-    DateTime? onCreated,
+    int? journalId,
+    DateTime? createdOn,
     String? mood,
     List<dynamic>? journalData,
   }) {
     return JournalModel(
-      createdOn: onCreated ?? createdOn,
+      journalId: journalId ?? this.journalId,
+      createdOn: createdOn ?? this.createdOn,
       mood: mood ?? this.mood,
       journalData: journalData ?? this.journalData,
     );
@@ -30,7 +34,8 @@ class JournalModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'onCreated': createdOn.millisecondsSinceEpoch,
+      'journalId': journalId,
+      'createdOn': createdOn.millisecondsSinceEpoch,
       'mood': mood,
       'journalData': journalData,
     };
@@ -38,11 +43,13 @@ class JournalModel {
 
   factory JournalModel.fromMap(Map<String, dynamic> map) {
     return JournalModel(
-        createdOn: DateTime.fromMillisecondsSinceEpoch(map['onCreated'] as int),
-        mood: map['mood'] as String,
-        journalData: List<dynamic>.from(
-          (map['journalData'] as List<dynamic>),
-        ));
+      journalId: map['journalId'] as int,
+      createdOn: DateTime.fromMillisecondsSinceEpoch(map['createdOn'] as int),
+      mood: map['mood'] as String,
+      journalData: List<dynamic>.from(
+        (map['journalData'] as List<dynamic>),
+      ),
+    );
   }
 
   String toJson() => json.encode(toMap());
@@ -51,18 +58,25 @@ class JournalModel {
       JournalModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() =>
-      'JournalModel(onCreated: $createdOn, mood: $mood, journalData: $journalData)';
+  String toString() {
+    return 'JournalModel(journalId: $journalId, createdOn: $createdOn, mood: $mood, journalData: $journalData)';
+  }
 
   @override
   bool operator ==(covariant JournalModel other) {
     if (identical(this, other)) return true;
 
-    return other.createdOn == createdOn &&
+    return other.journalId == journalId &&
+        other.createdOn == createdOn &&
         other.mood == mood &&
         listEquals(other.journalData, journalData);
   }
 
   @override
-  int get hashCode => createdOn.hashCode ^ mood.hashCode ^ journalData.hashCode;
+  int get hashCode {
+    return journalId.hashCode ^
+        createdOn.hashCode ^
+        mood.hashCode ^
+        journalData.hashCode;
+  }
 }

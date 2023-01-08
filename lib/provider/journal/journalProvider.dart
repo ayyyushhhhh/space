@@ -7,7 +7,10 @@ class JournalProvider with ChangeNotifier {
   List<JournalModel> get journalsList => _journals;
 
   void addJournal(JournalModel journal) {
-    _journals.add(journal);
+    if (!_journals.contains(journal)) {
+      _journals.add(journal);
+    }
+
     notifyListeners();
   }
 }

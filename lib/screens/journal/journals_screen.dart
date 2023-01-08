@@ -14,7 +14,7 @@ class JournalsScreen extends StatelessWidget {
           onPressed: () {
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (BuildContext context) {
-              return AddJournalScreen();
+              return const AddJournalScreen();
             }));
           },
           child: const Icon(Icons.radio_button_checked),
@@ -30,8 +30,18 @@ class JournalsScreen extends StatelessWidget {
                   itemBuilder: (BuildContext context, int index) {
                     String title =
                         value.journalsList[index].createdOn.toString();
-                    return ListTile(
-                      title: Text(title),
+                    return InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (BuildContext context) {
+                          return AddJournalScreen(
+                            journalModel: value.journalsList[index],
+                          );
+                        }));
+                      },
+                      child: ListTile(
+                        title: Text(title),
+                      ),
                     );
                   },
                 );

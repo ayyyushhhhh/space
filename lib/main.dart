@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:space/provider/journal/journalProvider.dart';
+import 'package:space/provider/journal/mood_provider.dart';
 import 'package:space/screens/journal/journals_screen.dart';
 
 void main() {
@@ -20,13 +22,22 @@ class MyApp extends StatelessWidget {
             return JournalProvider();
           },
         ),
-      ],
-      child: MaterialApp(
-        title: 'Space',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
+        ChangeNotifierProvider<MoodProvider>(
+          create: (BuildContext context) {
+            return MoodProvider();
+          },
         ),
-        home: const JournalsScreen(),
+      ],
+      child: ScreenUtilInit(
+        builder: (BuildContext context, Widget? child) {
+          return MaterialApp(
+            title: 'Space',
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+            ),
+            home: const JournalsScreen(),
+          );
+        },
       ),
     );
   }
