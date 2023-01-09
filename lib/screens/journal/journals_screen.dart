@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
@@ -7,7 +6,6 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:space/models/journals/journal_model.dart';
 import 'package:space/provider/journal/journalProvider.dart';
-
 import 'package:space/screens/journal/add_journal_screen.dart';
 import 'package:space/widgets/journal/calendar_widget.dart';
 import 'package:space/widgets/journal/journal_widget.dart';

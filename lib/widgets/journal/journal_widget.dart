@@ -6,6 +6,7 @@ import 'package:space/hive%20boxes/journal_box.dart';
 import 'package:space/models/journals/journal_model.dart';
 import 'package:space/provider/journal/journalProvider.dart';
 import 'package:space/screens/journal/add_journal_screen.dart';
+import 'dart:math' as math;
 
 class JournalWidget extends StatelessWidget {
   final JournalModel journalModel;
@@ -36,12 +37,13 @@ class JournalWidget extends StatelessWidget {
           children: [
             Container(
               width: 30.w,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(10),
                   bottomLeft: Radius.circular(10),
                 ),
-                color: Colors.yellow,
+                color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+                    .withOpacity(1.0),
               ),
             ),
             SizedBox(
