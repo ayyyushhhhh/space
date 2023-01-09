@@ -1,16 +1,16 @@
-import 'package:space/models/journals/journal_model.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:space/models/journals/journal_model.dart';
 
 class JournalProvider with ChangeNotifier {
-  final List<JournalModel> _journals = [];
+  DateTime _dateTime = DateTime.now();
+  bool isSaving = false;
+  DateTime get getDate => _dateTime;
+  List<JournalModel> listOfJournals = [];
+  List<JournalModel> get journals => listOfJournals;
 
-  List<JournalModel> get journalsList => _journals;
-
-  void addJournal(JournalModel journal) {
-    if (!_journals.contains(journal)) {
-      _journals.add(journal);
-    }
-
+  void updateDate(DateTime dateTime) async {
+    _dateTime = dateTime;
     notifyListeners();
   }
 }

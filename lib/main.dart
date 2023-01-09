@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:space/provider/journal/journalProvider.dart';
 import 'package:space/provider/journal/mood_provider.dart';
 import 'package:space/screens/journal/journals_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final dir = await getApplicationDocumentsDirectory();
+  Hive.init(dir.path);
   GoogleFonts.config.allowRuntimeFetching = false;
   runApp(const MyApp());
 }

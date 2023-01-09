@@ -1,10 +1,29 @@
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:space/provider/journal/journalProvider.dart';
-import 'package:space/screens/journal/add_journal_screen.dart';
+import 'dart:convert';
 
-class JournalsScreen extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive/hive.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:space/models/journals/journal_model.dart';
+import 'package:space/provider/journal/journalProvider.dart';
+
+import 'package:space/screens/journal/add_journal_screen.dart';
+import 'package:space/widgets/journal/calendar_widget.dart';
+import 'package:space/widgets/journal/journal_widget.dart';
+
+class JournalsScreen extends StatefulWidget {
   const JournalsScreen({super.key});
+
+  @override
+  State<JournalsScreen> createState() => _JournalsScreenState();
+}
+
+class _JournalsScreenState extends State<JournalsScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,32 +40,56 @@ class JournalsScreen extends StatelessWidget {
         ),
         body: Column(
           children: [
-            const Text("NoteBooks"),
+            Container(
+                height: 200.h,
+                color: Colors.purple.shade300,
+                child: const CalendarWidget()),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Journals",
+                    style:
+                        TextStyle(fontSize: 30.sp, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "....",
+                    style:
+                        TextStyle(fontSize: 30.sp, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
             Consumer<JournalProvider>(
               builder: (BuildContext context, value, Widget? child) {
-                return ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: value.journalsList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    String title =
-                        value.journalsList[index].createdOn.toString();
-                    return InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(
-                            MaterialPageRoute(builder: (BuildContext context) {
-                          return AddJournalScreen(
-                            journalModel: value.journalsList[index],
-                          );
-                        }));
-                      },
-                      child: ListTile(
-                        title: Text(title),
-                      ),
-                    );
+                return FutureBuilder(
+                  future: Hive.openBox(
+                      DateFormat('d, MMMM, yyyy').format(value.getDate)),
+                  builder:
+                      (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                    if (snapshot.hasData) {
+                      final box = snapshot.data as Box;
+                      List journals = [];
+                      for (var key in box.keys) {
+                        journals.add(JournalModel.fromMap(
+                            jsonDecode(jsonEncode(box.get(key)))
+                                as Map<String, dynamic>));
+                      }
+                      return ListView.builder(
+                        itemCount: journals.length,
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          return JournalWidget(journalModel: journals[index]);
+                        },
+                      );
+                    }
+                    return const Text("object");
                   },
                 );
               },
-            )
+            ),
           ],
         ),
       ),

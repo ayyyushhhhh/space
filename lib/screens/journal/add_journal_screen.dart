@@ -6,6 +6,8 @@ import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:space/hive%20boxes/journal_box.dart';
+
 import 'package:space/models/journals/journal_model.dart';
 import 'package:space/provider/journal/journalProvider.dart';
 import 'package:space/provider/journal/mood_provider.dart';
@@ -24,13 +26,23 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
   late DateTime createdOn;
   final ScrollController _scrollController = ScrollController();
   late String moodNow;
+  late Color journalColor;
 
   @override
   void initState() {
     super.initState();
     if (widget.journalModel == null) {
       _quillController = quill.QuillController.basic();
-      createdOn = DateTime.now();
+      final time = Provider.of<JournalProvider>(context, listen: false).getDate;
+      createdOn = DateTime(
+          time.year,
+          time.month,
+          time.day,
+          DateTime.now().hour,
+          DateTime.now().minute,
+          DateTime.now().second,
+          time.millisecond,
+          time.microsecond);
       moodNow = "happy";
     } else {
       _quillController = quill.QuillController.basic();
@@ -65,39 +77,55 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    IconButton(
-                      padding: EdgeInsets.zero,
-                      onPressed: () {
-                        if (widget.journalModel == null) {
-                          final journalId =
-                              (Random.secure().nextInt(90000) + 10000);
-                          Provider.of<JournalProvider>(context, listen: false)
-                              .addJournal(
-                            JournalModel(
-                              createdOn: createdOn,
-                              mood: moodNow,
-                              journalData:
-                                  _quillController.document.toDelta().toJson(),
-                              journalId: journalId,
-                            ),
-                          );
-                        } else {
-                          Provider.of<JournalProvider>(context, listen: false)
-                              .addJournal(
-                            widget.journalModel!.copyWith(
-                              journalData:
-                                  _quillController.document.toDelta().toJson(),
-                            ),
-                          );
-                        }
-
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(
-                        CupertinoIcons.back,
-                        size: 50.r,
-                        color: Colors.white,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          padding: EdgeInsets.zero,
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: Icon(
+                            CupertinoIcons.back,
+                            size: 50.r,
+                          ),
+                        ),
+                        const Spacer(),
+                        // IconButton(
+                        //   padding: EdgeInsets.zero,
+                        //   onPressed: () {},
+                        //   icon: Icon(
+                        //     Icons.circle,
+                        //     size: 50.r,
+                        //     color: Colors.purple,
+                        //   ),
+                        // ),
+                        // const SizedBox(
+                        //   width: 10,
+                        // ),
+                        // IconButton(
+                        //   padding: EdgeInsets.zero,
+                        //   onPressed: () {},
+                        //   icon: Icon(
+                        //     Icons.add_reaction,
+                        //     size: 50.r,
+                        //   ),
+                        // ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        IconButton(
+                          padding: EdgeInsets.zero,
+                          onPressed: () {
+                            _saveJournal();
+                            Navigator.pop(context);
+                          },
+                          icon: Icon(
+                            Icons.done,
+                            size: 50.r,
+                          ),
+                        ),
+                      ],
                     ),
                     Text(
                       DateFormat('EEEE').format(createdOn),
@@ -118,9 +146,6 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
                     ),
                     quill.QuillToolbar.basic(
                       controller: _quillController,
-                      dialogTheme: quill.QuillDialogTheme(
-                        dialogBackgroundColor: Colors.black,
-                      ),
                       iconTheme: const quill.QuillIconTheme(
                           iconSelectedColor: Colors.purpleAccent,
                           iconSelectedFillColor: Colors.transparent),
@@ -207,16 +232,41 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
     );
   }
 
+  Future<void> _saveJournal() async {
+    if (widget.journalModel == null) {
+      final journalId = (Random.secure().nextInt(90000) + 10000);
+      final JournalModel journalModel = JournalModel(
+        journalId: journalId,
+        createdOn: createdOn,
+        color: Colors.red,
+        // ignore: use_build_context_synchronously
+        mood: Provider.of<MoodProvider>(context, listen: false).mood,
+        journalData: _quillController.document.toDelta().toJson(),
+      );
+      JournalHiveBox.saveJournal(
+          dateTime: createdOn, journalModel: journalModel);
+    } else {
+      final JournalModel journalModel = widget.journalModel!.copyWith(
+        // ignore: use_build_context_synchronously
+        mood: Provider.of<MoodProvider>(context, listen: false).mood,
+        journalData: _quillController.document.toDelta().toJson(),
+      );
+      JournalHiveBox.saveJournal(
+          dateTime: createdOn, journalModel: journalModel);
+    }
+    Provider.of<JournalProvider>(context, listen: false).updateDate(createdOn);
+  }
+
   Widget _buildEmoji({required String emoji, required String mood}) {
     return Consumer<MoodProvider>(
       builder: (BuildContext context, value, Widget? child) {
         double fontSize = 20.sp;
-        if (moodNow == value.mood) {
+        if (mood == value.mood) {
           fontSize = 30.sp;
         }
         return InkWell(
           onTap: () {
-            moodNow = mood;
+            mood = mood;
             value.changeMood(mood);
           },
           child: Text(
