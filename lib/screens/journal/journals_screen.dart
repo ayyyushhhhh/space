@@ -29,70 +29,71 @@ class _JournalsScreenState extends State<JournalsScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (BuildContext context) {
-              return const AddJournalScreen();
-            }));
-          },
-          child: const Icon(Icons.radio_button_checked),
-        ),
-        body: Column(
-          children: [
-            Container(
-                height: 200.h,
-                color: Colors.purple.shade300,
-                child: const CalendarWidget()),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Journals",
-                    style:
-                        TextStyle(fontSize: 30.sp, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    "....",
-                    style:
-                        TextStyle(fontSize: 30.sp, fontWeight: FontWeight.bold),
-                  ),
-                ],
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (BuildContext context) {
+                return const AddJournalScreen();
+              }));
+            },
+            child: const Icon(Icons.radio_button_checked),
+          ),
+          body: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: Container(
+                    height: 200.h,
+                    color: Colors.purple.shade300,
+                    child: const CalendarWidget()),
               ),
-            ),
-            Consumer<JournalProvider>(
-              builder: (BuildContext context, value, Widget? child) {
-                return FutureBuilder(
-                  future: Hive.openBox(
-                      DateFormat('d, MMMM, yyyy').format(value.getDate)),
-                  builder:
-                      (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                    if (snapshot.hasData) {
-                      final box = snapshot.data as Box;
-                      List journals = [];
-                      for (var key in box.keys) {
-                        journals.add(JournalModel.fromMap(
-                            jsonDecode(jsonEncode(box.get(key)))
-                                as Map<String, dynamic>));
-                      }
-                      return ListView.builder(
-                        itemCount: journals.length,
-                        shrinkWrap: true,
-                        itemBuilder: (BuildContext context, int index) {
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Journals",
+                        style: TextStyle(
+                            fontSize: 30.sp, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        "....",
+                        style: TextStyle(
+                            fontSize: 30.sp, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Consumer<JournalProvider>(
+                builder: (BuildContext context, value, Widget? child) {
+                  return FutureBuilder(
+                    future: Hive.openBox(
+                        DateFormat('d, MMMM, yyyy').format(value.getDate)),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<dynamic> snapshot) {
+                      if (snapshot.hasData) {
+                        final box = snapshot.data as Box;
+                        List journals = [];
+                        for (var key in box.keys) {
+                          journals.add(JournalModel.fromMap(
+                              jsonDecode(jsonEncode(box.get(key)))
+                                  as Map<String, dynamic>));
+                        }
+                        return SliverList(
+                            delegate: SliverChildBuilderDelegate(
+                                childCount: journals.length, (context, index) {
                           return JournalWidget(journalModel: journals[index]);
-                        },
-                      );
-                    }
-                    return const Text("object");
-                  },
-                );
-              },
-            ),
-          ],
-        ),
-      ),
+                        }));
+                      }
+                      return const SliverToBoxAdapter(child: Text("object"));
+                    },
+                  );
+                },
+              ),
+            ],
+          )),
     );
   }
 }
