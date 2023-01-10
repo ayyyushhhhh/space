@@ -10,14 +10,14 @@ class JournalModel {
   int journalId;
   DateTime createdOn;
   String mood;
-  Color? color;
+  Color color;
   List<dynamic> journalData;
 
   JournalModel({
     required this.journalId,
     required this.createdOn,
     required this.mood,
-    this.color,
+    required this.color,
     required this.journalData,
   });
 
@@ -42,7 +42,7 @@ class JournalModel {
       'journalId': journalId,
       'createdOn': createdOn.millisecondsSinceEpoch,
       'mood': mood,
-      'color': color?.value,
+      'color': color.value,
       'journalData': journalData,
     };
   }
@@ -52,7 +52,7 @@ class JournalModel {
         journalId: map['journalId'] as int,
         createdOn: DateTime.fromMillisecondsSinceEpoch(map['createdOn'] as int),
         mood: map['mood'] as String,
-        color: map['color'] != null ? Color(map['color'] as int) : null,
+        color: Color(map['color'] as int),
         journalData: List<dynamic>.from(
           (map['journalData'] as List<dynamic>),
         ));

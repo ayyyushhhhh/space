@@ -40,9 +40,10 @@ class _JournalsScreenState extends State<JournalsScreen> {
             slivers: [
               SliverToBoxAdapter(
                 child: Container(
-                    height: 200.h,
-                    color: Colors.purple.shade300,
-                    child: const CalendarWidget()),
+                  height: 200.h,
+                  color: Colors.purple.shade300,
+                  child: const CalendarWidget(),
+                ),
               ),
               SliverToBoxAdapter(
                 child: Padding(

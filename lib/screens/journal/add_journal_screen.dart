@@ -31,6 +31,10 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
   @override
   void initState() {
     super.initState();
+    initJournalModel();
+  }
+
+  void initJournalModel() {
     if (widget.journalModel == null) {
       _quillController = quill.QuillController.basic();
       final time = Provider.of<JournalProvider>(context, listen: false).getDate;
@@ -44,12 +48,14 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
           time.millisecond,
           time.microsecond);
       moodNow = "happy";
+      Provider.of<MoodProvider>(context, listen: false).canRequestFocus = true;
     } else {
       _quillController = quill.QuillController.basic();
       createdOn = widget.journalModel!.createdOn;
       _quillController.document =
           quill.Document.fromJson(widget.journalModel!.journalData);
       moodNow = widget.journalModel!.mood;
+      Provider.of<MoodProvider>(context, listen: false).canRequestFocus = false;
     }
   }
 
@@ -63,159 +69,177 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          body: CustomScrollView(
-        slivers: [
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: Container(
+          body: Container(
+        color: Colors.grey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
               color: Colors.grey,
+              padding: const EdgeInsets.all(15.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Container(
-                    color: Colors.grey,
-                    padding: const EdgeInsets.all(15.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            IconButton(
-                              padding: EdgeInsets.zero,
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              icon: Icon(
-                                CupertinoIcons.back,
-                                size: 50.r,
-                              ),
-                            ),
-                            const Spacer(),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            IconButton(
-                              padding: EdgeInsets.zero,
-                              onPressed: () {
-                                _saveJournal();
-                                Navigator.pop(context);
-                              },
-                              icon: Icon(
-                                Icons.done,
-                                size: 50.r,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Text(
-                          DateFormat('EEEE').format(createdOn),
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30.sp,
-                          ),
-                        ),
-                        Text(
-                          DateFormat('d, MMMM, yyyy').format(createdOn),
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 20.sp,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        quill.QuillToolbar.basic(
-                          controller: _quillController,
-                          iconTheme: const quill.QuillIconTheme(
-                              iconSelectedColor: Colors.purpleAccent,
-                              iconSelectedFillColor: Colors.transparent),
-                          toolbarIconSize: 20.sp,
-                          showFontFamily: false,
-                          showFontSize: false,
-                          showListBullets: true,
-                          showCodeBlock: false,
-                          showBoldButton: true,
-                          showItalicButton: true,
-                          showUnderLineButton: true,
-                          showSearchButton: false,
-                          showLink: false,
-                          showListCheck: false,
-                          showAlignmentButtons: false,
-                          showInlineCode: false,
-                          showDirection: false,
-                          showJustifyAlignment: false,
-                          showDividers: false,
-                          showCenterAlignment: false,
-                          showBackgroundColorButton: false,
-                          showListNumbers: false,
-                          showIndent: false,
-                          showClearFormat: false,
-                          showColorButton: false,
-                          showLeftAlignment: false,
-                          multiRowsDisplay: false,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      margin:
-                          const EdgeInsets.only(top: 10, left: 10, right: 10),
-                      padding:
-                          const EdgeInsets.only(left: 10, right: 10, top: 10),
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(30),
-                          topLeft: Radius.circular(30),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        padding: EdgeInsets.zero,
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(
+                          CupertinoIcons.back,
+                          size: 30.r,
                         ),
                       ),
-                      child: quill.QuillEditor(
-                        controller: _quillController,
-                        readOnly: false,
-                        autoFocus: true,
-                        expands: true,
-                        focusNode: FocusNode(canRequestFocus: true),
-                        padding: const EdgeInsets.all(8.0),
-                        scrollController: _scrollController,
-                        scrollable: true,
+                      const Spacer(),
+                      const SizedBox(
+                        width: 10,
                       ),
+                      Consumer<MoodProvider>(
+                        builder: (BuildContext context, value, Widget? child) {
+                          if (value.canRequestFocus == false) {
+                            return IconButton(
+                              padding: EdgeInsets.zero,
+                              onPressed: () {
+                                value.changeFocus(true);
+                              },
+                              icon: Icon(
+                                Icons.edit,
+                                size: 30.r,
+                              ),
+                            );
+                          }
+                          return const SizedBox();
+                        },
+                      ),
+                      IconButton(
+                        padding: EdgeInsets.zero,
+                        onPressed: () {
+                          _saveJournal();
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(
+                          Icons.done,
+                          size: 30.r,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Text(
+                    DateFormat('EEEE').format(createdOn),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30.sp,
                     ),
                   ),
-                  Container(
-                    height: 50.h,
-                    margin: const EdgeInsets.symmetric(horizontal: 10),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-                    color: Colors.white,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Mood",
-                          style: TextStyle(
-                              fontSize: 24.sp,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey),
-                        ),
-                        _buildEmoji(emoji: "😀", mood: 'happy'),
-                        _buildEmoji(emoji: "😞", mood: 'sad'),
-                        _buildEmoji(emoji: "😐", mood: 'neutral'),
-                        _buildEmoji(emoji: "😤", mood: 'angry'),
-                        _buildEmoji(emoji: "😨", mood: 'worried'),
-                      ],
+                  Text(
+                    DateFormat('d, MMMM, yyyy').format(createdOn),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 20.sp,
                     ),
-                  )
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Consumer<MoodProvider>(
+                      builder: (BuildContext context, value, Widget? child) {
+                    if (value.canRequestFocus == false) {
+                      return const SizedBox();
+                    }
+                    return quill.QuillToolbar.basic(
+                      controller: _quillController,
+                      iconTheme: const quill.QuillIconTheme(
+                          iconSelectedColor: Colors.purpleAccent,
+                          iconSelectedFillColor: Colors.transparent),
+                      toolbarIconSize: 20.sp,
+                      showFontFamily: false,
+                      showFontSize: false,
+                      showListBullets: true,
+                      showCodeBlock: false,
+                      showBoldButton: true,
+                      showItalicButton: true,
+                      showUnderLineButton: true,
+                      showSearchButton: false,
+                      showLink: false,
+                      showListCheck: false,
+                      showAlignmentButtons: false,
+                      showInlineCode: false,
+                      showDirection: false,
+                      showJustifyAlignment: false,
+                      showDividers: false,
+                      showCenterAlignment: false,
+                      showBackgroundColorButton: false,
+                      showListNumbers: false,
+                      showIndent: false,
+                      showClearFormat: false,
+                      showColorButton: false,
+                      showLeftAlignment: false,
+                      multiRowsDisplay: false,
+                    );
+                  }),
                 ],
               ),
             ),
-          ),
-        ],
+            Expanded(
+              child: Container(
+                margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
+                padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(30),
+                    topLeft: Radius.circular(30),
+                  ),
+                ),
+                child: Consumer<MoodProvider>(
+                  builder: (BuildContext context, value, Widget? child) {
+                    return quill.QuillEditor(
+                      controller: _quillController,
+                      readOnly: false,
+                      autoFocus: true,
+                      expands: true,
+                      focusNode:
+                          FocusNode(canRequestFocus: value.canRequestFocus),
+                      padding: const EdgeInsets.all(8.0),
+                      scrollController: _scrollController,
+                      scrollable: true,
+                    );
+                  },
+                ),
+              ),
+            ),
+            Container(
+              height: 50.h,
+              margin: const EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+              color: Colors.white,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    "Mood",
+                    style: TextStyle(
+                        fontSize: 24.sp,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey),
+                  ),
+                  _buildEmoji(emoji: "😀", mood: 'happy'),
+                  _buildEmoji(emoji: "😞", mood: 'sad'),
+                  _buildEmoji(emoji: "😐", mood: 'neutral'),
+                  _buildEmoji(emoji: "😤", mood: 'angry'),
+                  _buildEmoji(emoji: "😨", mood: 'worried'),
+                ],
+              ),
+            )
+          ],
+        ),
       )),
     );
   }
@@ -226,7 +250,8 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
       final JournalModel journalModel = JournalModel(
         journalId: journalId,
         createdOn: createdOn,
-        color: Colors.red,
+        color:
+            Color((Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0),
         // ignore: use_build_context_synchronously
         mood: Provider.of<MoodProvider>(context, listen: false).mood,
         journalData: _quillController.document.toDelta().toJson(),
@@ -254,8 +279,10 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
         }
         return InkWell(
           onTap: () {
-            mood = mood;
-            value.changeMood(mood);
+            if (value.canRequestFocus == true) {
+              mood = mood;
+              value.changeMood(mood);
+            }
           },
           child: Text(
             emoji,
