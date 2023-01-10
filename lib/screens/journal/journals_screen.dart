@@ -9,6 +9,7 @@ import 'package:space/provider/journal/journalProvider.dart';
 import 'package:space/screens/journal/add_journal_screen.dart';
 import 'package:space/widgets/journal/calendar_widget.dart';
 import 'package:space/widgets/journal/journal_widget.dart';
+import 'package:space/widgets/theme/theme_switch.dart';
 
 class JournalsScreen extends StatefulWidget {
   const JournalsScreen({super.key});
@@ -42,26 +43,23 @@ class _JournalsScreenState extends State<JournalsScreen> {
                 child: Container(
                   height: 200.h,
                   color: Colors.purple.shade300,
-                  child: const CalendarWidget(),
+                  child: Column(
+                    children: const [
+                      ThemeSwitch(),
+                      CalendarWidget(),
+                    ],
+                  ),
                 ),
               ),
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Journals",
-                        style: TextStyle(
-                            fontSize: 30.sp, fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        "....",
-                        style: TextStyle(
-                            fontSize: 30.sp, fontWeight: FontWeight.bold),
-                      ),
-                    ],
+                  child: Text(
+                    "Journals",
+                    style: TextStyle(
+                      fontSize: 30.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),

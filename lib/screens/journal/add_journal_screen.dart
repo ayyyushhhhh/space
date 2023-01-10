@@ -77,7 +77,7 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              color: Colors.grey,
+              color: const Color(0xFFF1F1F4),
               padding: const EdgeInsets.all(15.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
