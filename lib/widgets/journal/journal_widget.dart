@@ -11,6 +11,36 @@ class JournalWidget extends StatelessWidget {
   final JournalModel journalModel;
   const JournalWidget({super.key, required this.journalModel});
 
+  String _moodToEmoji({required String mood}) {
+    switch (mood) {
+      case "happy":
+        {
+          return "😀";
+        }
+
+      case "sad":
+        {
+          return "😞";
+        }
+      case "angry":
+        {
+          return "😞";
+        }
+      case "worried":
+        {
+          return "😞";
+        }
+      case "neutral":
+        {
+          return "😞";
+        }
+      default:
+        {
+          return "😀";
+        }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -65,7 +95,7 @@ class JournalWidget extends StatelessWidget {
                       TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  "Mood : " "${journalModel.mood}",
+                  "Mood : " "${_moodToEmoji(mood: journalModel.mood)}",
                   style:
                       TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w500),
                 )
