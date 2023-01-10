@@ -70,14 +70,14 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
     return SafeArea(
       child: Scaffold(
           body: Container(
-        color: Colors.grey,
+        color: Theme.of(context).primaryColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              color: const Color(0xFFF1F1F4),
+              color: Theme.of(context).primaryColor,
               padding: const EdgeInsets.all(15.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,

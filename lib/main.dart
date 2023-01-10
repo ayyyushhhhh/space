@@ -6,9 +6,9 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:space/provider/journal/journalProvider.dart';
 import 'package:space/provider/journal/mood_provider.dart';
-import 'package:space/screens/journal/journals_screen.dart';
+import 'package:space/screens/main_screen.dart';
 import 'package:space/utils/pref.dart';
-import 'package:space/utils/theme/theme_provider.dart';
+import 'package:space/utils/theme/app_state_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,32 +37,34 @@ class MyApp extends StatelessWidget {
               return MoodProvider();
             },
           ),
-          ChangeNotifierProvider<ThemeProvider>(
+          ChangeNotifierProvider<AppStateProvider>(
             create: (BuildContext context) {
-              return ThemeProvider();
+              return AppStateProvider();
             },
           ),
         ],
-        child: Consumer<ThemeProvider>(
+        child: Consumer<AppStateProvider>(
           builder: (BuildContext context, theme, Widget? child) {
             return ScreenUtilInit(
               builder: (BuildContext context, Widget? child) {
                 return MaterialApp(
+                  debugShowCheckedModeBanner: false,
                   title: 'Space',
                   darkTheme: ThemeData.dark().copyWith(
+                    primaryColor: const Color(0xFF303030),
                     textTheme: GoogleFonts.poppinsTextTheme(
                       Theme.of(context).textTheme,
                     ),
                   ),
                   theme: ThemeData.light().copyWith(
-                    primaryColor: const Color(0xFF262626),
+                    primaryColor: const Color(0xFFFAFAFA),
                     textTheme: GoogleFonts.poppinsTextTheme(
                       Theme.of(context).textTheme,
                     ),
                   ),
                   themeMode:
                       theme.isDarkMode ? ThemeMode.dark : ThemeMode.light,
-                  home: const JournalsScreen(),
+                  home: const MainScreen(),
                 );
               },
             );
