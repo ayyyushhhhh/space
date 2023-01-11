@@ -10,7 +10,7 @@ import 'package:space/hive%20boxes/journal_box.dart';
 
 import 'package:space/models/journals/journal_model.dart';
 import 'package:space/provider/journal/journalProvider.dart';
-import 'package:space/provider/journal/mood_provider.dart';
+import 'package:space/provider/journal/journal_editor_provider.dart';
 
 class AddJournalScreen extends StatefulWidget {
   final JournalModel? journalModel;
@@ -48,14 +48,16 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
           time.millisecond,
           time.microsecond);
       moodNow = "happy";
-      Provider.of<MoodProvider>(context, listen: false).canRequestFocus = true;
+      Provider.of<JournalEditorProvider>(context, listen: false)
+          .canRequestFocus = true;
     } else {
       _quillController = quill.QuillController.basic();
       createdOn = widget.journalModel!.createdOn;
       _quillController.document =
           quill.Document.fromJson(widget.journalModel!.journalData);
       moodNow = widget.journalModel!.mood;
-      Provider.of<MoodProvider>(context, listen: false).canRequestFocus = false;
+      Provider.of<JournalEditorProvider>(context, listen: false)
+          .canRequestFocus = false;
     }
   }
 
@@ -100,7 +102,7 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
                       const SizedBox(
                         width: 10,
                       ),
-                      Consumer<MoodProvider>(
+                      Consumer<JournalEditorProvider>(
                         builder: (BuildContext context, value, Widget? child) {
                           if (value.canRequestFocus == false) {
                             return IconButton(
@@ -147,7 +149,7 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
                   SizedBox(
                     height: 10.h,
                   ),
-                  Consumer<MoodProvider>(
+                  Consumer<JournalEditorProvider>(
                       builder: (BuildContext context, value, Widget? child) {
                     if (value.canRequestFocus == false) {
                       return const SizedBox();
@@ -197,7 +199,7 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
                     topLeft: Radius.circular(30),
                   ),
                 ),
-                child: Consumer<MoodProvider>(
+                child: Consumer<JournalEditorProvider>(
                   builder: (BuildContext context, value, Widget? child) {
                     return quill.QuillEditor(
                       controller: _quillController,
@@ -253,7 +255,7 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
         color:
             Color((Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0),
         // ignore: use_build_context_synchronously
-        mood: Provider.of<MoodProvider>(context, listen: false).mood,
+        mood: Provider.of<JournalEditorProvider>(context, listen: false).mood,
         journalData: _quillController.document.toDelta().toJson(),
       );
       JournalHiveBox.saveJournal(
@@ -261,7 +263,7 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
     } else {
       final JournalModel journalModel = widget.journalModel!.copyWith(
         // ignore: use_build_context_synchronously
-        mood: Provider.of<MoodProvider>(context, listen: false).mood,
+        mood: Provider.of<JournalEditorProvider>(context, listen: false).mood,
         journalData: _quillController.document.toDelta().toJson(),
       );
       JournalHiveBox.saveJournal(
@@ -271,7 +273,7 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
   }
 
   Widget _buildEmoji({required String emoji, required String mood}) {
-    return Consumer<MoodProvider>(
+    return Consumer<JournalEditorProvider>(
       builder: (BuildContext context, value, Widget? child) {
         double fontSize = 20.sp;
         if (mood == value.mood) {

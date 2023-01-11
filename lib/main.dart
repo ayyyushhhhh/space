@@ -5,7 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:space/provider/journal/journalProvider.dart';
-import 'package:space/provider/journal/mood_provider.dart';
+import 'package:space/provider/journal/journal_editor_provider.dart';
 import 'package:space/screens/main_screen.dart';
 import 'package:space/utils/pref.dart';
 import 'package:space/utils/theme/app_state_provider.dart';
@@ -32,9 +32,9 @@ class MyApp extends StatelessWidget {
               return JournalProvider();
             },
           ),
-          ChangeNotifierProvider<MoodProvider>(
+          ChangeNotifierProvider<JournalEditorProvider>(
             create: (BuildContext context) {
-              return MoodProvider();
+              return JournalEditorProvider();
             },
           ),
           ChangeNotifierProvider<AppStateProvider>(

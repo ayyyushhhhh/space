@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class MoodProvider with ChangeNotifier {
+class JournalEditorProvider with ChangeNotifier {
   String mood = "happy";
   bool canRequestFocus = true;
   void changeMood(String mood) {
