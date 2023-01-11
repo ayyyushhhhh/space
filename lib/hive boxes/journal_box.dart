@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:space/models/journals/journal_model.dart';
@@ -8,9 +10,26 @@ class JournalHiveBox {
   }
 
   static Box getBox({required DateTime dateTime}) {
+    if (!Hive.isBoxOpen(DateFormat('d, MMMM, yyyy').format(dateTime))) {
+      init(dateTime: dateTime);
+    }
     return Hive.box(
       DateFormat('d, MMMM, yyyy').format(dateTime),
     );
+  }
+
+  static List<JournalModel> getListofJournals({required DateTime dateTime}) {
+    List<JournalModel> journals = [];
+    Box box = getBox(dateTime: dateTime);
+    var keys = box.keys;
+    for (var key in keys) {
+      journals.add(JournalModel.fromMap(jsonDecode(
+        jsonEncode(
+          box.get(key),
+        ),
+      ) as Map<String, dynamic>));
+    }
+    return journals;
   }
 
   static void saveJournal(

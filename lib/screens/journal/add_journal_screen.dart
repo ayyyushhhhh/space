@@ -6,7 +6,6 @@ import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:space/hive%20boxes/journal_box.dart';
 
 import 'package:space/models/journals/journal_model.dart';
 import 'package:space/provider/journal/journalProvider.dart';
@@ -247,9 +246,10 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
   }
 
   Future<void> _saveJournal() async {
+    late JournalModel journalModel;
     if (widget.journalModel == null) {
       final journalId = (Random.secure().nextInt(90000) + 10000);
-      final JournalModel journalModel = JournalModel(
+      journalModel = JournalModel(
         journalId: journalId,
         createdOn: createdOn,
         color:
@@ -258,18 +258,15 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
         mood: Provider.of<JournalEditorProvider>(context, listen: false).mood,
         journalData: _quillController.document.toDelta().toJson(),
       );
-      JournalHiveBox.saveJournal(
-          dateTime: createdOn, journalModel: journalModel);
     } else {
-      final JournalModel journalModel = widget.journalModel!.copyWith(
+      journalModel = widget.journalModel!.copyWith(
         // ignore: use_build_context_synchronously
         mood: Provider.of<JournalEditorProvider>(context, listen: false).mood,
         journalData: _quillController.document.toDelta().toJson(),
       );
-      JournalHiveBox.saveJournal(
-          dateTime: createdOn, journalModel: journalModel);
     }
-    Provider.of<JournalProvider>(context, listen: false).updateDate(createdOn);
+    Provider.of<JournalProvider>(context, listen: false)
+        .updateJournalList(journalModel);
   }
 
   Widget _buildEmoji({required String emoji, required String mood}) {

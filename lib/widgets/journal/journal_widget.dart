@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:space/hive%20boxes/journal_box.dart';
 import 'package:space/models/journals/journal_model.dart';
 import 'package:space/provider/journal/journalProvider.dart';
 import 'package:space/screens/journal/add_journal_screen.dart';
@@ -104,11 +103,8 @@ class JournalWidget extends StatelessWidget {
             const Spacer(),
             IconButton(
               onPressed: () {
-                JournalHiveBox.deleteJournal(
-                    dateTime: journalModel.createdOn,
-                    journalModel: journalModel);
                 Provider.of<JournalProvider>(context, listen: false)
-                    .updateDate(journalModel.createdOn);
+                    .deleteJournal(journalModel: journalModel);
               },
               icon: const Icon(
                 Icons.delete,
