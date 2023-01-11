@@ -25,4 +25,22 @@ class SharedPreferencesHelper {
 
     return index;
   }
+
+  static void saveAuthPermission(bool canAuth) {
+    int permissionIndex = 0;
+    if (canAuth == true) {
+      permissionIndex = 1;
+    }
+    preferences!.setInt("permission", permissionIndex);
+  }
+
+  static bool getAuthPermission() {
+    final index = preferences!.getInt("permission");
+
+    if (index == null) {
+      return false;
+    }
+
+    return index == 1 ? true : false;
+  }
 }

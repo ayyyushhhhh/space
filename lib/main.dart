@@ -9,7 +9,7 @@ import 'package:space/provider/journal/journalProvider.dart';
 import 'package:space/provider/journal/journal_editor_provider.dart';
 import 'package:space/screens/main_screen.dart';
 import 'package:space/utils/pref.dart';
-import 'package:space/utils/theme/app_state_provider.dart';
+import 'package:space/utils/App%20State/app_state_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

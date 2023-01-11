@@ -13,8 +13,11 @@ class CalendarWidget extends StatelessWidget {
     return Consumer<JournalProvider>(
       builder: (BuildContext context, value, Widget? child) {
         return TableCalendar(
-          headerStyle: const HeaderStyle(
-              formatButtonVisible: false, titleCentered: true),
+          rowHeight: 80.h,
+          headerStyle: HeaderStyle(
+              formatButtonVisible: false,
+              titleCentered: true,
+              titleTextStyle: TextStyle(color: Colors.white, fontSize: 24.sp)),
           calendarFormat: CalendarFormat.week,
           focusedDay: value.getDate,
           firstDay: DateTime(2019, 06, 13),
@@ -28,9 +31,11 @@ class CalendarWidget extends StatelessWidget {
           calendarBuilders: CalendarBuilders(
             todayBuilder: (context, dateTimeNow, datetime) {
               return Container(
+                margin: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Colors.purple.shade100,
+                  border: Border.all(color: Colors.blue),
+                  color: Colors.grey.shade400,
                 ),
                 child: Center(
                   child: Column(
@@ -39,7 +44,7 @@ class CalendarWidget extends StatelessWidget {
                       Text(
                         DateFormat.E().format(DateTime.now()),
                         style: TextStyle(
-                          color: Colors.black45,
+                          color: Colors.grey.shade100,
                           fontSize: 10.sp,
                           fontWeight: FontWeight.bold,
                         ),
@@ -47,7 +52,7 @@ class CalendarWidget extends StatelessWidget {
                       Text(
                         DateFormat.d().format(DateTime.now()),
                         style: TextStyle(
-                          //color: Colors.white,
+                          color: Colors.grey.shade100,
                           fontSize: 20.sp,
                           fontWeight: FontWeight.bold,
                         ),
@@ -58,30 +63,93 @@ class CalendarWidget extends StatelessWidget {
               );
             },
             defaultBuilder: (context, dateTime, date) {
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      DateFormat.E().format(dateTime),
-                      style: TextStyle(
-                        color: Colors.blueGrey,
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.bold,
+              return Container(
+                margin: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Colors.blue),
+                  color: Colors.grey.shade400,
+                ),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        DateFormat.E().format(dateTime),
+                        style: TextStyle(
+                          color: Colors.grey.shade100,
+                          fontSize: 10.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      DateFormat.d().format(dateTime),
-                      style: TextStyle(
-                        // color: Colors.white,
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.bold,
+                      Text(
+                        DateFormat.d().format(dateTime),
+                        style: TextStyle(
+                          color: Colors.grey.shade100,
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
+                ),
+              );
+
+              // return Center(
+              //   child: Column(
+              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //     children: [
+              //       Text(
+              //         DateFormat.E().format(dateTime),
+              //         style: TextStyle(
+              //           color: Colors.blueGrey,
+              //           fontSize: 10.sp,
+              //           fontWeight: FontWeight.bold,
+              //         ),
+              //       ),
+              //       const SizedBox(
+              //         height: 5,
+              //       ),
+              //       Text(
+              //         DateFormat.d().format(dateTime),
+              //         style: TextStyle(
+              //           // color: Colors.white,
+              //           fontSize: 10.sp,
+              //           fontWeight: FontWeight.bold,
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // );
+            },
+            selectedBuilder: (context, day, focusedDay) {
+              return Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.purple.shade100,
+                ),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        DateFormat.E().format(day),
+                        style: TextStyle(
+                          color: Colors.black45,
+                          fontSize: 10.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        DateFormat.d().format(day),
+                        style: TextStyle(
+                          //color: Colors.white,
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               );
             },
