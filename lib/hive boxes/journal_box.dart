@@ -18,6 +18,12 @@ class JournalHiveBox {
     );
   }
 
+  static void closeBox({required DateTime dateTime}) {
+    if (Hive.isBoxOpen(DateFormat('d, MMMM, yyyy').format(dateTime))) {
+      getBox(dateTime: dateTime).close();
+    }
+  }
+
   static List<JournalModel> getListofJournals({required DateTime dateTime}) {
     List<JournalModel> journals = [];
     Box box = getBox(dateTime: dateTime);
@@ -55,6 +61,7 @@ class JournalHiveBox {
     if (!Hive.isBoxOpen(DateFormat('d, MMMM, yyyy').format(dateTime))) {
       init(dateTime: dateTime);
     }
+
     getBox(dateTime: dateTime).delete(journalModel.journalId);
   }
 }

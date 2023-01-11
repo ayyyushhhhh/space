@@ -27,7 +27,13 @@ class _JournalsScreenState extends State<JournalsScreen> {
           SliverToBoxAdapter(
             child: Container(
               height: 200.h,
-              color: Colors.purple.shade300,
+              decoration: BoxDecoration(
+                color: Colors.purple.shade300,
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.elliptical(
+                      MediaQuery.of(context).size.width, 90.r),
+                ),
+              ),
               child: const CalendarWidget(),
             ),
           ),

@@ -23,15 +23,15 @@ class JournalWidget extends StatelessWidget {
         }
       case "angry":
         {
-          return "😞";
+          return "😤";
         }
       case "worried":
         {
-          return "😞";
+          return "😨";
         }
       case "neutral":
         {
-          return "😞";
+          return "😐";
         }
       default:
         {
