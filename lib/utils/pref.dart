@@ -31,11 +31,47 @@ class SharedPreferencesHelper {
     if (canAuth == true) {
       permissionIndex = 1;
     }
-    preferences!.setInt("permission", permissionIndex);
+    preferences!.setInt("authpermission", permissionIndex);
+  }
+
+  static void saveNotificationPermission(bool canNotify) {
+    int permissionIndex = 0;
+    if (canNotify == true) {
+      permissionIndex = 1;
+    }
+    preferences!.setInt("notifypermission", permissionIndex);
+  }
+
+  static void saveNotificationTime(Duration duration) {
+    List<String> time = [
+      duration.inHours.toString(),
+      duration.inMinutes.remainder(60).toString()
+    ];
+
+    preferences!.setStringList("notifytime", time);
+  }
+
+  static Duration getNotificationTime() {
+    List<String>? time = preferences!.getStringList("notifytime");
+    if (time == null) {
+      return const Duration(hours: 20, minutes: 00);
+    }
+
+    return Duration(hours: int.parse(time[0]), minutes: int.parse(time[1]));
+  }
+
+  static bool getNotificationPermission() {
+    final index = preferences!.getInt("authpermission");
+
+    if (index == null) {
+      return false;
+    }
+
+    return index == 1 ? true : false;
   }
 
   static bool getAuthPermission() {
-    final index = preferences!.getInt("permission");
+    final index = preferences!.getInt("authpermission");
 
     if (index == null) {
       return false;

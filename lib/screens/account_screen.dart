@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:space/notification%20manager/notification_manager.dart';
 import 'package:space/utils/pref.dart';
 
 import '../widgets/theme/theme_switch.dart';
@@ -10,23 +12,45 @@ class AccountScreen extends StatelessWidget {
   AccountScreen({super.key});
 
   bool _canAuth = SharedPreferencesHelper.getAuthPermission();
-  bool _canNotify = false;
-  Duration _notificationTime = const Duration(hours: 20, minutes: 00);
-  void _showDialog({required Widget child, required BuildContext context}) {
+  bool _canNotify = SharedPreferencesHelper.getNotificationPermission();
+  Duration _notificationTime = SharedPreferencesHelper.getNotificationTime();
+  void _showDialog({
+    required Widget child,
+    required BuildContext context,
+  }) {
     showCupertinoModalPopup<void>(
-        context: context,
-        builder: (BuildContext context) => Container(
-              height: 216.h,
-              padding: const EdgeInsets.only(top: 6.0),
-              margin: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom,
-              ),
-              color: CupertinoColors.systemBackground.resolveFrom(context),
-              child: SafeArea(
-                top: false,
-                child: child,
-              ),
-            ));
+      context: context,
+      builder: (BuildContext context) => Container(
+        height: 260.h,
+        padding: const EdgeInsets.only(top: 10.0),
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        color: CupertinoColors.systemBackground.resolveFrom(context),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            SizedBox(height: 180.h, child: child),
+            CupertinoButton(
+              child: const Text('Set'),
+              onPressed: () {
+                NotificationManger.showNotificationDaily(
+                  title: "",
+                  body: "Knock Knock! It's time to write",
+                  time: Time(
+                    _notificationTime.inHours,
+                    _notificationTime.inMinutes.remainder(60),
+                  ),
+                );
+                SharedPreferencesHelper.saveNotificationTime(_notificationTime);
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -113,6 +137,16 @@ class AccountScreen extends StatelessWidget {
                             setState(
                               () {
                                 _canNotify = value;
+                                NotificationManger.showNotificationDaily(
+                                  title: "",
+                                  body: "Knock Knock! It's time to write",
+                                  time: Time(
+                                    _notificationTime.inHours,
+                                    _notificationTime.inMinutes.remainder(60),
+                                  ),
+                                );
+                                SharedPreferencesHelper.saveAuthPermission(
+                                    _canAuth);
                               },
                             );
                           }),
@@ -141,7 +175,7 @@ class AccountScreen extends StatelessWidget {
                                       context: context);
                                 }),
                                 child: Text(
-                                  "${_notificationTime.inHours}:${_notificationTime.inMinutes.remainder(60)}",
+                                  "${_notificationTime.inHours.toString().padLeft(2, '0')}:${_notificationTime.inMinutes.remainder(60).toString().padLeft(2, '0')}",
                                   style: TextStyle(
                                       fontWeight: FontWeight.w700,
                                       fontSize: 20.sp),
