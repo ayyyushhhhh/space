@@ -5,18 +5,22 @@ import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:space/hive%20boxes/journal_box.dart';
+import 'package:space/notification%20manager/notification_manager.dart';
 import 'package:space/provider/journal/journalProvider.dart';
 import 'package:space/provider/journal/journal_editor_provider.dart';
 import 'package:space/screens/main_screen.dart';
 import 'package:space/utils/pref.dart';
 import 'package:space/utils/App%20State/app_state_provider.dart';
+import 'package:timezone/data/latest_10y.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  initializeTimeZones();
   final dir = await getApplicationDocumentsDirectory();
   await SharedPreferencesHelper.init();
   Hive.init(dir.path);
   await JournalHiveBox.init(dateTime: DateTime.now());
+  NotificationManger.init();
   GoogleFonts.config.allowRuntimeFetching = false;
   runApp(const MyApp());
 }

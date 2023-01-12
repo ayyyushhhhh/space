@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:space/notification%20manager/notification_manager.dart';
 import 'package:space/provider/journal/journalProvider.dart';
 import 'package:space/widgets/journal/calendar_widget.dart';
 import 'package:space/widgets/journal/journal_widget.dart';
@@ -16,6 +18,8 @@ class _JournalsScreenState extends State<JournalsScreen> {
   @override
   void initState() {
     super.initState();
+    NotificationManger.showNotificationDaily(
+        title: "LOl", body: "body", time: const Time(20, 03));
   }
 
   @override
