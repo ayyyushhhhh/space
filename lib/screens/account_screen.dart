@@ -125,8 +125,9 @@ class AccountScreen extends StatelessWidget {
                         void Function(void Function()) setState) {
                       return ExpansionTile(
                         tilePadding: EdgeInsets.zero,
-                        textColor: Colors.black,
                         initiallyExpanded: true,
+                        textColor:
+                            Theme.of(context).textTheme.titleLarge?.color,
                         title: Text(
                           "Reminder",
                           style: TextStyle(fontSize: 24.sp),
@@ -137,6 +138,12 @@ class AccountScreen extends StatelessWidget {
                             setState(
                               () {
                                 _canNotify = value;
+                                if (value == false) {
+                                  NotificationManger.cancelNotificationDaily();
+                                  SharedPreferencesHelper.saveAuthPermission(
+                                      _canNotify);
+                                  return;
+                                }
                                 NotificationManger.showNotificationDaily(
                                   title: "",
                                   body: "Knock Knock! It's time to write",
@@ -146,7 +153,7 @@ class AccountScreen extends StatelessWidget {
                                   ),
                                 );
                                 SharedPreferencesHelper.saveAuthPermission(
-                                    _canAuth);
+                                    _canNotify);
                               },
                             );
                           }),

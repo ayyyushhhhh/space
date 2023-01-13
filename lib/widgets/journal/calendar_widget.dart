@@ -17,6 +17,16 @@ class CalendarWidget extends StatelessWidget {
           headerStyle: HeaderStyle(
               formatButtonVisible: false,
               titleCentered: true,
+              leftChevronIcon: Icon(
+                Icons.chevron_left,
+                size: 24.r,
+                color: Colors.white,
+              ),
+              rightChevronIcon: Icon(
+                Icons.chevron_right,
+                size: 24.r,
+                color: Colors.white,
+              ),
               titleTextStyle: TextStyle(color: Colors.white, fontSize: 24.sp)),
           calendarFormat: CalendarFormat.week,
           focusedDay: value.getDate,

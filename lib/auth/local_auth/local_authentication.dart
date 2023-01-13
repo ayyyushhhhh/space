@@ -26,7 +26,7 @@ class LocalAuthApi {
 
     try {
       return await _auth.authenticate(
-        localizedReason: 'Scan Fingerprint to Authenticate',
+        localizedReason: 'Scan Fingerprint to Authenticate to Space',
       );
     } on PlatformException {
       return false;

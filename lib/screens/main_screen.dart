@@ -37,79 +37,88 @@ class _MainScreenState extends State<MainScreen> {
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
           floatingActionButton: FloatingActionButton(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            backgroundColor: Theme.of(context).primaryColor,
             onPressed: () {
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: (BuildContext context) {
                 return const AddJournalScreen();
               }));
             },
-            child: const Icon(Icons.add),
+            child: const Icon(
+              Icons.add,
+            ),
           ),
           bottomNavigationBar: BottomAppBar(
             notchMargin: 5,
             shape: const CircularNotchedRectangle(),
-            child: SizedBox(
-              height: 60.h,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  MaterialButton(
-                    minWidth: 40.w,
-                    onPressed: () {
-                      value.updatePage(0);
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.note_add,
-                          size: 20.r,
-                          color: (value.pageState == 0)
-                              ? Colors.blue
-                              : Colors.white,
-                        ),
-                        Text(
-                          "Journal",
-                          style: TextStyle(
-                            fontSize: 14.sp,
+            child: Material(
+              elevation: 20,
+              child: Container(
+                color: Theme.of(context).scaffoldBackgroundColor,
+                height: 60.h,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    MaterialButton(
+                      minWidth: 40.w,
+                      onPressed: () {
+                        value.updatePage(0);
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.note_add,
+                            size: 20.r,
                             color: (value.pageState == 0)
-                                ? Colors.blue
-                                : Colors.white,
+                                ? Theme.of(context).primaryColor
+                                : Colors.grey,
                           ),
-                        ),
-                      ],
+                          Text(
+                            "Journal",
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              color: (value.pageState == 0)
+                                  ? Theme.of(context).primaryColor
+                                  : Colors.grey,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  MaterialButton(
-                    minWidth: 40.w,
-                    onPressed: () {
-                      value.updatePage(1);
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.settings,
-                          size: 24.r,
-                          color: (value.pageState == 1)
-                              ? Colors.blue
-                              : Colors.white,
-                        ),
-                        Text(
-                          "Settings",
-                          style: TextStyle(
-                            fontSize: 14.sp,
+                    MaterialButton(
+                      minWidth: 40.w,
+                      onPressed: () {
+                        value.updatePage(1);
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.settings,
+                            size: 24.r,
                             color: (value.pageState == 1)
-                                ? Colors.blue
-                                : Colors.white,
+                                ? Theme.of(context).primaryColor
+                                : Colors.grey,
                           ),
-                        ),
-                      ],
+                          Text(
+                            "Settings",
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              color: (value.pageState == 1)
+                                  ? Theme.of(context).primaryColor
+                                  : Colors.grey,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

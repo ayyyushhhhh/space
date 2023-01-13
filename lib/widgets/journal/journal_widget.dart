@@ -58,11 +58,11 @@ class JournalWidget extends StatelessWidget {
         margin: const EdgeInsets.all(10),
         height: 70.h,
         width: double.infinity,
-        decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(
+        decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(
               Radius.circular(10),
             ),
-            color: Colors.white),
+            color: Theme.of(context).cardColor),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

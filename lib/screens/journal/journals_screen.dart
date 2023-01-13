@@ -15,51 +15,52 @@ class JournalsScreen extends StatefulWidget {
 class _JournalsScreenState extends State<JournalsScreen> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          body: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Container(
-              height: 200.h,
-              decoration: BoxDecoration(
-                color: Colors.purple.shade300,
-                borderRadius: BorderRadius.vertical(
-                  bottom: Radius.elliptical(
-                      MediaQuery.of(context).size.width, 90.r),
-                ),
-              ),
-              child: const CalendarWidget(),
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Text(
-                "Journals",
-                style: TextStyle(
-                  fontSize: 30.sp,
-                  fontWeight: FontWeight.bold,
-                ),
+    return Scaffold(
+        body: CustomScrollView(
+      slivers: [
+        SliverToBoxAdapter(
+          child: Container(
+            height: 210.h,
+            padding: const EdgeInsets.only(top: 10),
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor,
+              borderRadius: BorderRadius.vertical(
+                bottom:
+                    Radius.elliptical(MediaQuery.of(context).size.width, 90.r),
               ),
             ),
+            child: const CalendarWidget(),
           ),
-          Consumer<JournalProvider>(
-            builder: (BuildContext context, value, Widget? child) {
-              List journals = value.journals;
-              if (journals.isEmpty) {
-                return const SliverToBoxAdapter(
-                    child: Text("Oops Nothing Found!"));
-              }
-              return SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                      childCount: journals.length, (context, index) {
-                return JournalWidget(journalModel: journals[index]);
-              }));
-            },
+        ),
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Text(
+              "Journals",
+              style: TextStyle(
+                fontSize: 30.sp,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
-        ],
-      )),
-    );
+        ),
+        Consumer<JournalProvider>(
+          builder: (BuildContext context, value, Widget? child) {
+            List journals = value.journals;
+            if (journals.isEmpty) {
+              return const SliverToBoxAdapter(
+                  child: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Text("Oops Nothing Found!")));
+            }
+            return SliverList(
+                delegate: SliverChildBuilderDelegate(
+                    childCount: journals.length, (context, index) {
+              return JournalWidget(journalModel: journals[index]);
+            }));
+          },
+        ),
+      ],
+    ));
   }
 }

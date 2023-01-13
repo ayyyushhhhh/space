@@ -71,14 +71,14 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
     return SafeArea(
       child: Scaffold(
           body: Container(
-        color: Theme.of(context).primaryColor,
+        color: Theme.of(context).scaffoldBackgroundColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              color: Theme.of(context).primaryColor,
+              color: Theme.of(context).scaffoldBackgroundColor,
               padding: const EdgeInsets.all(15.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -191,9 +191,9 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
               child: Container(
                 margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
                 padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).cardColor,
+                  borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(30),
                     topLeft: Radius.circular(30),
                   ),
@@ -219,7 +219,7 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
               height: 50.h,
               margin: const EdgeInsets.symmetric(horizontal: 10),
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-              color: Colors.white,
+              color: Theme.of(context).cardColor,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,

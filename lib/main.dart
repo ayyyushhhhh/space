@@ -57,13 +57,19 @@ class MyApp extends StatelessWidget {
                   debugShowCheckedModeBanner: false,
                   title: 'Space',
                   darkTheme: ThemeData.dark().copyWith(
-                    primaryColor: const Color(0xFF303030),
+                    primaryColor: const Color(0xff7cbea6),
+                    cardColor: const Color(0xFF294261),
+                    scaffoldBackgroundColor: const Color(0xff223254),
                     textTheme: GoogleFonts.poppinsTextTheme(
                       Theme.of(context).textTheme,
+                    ).apply(
+                      bodyColor: Colors.white,
+                      displayColor: Colors.white,
                     ),
                   ),
                   theme: ThemeData.light().copyWith(
-                    primaryColor: const Color(0xFFFAFAFA),
+                    primaryColor: const Color(0xff7cbea6),
+                    scaffoldBackgroundColor: const Color(0xFFf6f6f6),
                     textTheme: GoogleFonts.poppinsTextTheme(
                       Theme.of(context).textTheme,
                     ),

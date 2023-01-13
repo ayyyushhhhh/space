@@ -78,6 +78,12 @@ class NotificationManger {
     );
   }
 
+  static Future cancelNotificationDaily({
+    int id = 0,
+  }) async {
+    return _notification.cancel(id);
+  }
+
   static tz.TZDateTime _scheduleTime(Time time) {
     final DateTime scheduledDate = DateTime(
       DateTime.now().year,
