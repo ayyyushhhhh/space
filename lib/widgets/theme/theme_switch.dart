@@ -24,6 +24,7 @@ class ThemeSwitch extends StatelessWidget {
             ),
             CupertinoSwitch(
               value: theme.isDarkMode,
+              activeColor: Theme.of(context).primaryColor,
               onChanged: (bool value) {
                 theme.updateTheme(value);
               },

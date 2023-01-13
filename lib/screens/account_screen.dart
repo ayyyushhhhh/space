@@ -72,7 +72,7 @@ class AccountScreen extends StatelessWidget {
                   children: [
                     Text(
                       "App Theme",
-                      style: TextStyle(fontSize: 24.sp),
+                      style: TextStyle(fontSize: 16.sp),
                     ),
                     const ThemeSwitch(),
                   ],
@@ -89,12 +89,13 @@ class AccountScreen extends StatelessWidget {
                   children: [
                     Text(
                       "Use Biometric",
-                      style: TextStyle(fontSize: 24.sp),
+                      style: TextStyle(fontSize: 16.sp),
                     ),
                     StatefulBuilder(
                       builder: (BuildContext context,
                           void Function(void Function()) setState) {
                         return CupertinoSwitch(
+                          activeColor: Theme.of(context).primaryColor,
                           value: _canAuth,
                           onChanged: ((value) {
                             setState(
@@ -130,9 +131,10 @@ class AccountScreen extends StatelessWidget {
                             Theme.of(context).textTheme.titleLarge?.color,
                         title: Text(
                           "Reminder",
-                          style: TextStyle(fontSize: 24.sp),
+                          style: TextStyle(fontSize: 16.sp),
                         ),
                         trailing: CupertinoSwitch(
+                          activeColor: Theme.of(context).primaryColor,
                           value: _canNotify,
                           onChanged: ((value) {
                             setState(
@@ -165,7 +167,7 @@ class AccountScreen extends StatelessWidget {
                                 "Set Time",
                                 style: TextStyle(
                                     fontWeight: FontWeight.w700,
-                                    fontSize: 20.sp),
+                                    fontSize: 14.sp),
                               ),
                               trailing: InkWell(
                                 onTap: (() {
@@ -185,7 +187,7 @@ class AccountScreen extends StatelessWidget {
                                   "${_notificationTime.inHours.toString().padLeft(2, '0')}:${_notificationTime.inMinutes.remainder(60).toString().padLeft(2, '0')}",
                                   style: TextStyle(
                                       fontWeight: FontWeight.w700,
-                                      fontSize: 20.sp),
+                                      fontSize: 14.sp),
                                 ),
                               ),
                             )

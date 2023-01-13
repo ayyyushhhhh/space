@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 class JournalEditorProvider with ChangeNotifier {
   String mood = "happy";
-  bool canRequestFocus = true;
+  bool readOnly = false;
   void changeMood(String mood) {
     this.mood = mood;
     notifyListeners();
   }
 
-  void changeFocus(bool focus) {
-    canRequestFocus = focus;
+  void canReadOnly(bool read) {
+    readOnly = read;
     notifyListeners();
   }
 }

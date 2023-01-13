@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +9,8 @@ import 'package:provider/provider.dart';
 import 'package:space/models/journals/journal_model.dart';
 import 'package:space/provider/journal/journalProvider.dart';
 import 'package:space/provider/journal/journal_editor_provider.dart';
+import 'package:space/widgets/journal/note_text_field_widget.dart';
+import 'package:space/widgets/journal/title_text_field_widget.dart';
 
 class AddJournalScreen extends StatefulWidget {
   final JournalModel? journalModel;
@@ -21,11 +22,14 @@ class AddJournalScreen extends StatefulWidget {
 }
 
 class _AddJournalScreenState extends State<AddJournalScreen> {
-  late quill.QuillController _quillController;
   late DateTime createdOn;
-  final ScrollController _scrollController = ScrollController();
+
   late String moodNow;
   late Color journalColor;
+  final TextEditingController _titleTextEditingController =
+      TextEditingController();
+  final TextEditingController _notesTextEditingController =
+      TextEditingController();
 
   @override
   void initState() {
@@ -35,7 +39,6 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
 
   void initJournalModel() {
     if (widget.journalModel == null) {
-      _quillController = quill.QuillController.basic();
       final time = Provider.of<JournalProvider>(context, listen: false).getDate;
       createdOn = DateTime(
           time.year,
@@ -47,22 +50,23 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
           time.millisecond,
           time.microsecond);
       moodNow = "happy";
-      Provider.of<JournalEditorProvider>(context, listen: false)
-          .canRequestFocus = true;
+      Provider.of<JournalEditorProvider>(context, listen: false).readOnly =
+          false;
     } else {
-      _quillController = quill.QuillController.basic();
       createdOn = widget.journalModel!.createdOn;
-      _quillController.document =
-          quill.Document.fromJson(widget.journalModel!.journalData);
       moodNow = widget.journalModel!.mood;
-      Provider.of<JournalEditorProvider>(context, listen: false)
-          .canRequestFocus = false;
+
+      _notesTextEditingController.text = widget.journalModel!.description;
+      _titleTextEditingController.text = widget.journalModel!.title;
+      Provider.of<JournalEditorProvider>(context, listen: false).readOnly =
+          true;
     }
   }
 
   @override
   void dispose() {
-    _quillController.dispose();
+    _notesTextEditingController.dispose();
+    _titleTextEditingController.dispose();
     super.dispose();
   }
 
@@ -70,178 +74,122 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          body: Container(
-        color: Theme.of(context).scaffoldBackgroundColor,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              color: Theme.of(context).scaffoldBackgroundColor,
-              padding: const EdgeInsets.all(15.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        padding: EdgeInsets.zero,
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: Icon(
-                          CupertinoIcons.back,
-                          size: 30.r,
+        body: Container(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                color: Theme.of(context).scaffoldBackgroundColor,
+                padding: const EdgeInsets.all(15.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          padding: EdgeInsets.zero,
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: Icon(
+                            CupertinoIcons.back,
+                            size: 30.r,
+                          ),
                         ),
-                      ),
-                      const Spacer(),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Consumer<JournalEditorProvider>(
-                        builder: (BuildContext context, value, Widget? child) {
-                          if (value.canRequestFocus == false) {
-                            return IconButton(
-                              padding: EdgeInsets.zero,
-                              onPressed: () {
-                                value.changeFocus(true);
-                              },
-                              icon: Icon(
-                                Icons.edit,
-                                size: 30.r,
-                              ),
-                            );
-                          }
-                          return const SizedBox();
-                        },
-                      ),
-                      IconButton(
-                        padding: EdgeInsets.zero,
-                        onPressed: () {
-                          _saveJournal();
-                          Navigator.pop(context);
-                        },
-                        icon: Icon(
-                          Icons.done,
-                          size: 30.r,
+                        const Spacer(),
+                        const SizedBox(
+                          width: 10,
                         ),
-                      ),
-                    ],
-                  ),
-                  Text(
-                    DateFormat('EEEE').format(createdOn),
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30.sp,
+                        Consumer<JournalEditorProvider>(
+                          builder:
+                              (BuildContext context, value, Widget? child) {
+                            if (value.readOnly == true) {
+                              return IconButton(
+                                padding: EdgeInsets.zero,
+                                onPressed: () {
+                                  value.canReadOnly(false);
+                                },
+                                icon: Icon(
+                                  Icons.edit,
+                                  size: 30.r,
+                                ),
+                              );
+                            }
+                            return const SizedBox();
+                          },
+                        ),
+                        IconButton(
+                          padding: EdgeInsets.zero,
+                          onPressed: () {
+                            _saveJournal();
+                            Navigator.pop(context);
+                          },
+                          icon: Icon(
+                            Icons.done,
+                            size: 30.r,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  Text(
-                    DateFormat('d, MMMM, yyyy').format(createdOn),
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 20.sp,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  Consumer<JournalEditorProvider>(
-                      builder: (BuildContext context, value, Widget? child) {
-                    if (value.canRequestFocus == false) {
-                      return const SizedBox();
-                    }
-                    return quill.QuillToolbar.basic(
-                      controller: _quillController,
-                      iconTheme: const quill.QuillIconTheme(
-                          iconSelectedColor: Colors.purpleAccent,
-                          iconSelectedFillColor: Colors.transparent),
-                      toolbarIconSize: 20.sp,
-                      showFontFamily: false,
-                      showFontSize: false,
-                      showListBullets: true,
-                      showCodeBlock: false,
-                      showBoldButton: true,
-                      showItalicButton: true,
-                      showUnderLineButton: true,
-                      showSearchButton: false,
-                      showLink: false,
-                      showListCheck: false,
-                      showAlignmentButtons: false,
-                      showInlineCode: false,
-                      showDirection: false,
-                      showJustifyAlignment: false,
-                      showDividers: false,
-                      showCenterAlignment: false,
-                      showBackgroundColorButton: false,
-                      showListNumbers: false,
-                      showIndent: false,
-                      showClearFormat: false,
-                      showColorButton: false,
-                      showLeftAlignment: false,
-                      multiRowsDisplay: false,
-                    );
-                  }),
-                ],
-              ),
-            ),
-            Expanded(
-              child: Container(
-                margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
-                padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).cardColor,
-                  borderRadius: const BorderRadius.only(
-                    topRight: Radius.circular(30),
-                    topLeft: Radius.circular(30),
-                  ),
-                ),
-                child: Consumer<JournalEditorProvider>(
-                  builder: (BuildContext context, value, Widget? child) {
-                    return quill.QuillEditor(
-                      controller: _quillController,
-                      readOnly: false,
-                      autoFocus: true,
-                      expands: true,
-                      focusNode:
-                          FocusNode(canRequestFocus: value.canRequestFocus),
-                      padding: const EdgeInsets.all(8.0),
-                      scrollController: _scrollController,
-                      scrollable: true,
-                    );
-                  },
-                ),
-              ),
-            ),
-            Container(
-              height: 50.h,
-              margin: const EdgeInsets.symmetric(horizontal: 10),
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-              color: Theme.of(context).cardColor,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "Mood",
-                    style: TextStyle(
-                        fontSize: 24.sp,
+                    Text(
+                      DateFormat('EEEE').format(createdOn),
+                      style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Colors.grey),
-                  ),
-                  _buildEmoji(emoji: "😀", mood: 'happy'),
-                  _buildEmoji(emoji: "😞", mood: 'sad'),
-                  _buildEmoji(emoji: "😐", mood: 'neutral'),
-                  _buildEmoji(emoji: "😤", mood: 'angry'),
-                  _buildEmoji(emoji: "😨", mood: 'worried'),
-                ],
+                        fontSize: 30.sp,
+                      ),
+                    ),
+                    Text(
+                      DateFormat('d, MMMM, yyyy').format(createdOn),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 20.sp,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                  ],
+                ),
               ),
-            )
-          ],
+              TitleTextFieldWidget(
+                textEditingController: _titleTextEditingController,
+              ),
+              NotesTextFieldWidget(
+                  textEditingController: _notesTextEditingController),
+              Container(
+                height: 50.h,
+                margin: const EdgeInsets.symmetric(horizontal: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                color: Theme.of(context).cardColor,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Mood",
+                      style: TextStyle(
+                          fontSize: 24.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey),
+                    ),
+                    _buildEmoji(emoji: "😀", mood: 'happy'),
+                    _buildEmoji(emoji: "😞", mood: 'sad'),
+                    _buildEmoji(emoji: "😐", mood: 'neutral'),
+                    _buildEmoji(emoji: "😤", mood: 'angry'),
+                    _buildEmoji(emoji: "😨", mood: 'worried'),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
-      )),
+      ),
     );
   }
 
@@ -254,17 +202,18 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
         createdOn: createdOn,
         color:
             Color((Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0),
-        // ignore: use_build_context_synchronously
         mood: Provider.of<JournalEditorProvider>(context, listen: false).mood,
-        journalData: _quillController.document.toDelta().toJson(),
+        description: _notesTextEditingController.text,
+        title: _titleTextEditingController.text,
       );
     } else {
       journalModel = widget.journalModel!.copyWith(
-        // ignore: use_build_context_synchronously
+        title: _titleTextEditingController.text,
+        description: _notesTextEditingController.text,
         mood: Provider.of<JournalEditorProvider>(context, listen: false).mood,
-        journalData: _quillController.document.toDelta().toJson(),
       );
     }
+    print(_notesTextEditingController.text);
     Provider.of<JournalProvider>(context, listen: false)
         .updateJournalList(journalModel);
   }
@@ -278,7 +227,7 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
         }
         return InkWell(
           onTap: () {
-            if (value.canRequestFocus == true) {
+            if (value.readOnly == true) {
               mood = mood;
               value.changeMood(mood);
             }

@@ -21,7 +21,7 @@ class _JournalsScreenState extends State<JournalsScreen> {
         SliverToBoxAdapter(
           child: Container(
             height: 210.h,
-            padding: const EdgeInsets.only(top: 10),
+            padding: EdgeInsets.only(top: 10.r),
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
               borderRadius: BorderRadius.vertical(
@@ -34,7 +34,7 @@ class _JournalsScreenState extends State<JournalsScreen> {
         ),
         SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.all(10),
+            padding: EdgeInsets.all(10.r),
             child: Text(
               "Journals",
               style: TextStyle(
@@ -48,10 +48,10 @@ class _JournalsScreenState extends State<JournalsScreen> {
           builder: (BuildContext context, value, Widget? child) {
             List journals = value.journals;
             if (journals.isEmpty) {
-              return const SliverToBoxAdapter(
+              return SliverToBoxAdapter(
                   child: Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Text("Oops Nothing Found!")));
+                      padding: EdgeInsets.all(10.r),
+                      child: const Text("Oops Nothing Found!")));
             }
             return SliverList(
                 delegate: SliverChildBuilderDelegate(
