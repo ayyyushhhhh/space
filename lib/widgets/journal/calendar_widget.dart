@@ -44,8 +44,7 @@ class CalendarWidget extends StatelessWidget {
                 margin: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.blue),
-                  color: Colors.grey.shade400,
+                  color: Theme.of(context).cardColor,
                 ),
                 child: Center(
                   child: Column(
@@ -54,7 +53,6 @@ class CalendarWidget extends StatelessWidget {
                       Text(
                         DateFormat.E().format(DateTime.now()),
                         style: TextStyle(
-                          color: Colors.grey.shade100,
                           fontSize: 10.sp,
                           fontWeight: FontWeight.bold,
                         ),
@@ -62,7 +60,6 @@ class CalendarWidget extends StatelessWidget {
                       Text(
                         DateFormat.d().format(DateTime.now()),
                         style: TextStyle(
-                          color: Colors.grey.shade100,
                           fontSize: 20.sp,
                           fontWeight: FontWeight.bold,
                         ),
@@ -77,8 +74,7 @@ class CalendarWidget extends StatelessWidget {
                 margin: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.blue),
-                  color: Colors.grey.shade400,
+                  color: Theme.of(context).cardColor,
                 ),
                 child: Center(
                   child: Column(
@@ -87,7 +83,6 @@ class CalendarWidget extends StatelessWidget {
                       Text(
                         DateFormat.E().format(dateTime),
                         style: TextStyle(
-                          color: Colors.grey.shade100,
                           fontSize: 10.sp,
                           fontWeight: FontWeight.bold,
                         ),
@@ -95,7 +90,6 @@ class CalendarWidget extends StatelessWidget {
                       Text(
                         DateFormat.d().format(dateTime),
                         style: TextStyle(
-                          color: Colors.grey.shade100,
                           fontSize: 20.sp,
                           fontWeight: FontWeight.bold,
                         ),

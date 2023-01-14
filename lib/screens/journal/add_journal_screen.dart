@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +11,8 @@ import 'package:provider/provider.dart';
 import 'package:space/models/journals/journal_model.dart';
 import 'package:space/provider/journal/journalProvider.dart';
 import 'package:space/provider/journal/journal_editor_provider.dart';
+import 'package:space/widgets/journal/journal_icon_button.dart';
+
 import 'package:space/widgets/journal/note_text_field_widget.dart';
 import 'package:space/widgets/journal/title_text_field_widget.dart';
 
@@ -72,6 +76,10 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Theme.of(context)
+          .scaffoldBackgroundColor, //or set color with: Color(0xFF0000FF)
+    ));
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -109,30 +117,20 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
                           builder:
                               (BuildContext context, value, Widget? child) {
                             if (value.readOnly == true) {
-                              return IconButton(
-                                padding: EdgeInsets.zero,
+                              return JournalIconButton(
                                 onPressed: () {
                                   value.canReadOnly(false);
                                 },
-                                icon: Icon(
-                                  Icons.edit,
-                                  size: 30.r,
-                                ),
                               );
                             }
                             return const SizedBox();
                           },
                         ),
-                        IconButton(
-                          padding: EdgeInsets.zero,
+                        JournalIconButton(
                           onPressed: () {
                             _saveJournal();
                             Navigator.pop(context);
                           },
-                          icon: Icon(
-                            Icons.done,
-                            size: 30.r,
-                          ),
                         ),
                       ],
                     ),
@@ -213,7 +211,7 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
         mood: Provider.of<JournalEditorProvider>(context, listen: false).mood,
       );
     }
-    print(_notesTextEditingController.text);
+
     Provider.of<JournalProvider>(context, listen: false)
         .updateJournalList(journalModel);
   }
@@ -227,7 +225,7 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
         }
         return InkWell(
           onTap: () {
-            if (value.readOnly == true) {
+            if (value.readOnly == false) {
               mood = mood;
               value.changeMood(mood);
             }
