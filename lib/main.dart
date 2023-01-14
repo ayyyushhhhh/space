@@ -6,7 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:space/hive%20boxes/journal_box.dart';
 import 'package:space/notification%20manager/notification_manager.dart';
-import 'package:space/provider/journal/journalProvider.dart';
+import 'package:space/provider/journal/journal_provider.dart';
 import 'package:space/provider/journal/journal_editor_provider.dart';
 import 'package:space/screens/main_screen.dart';
 import 'package:space/utils/pref.dart';
@@ -28,7 +28,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(

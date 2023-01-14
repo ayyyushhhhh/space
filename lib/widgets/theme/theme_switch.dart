@@ -16,7 +16,7 @@ class ThemeSwitch extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Icon(
-              Icons.sunny,
+              CupertinoIcons.brightness,
               color: Colors.yellow,
             ),
             SizedBox(
@@ -33,7 +33,7 @@ class ThemeSwitch extends StatelessWidget {
               width: 10.w,
             ),
             const Icon(
-              Icons.dark_mode,
+              CupertinoIcons.moon_stars_fill,
               color: Colors.blueAccent,
             ),
           ],

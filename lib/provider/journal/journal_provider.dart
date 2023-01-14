@@ -4,7 +4,7 @@ import 'package:space/models/journals/journal_model.dart';
 
 class JournalProvider with ChangeNotifier {
   DateTime _dateTime = DateTime.now();
-  DateTime? _previousDate;
+  // DateTime? _previousDate;
   bool _isRetrieving = false;
   bool get isRetrieving => _isRetrieving;
   DateTime get getDate => _dateTime;

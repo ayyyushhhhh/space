@@ -3,7 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class JournalIconButton extends StatelessWidget {
   final VoidCallback onPressed;
-  const JournalIconButton({super.key, required this.onPressed});
+  final IconData iconData;
+  const JournalIconButton(
+      {super.key, required this.onPressed, required this.iconData});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class JournalIconButton extends StatelessWidget {
         padding: EdgeInsets.zero,
         onPressed: onPressed,
         icon: Icon(
-          Icons.done,
+          iconData,
           size: 30.r,
         ),
       ),

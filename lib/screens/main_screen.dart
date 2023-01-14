@@ -48,8 +48,9 @@ class _MainScreenState extends State<MainScreen> {
                 return const AddJournalScreen();
               }));
             },
-            child: const Icon(
+            child: Icon(
               Icons.add,
+              color: Theme.of(context).textTheme.titleLarge?.color,
             ),
           ),
           bottomNavigationBar: Container(
@@ -77,20 +78,23 @@ class _MainScreenState extends State<MainScreen> {
                   duration: const Duration(milliseconds: 400),
                   tabBackgroundColor: Theme.of(context).primaryColor,
                   color: Colors.black,
-                  tabs: const [
+                  tabs: [
                     GButton(
-                      icon: Icons.note_alt,
+                      icon: CupertinoIcons.layers,
                       text: 'Journals',
+                      iconColor: Theme.of(context).textTheme.titleLarge?.color,
+                      iconActiveColor:
+                          Theme.of(context).textTheme.titleLarge?.color,
+                      textColor: Theme.of(context).textTheme.titleLarge?.color,
                     ),
                     GButton(
                       icon: CupertinoIcons.settings,
                       text: 'Settings',
+                      iconColor: Theme.of(context).textTheme.titleLarge?.color,
+                      iconActiveColor:
+                          Theme.of(context).textTheme.titleLarge?.color,
+                      textColor: Theme.of(context).textTheme.titleLarge?.color,
                     ),
-
-                    // GButton(
-                    //   icon: LineIcons.user,
-                    //   text: 'Profile',
-                    // ),
                   ],
                   selectedIndex: value.pageState,
                   onTabChange: (index) {

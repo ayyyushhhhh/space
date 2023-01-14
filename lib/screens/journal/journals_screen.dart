@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:space/provider/journal/journalProvider.dart';
+import 'package:space/provider/journal/journal_provider.dart';
 import 'package:space/widgets/journal/calendar_widget.dart';
 import 'package:space/widgets/journal/journal_widget.dart';
 
@@ -26,7 +26,7 @@ class _JournalsScreenState extends State<JournalsScreen> {
         SliverToBoxAdapter(
           child: Container(
             height: 210.h,
-            padding: EdgeInsets.only(top: 10.r),
+            padding: EdgeInsets.only(top: 20.r),
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
               borderRadius: BorderRadius.vertical(
@@ -41,10 +41,11 @@ class _JournalsScreenState extends State<JournalsScreen> {
           child: Padding(
             padding: EdgeInsets.all(10.r),
             child: Text(
-              "Journals",
+              "Your Memories",
+              textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 30.sp,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ),
@@ -59,10 +60,13 @@ class _JournalsScreenState extends State<JournalsScreen> {
                       child: const Text("Oops Nothing Found!")));
             }
             return SliverList(
-                delegate: SliverChildBuilderDelegate(
-                    childCount: journals.length, (context, index) {
-              return JournalWidget(journalModel: journals[index]);
-            }));
+              delegate: SliverChildBuilderDelegate(
+                childCount: journals.length,
+                (context, index) {
+                  return JournalWidget(journalModel: journals[index]);
+                },
+              ),
+            );
           },
         ),
       ],

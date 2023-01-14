@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:space/auth/local_auth/local_authentication.dart';
 import 'package:space/notification%20manager/notification_manager.dart';
 import 'package:space/utils/pref.dart';
 
@@ -106,6 +107,9 @@ class AccountScreen extends StatelessWidget {
                             setState(
                               () {
                                 _canAuth = value;
+                                if (_canAuth == true) {
+                                  LocalAuthApi.authenticate();
+                                }
                                 SharedPreferencesHelper.saveAuthPermission(
                                     value);
                               },

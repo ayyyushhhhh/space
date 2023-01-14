@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:space/provider/journal/journalProvider.dart';
+import 'package:space/provider/journal/journal_provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarWidget extends StatelessWidget {
@@ -20,14 +20,12 @@ class CalendarWidget extends StatelessWidget {
               leftChevronIcon: Icon(
                 Icons.chevron_left,
                 size: 24.r,
-                color: Colors.white,
               ),
               rightChevronIcon: Icon(
                 Icons.chevron_right,
                 size: 24.r,
-                color: Colors.white,
               ),
-              titleTextStyle: TextStyle(color: Colors.white, fontSize: 24.sp)),
+              titleTextStyle: TextStyle(fontSize: 24.sp)),
           calendarFormat: CalendarFormat.week,
           focusedDay: value.getDate,
           firstDay: DateTime(2019, 06, 13),
@@ -44,7 +42,7 @@ class CalendarWidget extends StatelessWidget {
                 margin: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Theme.of(context).cardColor,
+                  color: Colors.transparent,
                 ),
                 child: Center(
                   child: Column(
@@ -74,7 +72,7 @@ class CalendarWidget extends StatelessWidget {
                 margin: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Theme.of(context).cardColor,
+                  color: Colors.transparent,
                 ),
                 child: Center(
                   child: Column(
@@ -128,9 +126,10 @@ class CalendarWidget extends StatelessWidget {
             },
             selectedBuilder: (context, day, focusedDay) {
               return Container(
+                margin: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Colors.purple.shade100,
+                  color: Theme.of(context).cardColor,
                 ),
                 child: Center(
                   child: Column(
@@ -139,7 +138,6 @@ class CalendarWidget extends StatelessWidget {
                       Text(
                         DateFormat.E().format(day),
                         style: TextStyle(
-                          color: Colors.black45,
                           fontSize: 10.sp,
                           fontWeight: FontWeight.bold,
                         ),

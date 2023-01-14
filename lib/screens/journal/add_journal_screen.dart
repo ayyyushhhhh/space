@@ -5,11 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import 'package:space/models/journals/journal_model.dart';
-import 'package:space/provider/journal/journalProvider.dart';
+import 'package:space/provider/journal/journal_provider.dart';
 import 'package:space/provider/journal/journal_editor_provider.dart';
 import 'package:space/widgets/journal/journal_icon_button.dart';
 
@@ -105,7 +106,7 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
                             Navigator.pop(context);
                           },
                           icon: Icon(
-                            CupertinoIcons.back,
+                            CupertinoIcons.clear_thick,
                             size: 30.r,
                           ),
                         ),
@@ -121,6 +122,7 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
                                 onPressed: () {
                                   value.canReadOnly(false);
                                 },
+                                iconData: CupertinoIcons.pen,
                               );
                             }
                             return const SizedBox();
@@ -131,6 +133,7 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
                             _saveJournal();
                             Navigator.pop(context);
                           },
+                          iconData: CupertinoIcons.check_mark,
                         ),
                       ],
                     ),
@@ -178,7 +181,7 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
                     ),
                     _buildEmoji(emoji: "😀", mood: 'happy'),
                     _buildEmoji(emoji: "😞", mood: 'sad'),
-                    _buildEmoji(emoji: "😐", mood: 'neutral'),
+                    _buildEmoji(emoji: "😐", mood: 'confused'),
                     _buildEmoji(emoji: "😤", mood: 'angry'),
                     _buildEmoji(emoji: "😨", mood: 'worried'),
                   ],
@@ -192,6 +195,10 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
   }
 
   Future<void> _saveJournal() async {
+    if (_titleTextEditingController.text == "" ||
+        _notesTextEditingController.text == "") {
+      return;
+    }
     late JournalModel journalModel;
     if (widget.journalModel == null) {
       final journalId = (Random.secure().nextInt(90000) + 10000);
@@ -219,9 +226,9 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
   Widget _buildEmoji({required String emoji, required String mood}) {
     return Consumer<JournalEditorProvider>(
       builder: (BuildContext context, value, Widget? child) {
-        double fontSize = 20.sp;
+        double svgSize = 30.sp;
         if (mood == value.mood) {
-          fontSize = 30.sp;
+          svgSize = 50.sp;
         }
         return InkWell(
           onTap: () {
@@ -230,9 +237,10 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
               value.changeMood(mood);
             }
           },
-          child: Text(
-            emoji,
-            style: TextStyle(fontSize: fontSize),
+          child: SvgPicture.asset(
+            "assets/emojis/$mood.svg",
+            height: svgSize,
+            width: svgSize,
           ),
         );
       },
