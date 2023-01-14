@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:space/auth/local_auth/local_authentication.dart';
 import 'package:space/screens/account_screen.dart';
@@ -50,74 +52,50 @@ class _MainScreenState extends State<MainScreen> {
               Icons.add,
             ),
           ),
-          bottomNavigationBar: BottomAppBar(
-            notchMargin: 5,
-            shape: const CircularNotchedRectangle(),
-            child: Material(
-              elevation: 20,
-              child: Container(
-                color: Theme.of(context).scaffoldBackgroundColor,
-                height: 60.h,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    MaterialButton(
-                      minWidth: 40.w,
-                      onPressed: () {
-                        value.updatePage(0);
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.note_add,
-                            size: 20.r,
-                            color: (value.pageState == 0)
-                                ? Theme.of(context).primaryColor
-                                : Colors.grey,
-                          ),
-                          Text(
-                            "Journal",
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              color: (value.pageState == 0)
-                                  ? Theme.of(context).primaryColor
-                                  : Colors.grey,
-                            ),
-                          ),
-                        ],
-                      ),
+          bottomNavigationBar: Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 20.r,
+                  color: Colors.black.withOpacity(.1),
+                )
+              ],
+            ),
+            child: SafeArea(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+                child: GNav(
+                  rippleColor: Colors.grey[300]!,
+                  hoverColor: Colors.grey[100]!,
+                  gap: 8,
+                  activeColor: Colors.black,
+                  iconSize: 24.r,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  duration: const Duration(milliseconds: 400),
+                  tabBackgroundColor: Theme.of(context).primaryColor,
+                  color: Colors.black,
+                  tabs: const [
+                    GButton(
+                      icon: Icons.note_alt,
+                      text: 'Journals',
                     ),
-                    MaterialButton(
-                      minWidth: 40.w,
-                      onPressed: () {
-                        value.updatePage(1);
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.settings,
-                            size: 24.r,
-                            color: (value.pageState == 1)
-                                ? Theme.of(context).primaryColor
-                                : Colors.grey,
-                          ),
-                          Text(
-                            "Settings",
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              color: (value.pageState == 1)
-                                  ? Theme.of(context).primaryColor
-                                  : Colors.grey,
-                            ),
-                          ),
-                        ],
-                      ),
+                    GButton(
+                      icon: CupertinoIcons.settings,
+                      text: 'Settings',
                     ),
+
+                    // GButton(
+                    //   icon: LineIcons.user,
+                    //   text: 'Profile',
+                    // ),
                   ],
+                  selectedIndex: value.pageState,
+                  onTabChange: (index) {
+                    value.updatePage(index);
+                  },
                 ),
               ),
             ),
