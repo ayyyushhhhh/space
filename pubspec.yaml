@@ -1,5 +1,6 @@
 name: space
-description: A new Flutter project.
+description: Space is a mental health journaling app for you! Our app is designed to help you make sense of your thoughts and emotions by enabling you to write journals according to your mood. With our intuitive interface and powerful AI-based algorithms, we make it easy for you to track your mental health over time and get insights into your emotional wellbeing. 
+
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
