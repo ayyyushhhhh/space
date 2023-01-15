@@ -16,10 +16,8 @@ class JournalsScreen extends StatefulWidget {
 class _JournalsScreenState extends State<JournalsScreen> {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: Theme.of(context)
-            .primaryColor //or set color with: Color(0xFF0000FF)
-        ));
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: Theme.of(context).primaryColor));
     return Scaffold(
         body: CustomScrollView(
       slivers: [
@@ -57,7 +55,7 @@ class _JournalsScreenState extends State<JournalsScreen> {
               return SliverToBoxAdapter(
                   child: Padding(
                       padding: EdgeInsets.all(10.r),
-                      child: const Text("Oops Nothing Found!")));
+                      child: const Center(child: Text("Oops Nothing Found!"))));
             }
             return SliverList(
               delegate: SliverChildBuilderDelegate(

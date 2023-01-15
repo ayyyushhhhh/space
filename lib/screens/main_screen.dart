@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
@@ -46,7 +47,14 @@ class _MainScreenState extends State<MainScreen> {
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: (BuildContext context) {
                 return const AddJournalScreen();
-              }));
+              })).then((value) {
+                SystemChrome.setSystemUIOverlayStyle(
+                  SystemUiOverlayStyle(
+                      statusBarColor: Theme.of(context)
+                          .primaryColor //or set color with: Color(0xFF0000FF)
+                      ),
+                );
+              });
             },
             child: Icon(
               Icons.add,

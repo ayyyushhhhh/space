@@ -28,6 +28,7 @@ dependencies:
   flutter_slidable: ^2.0.0
   google_nav_bar: ^5.0.6
   flutter_svg: ^1.1.6
+  flutter_native_splash: ^2.2.16
 
   
 
@@ -35,7 +36,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
-  flutter_native_splash: ^2.2.16
+  
+  change_app_package_name: ^1.1.0
 
   
 

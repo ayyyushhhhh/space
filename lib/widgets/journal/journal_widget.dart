@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/svg.dart';
@@ -24,7 +25,12 @@ class JournalWidget extends StatelessWidget {
               );
             },
           ),
-        );
+        ).then((value) {
+          SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+              statusBarColor: Theme.of(context)
+                  .primaryColor //or set color with: Color(0xFF0000FF)
+              ));
+        });
       },
       child: Slidable(
         endActionPane: ActionPane(

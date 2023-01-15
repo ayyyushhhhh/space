@@ -1,4 +1,4 @@
-package com.example.space
+package com.scarecrowhouse.space
 
 import io.flutter.embedding.android.FlutterFragmentActivity
 import io.flutter.plugins.GeneratedPluginRegistrant
