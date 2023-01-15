@@ -60,11 +60,11 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
     } else {
       createdOn = widget.journalModel!.createdOn;
       moodNow = widget.journalModel!.mood;
-
       _notesTextEditingController.text = widget.journalModel!.description;
       _titleTextEditingController.text = widget.journalModel!.title;
       Provider.of<JournalEditorProvider>(context, listen: false).readOnly =
           true;
+      Provider.of<JournalEditorProvider>(context, listen: false).mood = moodNow;
     }
   }
 
