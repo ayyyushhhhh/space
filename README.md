@@ -9,6 +9,8 @@ Feeling overwhelmed, anxious, or just need to vent? Space is the perfect mental 
 - 📖 Read or edit previous journal entries. 
 - 🔒 Your journals are secure, use your pin to read/write/edit journals. 
 - 🍀 Mind refreshing UI.
+## 🔗 Download here
+[![portfolio](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiA_Qwrl1HTMeTHxV7RdeB-ngP_M4MJRAhnCEip6Ll5gJ550RqW4tNa_ZIoJ24xV49Mw&usqp=CAU)](https://play.google.com/store/apps/details?id=com.scarecrowhouse.space)
 
 ![logo](https://user-images.githubusercontent.com/65955486/212547311-4ce6f514-8b3a-466c-9a39-b5fa4a893109.png)
 
