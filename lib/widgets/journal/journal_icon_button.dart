@@ -10,9 +10,9 @@ class JournalIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 35.h,
+      height: 50.h,
       margin: const EdgeInsets.all(5),
-      width: 35.w,
+      width: 50.w,
       decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(10)),
@@ -21,7 +21,7 @@ class JournalIconButton extends StatelessWidget {
         onPressed: onPressed,
         icon: Icon(
           iconData,
-          size: 30.r,
+          size: 45.r,
         ),
       ),
     );

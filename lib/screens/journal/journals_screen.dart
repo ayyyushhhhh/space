@@ -23,8 +23,8 @@ class _JournalsScreenState extends State<JournalsScreen> {
       slivers: [
         SliverToBoxAdapter(
           child: Container(
-            height: 210.h,
-            padding: EdgeInsets.only(top: 20.r),
+            height: 250.h,
+            padding: EdgeInsets.only(top: 30.r),
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
               borderRadius: BorderRadius.vertical(

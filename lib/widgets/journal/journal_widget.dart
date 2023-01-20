@@ -43,14 +43,19 @@ class JournalWidget extends StatelessWidget {
                     .deleteJournal(journalModel: journalModel);
               },
               backgroundColor: Colors.transparent,
-              child: Container(
-                height: 50.h,
-                width: 100.w,
-                padding: const EdgeInsets.all(10),
-                margin: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10), color: Colors.red),
-                child: const Icon(CupertinoIcons.delete),
+              child: Semantics(
+                label: 'delete journal',
+                hint: 'Press  to delete journal',
+                child: Container(
+                  height: 50.h,
+                  width: 100.w,
+                  padding: const EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.red),
+                  child: const Icon(CupertinoIcons.delete),
+                ),
               ),
             ),
           ],

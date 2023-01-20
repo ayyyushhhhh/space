@@ -39,26 +39,30 @@ class _MainScreenState extends State<MainScreen> {
         return Scaffold(
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
-          floatingActionButton: FloatingActionButton(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            backgroundColor: Theme.of(context).primaryColor,
-            onPressed: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (BuildContext context) {
-                return const AddJournalScreen();
-              })).then((value) {
-                SystemChrome.setSystemUIOverlayStyle(
-                  SystemUiOverlayStyle(
-                      statusBarColor: Theme.of(context)
-                          .primaryColor //or set color with: Color(0xFF0000FF)
-                      ),
-                );
-              });
-            },
-            child: Icon(
-              Icons.add,
-              color: Theme.of(context).textTheme.titleLarge?.color,
+          floatingActionButton: Semantics(
+            label: 'Add Journal',
+            hint: 'Press to add journal',
+            child: FloatingActionButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              backgroundColor: Theme.of(context).primaryColor,
+              onPressed: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (BuildContext context) {
+                  return const AddJournalScreen();
+                })).then((value) {
+                  SystemChrome.setSystemUIOverlayStyle(
+                    SystemUiOverlayStyle(
+                        statusBarColor: Theme.of(context)
+                            .primaryColor //or set color with: Color(0xFF0000FF)
+                        ),
+                  );
+                });
+              },
+              child: Icon(
+                Icons.add,
+                color: Theme.of(context).textTheme.titleLarge?.color,
+              ),
             ),
           ),
           bottomNavigationBar: Container(

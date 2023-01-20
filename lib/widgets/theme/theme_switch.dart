@@ -22,12 +22,19 @@ class ThemeSwitch extends StatelessWidget {
             SizedBox(
               width: 10.w,
             ),
-            CupertinoSwitch(
-              value: theme.isDarkMode,
-              activeColor: Theme.of(context).primaryColor,
-              onChanged: (bool value) {
-                theme.updateTheme(value);
-              },
+            Transform.scale(
+              scale: 1.3,
+              child: Semantics(
+                label: 'Change Theme',
+                hint: 'Press to change  Theme',
+                child: CupertinoSwitch(
+                  value: theme.isDarkMode,
+                  activeColor: Theme.of(context).primaryColor,
+                  onChanged: (bool value) {
+                    theme.updateTheme(value);
+                  },
+                ),
+              ),
             ),
             SizedBox(
               width: 10.w,

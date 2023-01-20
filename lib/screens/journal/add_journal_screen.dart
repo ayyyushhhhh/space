@@ -78,8 +78,7 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Theme.of(context)
-          .scaffoldBackgroundColor, //or set color with: Color(0xFF0000FF)
+      statusBarColor: Theme.of(context).scaffoldBackgroundColor,
     ));
     return SafeArea(
       child: Scaffold(
@@ -100,40 +99,52 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        IconButton(
-                          padding: EdgeInsets.zero,
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: Icon(
-                            CupertinoIcons.clear_thick,
-                            size: 30.r,
+                        Semantics(
+                          label: 'Go Back',
+                          hint: 'Press to go back',
+                          child: IconButton(
+                            padding: EdgeInsets.zero,
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(
+                              CupertinoIcons.clear_thick,
+                              size: 50.r,
+                            ),
                           ),
                         ),
                         const Spacer(),
-                        const SizedBox(
-                          width: 10,
+                        SizedBox(
+                          width: 10.w,
                         ),
-                        Consumer<JournalEditorProvider>(
-                          builder:
-                              (BuildContext context, value, Widget? child) {
-                            if (value.readOnly == true) {
-                              return JournalIconButton(
-                                onPressed: () {
-                                  value.canReadOnly(false);
-                                },
-                                iconData: CupertinoIcons.pen,
-                              );
-                            }
-                            return const SizedBox();
-                          },
+                        Semantics(
+                          label: 'Edit Journal',
+                          hint: 'Press to edit journal',
+                          child: Consumer<JournalEditorProvider>(
+                            builder:
+                                (BuildContext context, value, Widget? child) {
+                              if (value.readOnly == true) {
+                                return JournalIconButton(
+                                  onPressed: () {
+                                    value.canReadOnly(false);
+                                  },
+                                  iconData: CupertinoIcons.pen,
+                                );
+                              }
+                              return const SizedBox();
+                            },
+                          ),
                         ),
-                        JournalIconButton(
-                          onPressed: () {
-                            _saveJournal();
-                            Navigator.pop(context);
-                          },
-                          iconData: CupertinoIcons.check_mark,
+                        Semantics(
+                          label: 'Save Journal',
+                          hint: 'Press to save journal',
+                          child: JournalIconButton(
+                            onPressed: () {
+                              _saveJournal();
+                              Navigator.pop(context);
+                            },
+                            iconData: CupertinoIcons.check_mark,
+                          ),
                         ),
                       ],
                     ),
@@ -157,16 +168,19 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
                   ],
                 ),
               ),
-              TitleTextFieldWidget(
-                textEditingController: _titleTextEditingController,
+              Semantics(
+                label: 'Enter Title not more than 40 letters',
+                hint: 'Press to enter journal title',
+                child: TitleTextFieldWidget(
+                  textEditingController: _titleTextEditingController,
+                ),
               ),
               NotesTextFieldWidget(
                   textEditingController: _notesTextEditingController),
               Container(
                 height: 50.h,
                 margin: const EdgeInsets.symmetric(horizontal: 10),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
                 color: Theme.of(context).cardColor,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -226,21 +240,25 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
   Widget _buildEmoji({required String emoji, required String mood}) {
     return Consumer<JournalEditorProvider>(
       builder: (BuildContext context, value, Widget? child) {
-        double svgSize = 30.sp;
+        double svgSize = 40.sp;
         if (mood == value.mood) {
           svgSize = 50.sp;
         }
-        return InkWell(
-          onTap: () {
-            if (value.readOnly == false) {
-              mood = mood;
-              value.changeMood(mood);
-            }
-          },
-          child: SvgPicture.asset(
-            "assets/emojis/$mood.svg",
-            height: svgSize,
-            width: svgSize,
+        return Semantics(
+          label: '$mood Mood',
+          hint: 'Press to enter $mood Mood',
+          child: InkWell(
+            onTap: () {
+              if (value.readOnly == false) {
+                mood = mood;
+                value.changeMood(mood);
+              }
+            },
+            child: SvgPicture.asset(
+              "assets/emojis/$mood.svg",
+              height: svgSize,
+              width: svgSize,
+            ),
           ),
         );
       },

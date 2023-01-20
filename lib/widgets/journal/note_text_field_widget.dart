@@ -17,27 +17,31 @@ class NotesTextFieldWidget extends StatelessWidget {
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(20)),
             ),
-            child: TextField(
-              controller: textEditingController,
-              readOnly: value.readOnly,
-              keyboardType: TextInputType.multiline,
-              textInputAction: TextInputAction.newline,
-              textAlignVertical: TextAlignVertical.top,
-              expands: true,
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.all(10),
-                fillColor: Theme.of(context).cardColor,
-                filled: true,
-                border: const OutlineInputBorder(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
+            child: Semantics(
+              label: 'Enter journal desciption',
+              hint: 'Press to enter journal description',
+              child: TextField(
+                controller: textEditingController,
+                readOnly: value.readOnly,
+                keyboardType: TextInputType.multiline,
+                textInputAction: TextInputAction.newline,
+                textAlignVertical: TextAlignVertical.top,
+                expands: true,
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.all(10),
+                  fillColor: Theme.of(context).cardColor,
+                  filled: true,
+                  border: const OutlineInputBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
+                    borderSide: BorderSide.none,
                   ),
-                  borderSide: BorderSide.none,
+                  hintText: "Notes",
                 ),
-                hintText: "Notes",
+                maxLines: null,
               ),
-              maxLines: null,
             ),
           ),
         );

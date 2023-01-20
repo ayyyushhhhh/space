@@ -100,21 +100,28 @@ class AccountScreen extends StatelessWidget {
                     StatefulBuilder(
                       builder: (BuildContext context,
                           void Function(void Function()) setState) {
-                        return CupertinoSwitch(
-                          activeColor: Theme.of(context).primaryColor,
-                          value: _canAuth,
-                          onChanged: ((value) {
-                            setState(
-                              () {
-                                _canAuth = value;
-                                if (_canAuth == true) {
-                                  LocalAuthApi.authenticate();
-                                }
-                                SharedPreferencesHelper.saveAuthPermission(
-                                    value);
-                              },
-                            );
-                          }),
+                        return Transform.scale(
+                          scale: 1.3,
+                          child: Semantics(
+                            label: 'Use Biometric to unlock app',
+                            hint: 'Press to turn on/off feature',
+                            child: CupertinoSwitch(
+                              activeColor: Theme.of(context).primaryColor,
+                              value: _canAuth,
+                              onChanged: ((value) {
+                                setState(
+                                  () {
+                                    _canAuth = value;
+                                    if (_canAuth == true) {
+                                      LocalAuthApi.authenticate();
+                                    }
+                                    SharedPreferencesHelper.saveAuthPermission(
+                                        value);
+                                  },
+                                );
+                              }),
+                            ),
+                          ),
                         );
                       },
                     ),
@@ -142,32 +149,41 @@ class AccountScreen extends StatelessWidget {
                           "Reminder",
                           style: TextStyle(fontSize: 16.sp),
                         ),
-                        trailing: CupertinoSwitch(
-                          activeColor: Theme.of(context).primaryColor,
-                          value: _canNotify,
-                          onChanged: ((value) {
-                            setState(
-                              () {
-                                _canNotify = value;
-                                if (value == false) {
-                                  NotificationManger.cancelNotificationDaily();
-                                  SharedPreferencesHelper.saveAuthPermission(
-                                      _canNotify);
-                                  return;
-                                }
-                                NotificationManger.showNotificationDaily(
-                                  title: "",
-                                  body: "Knock Knock! It's time to write",
-                                  time: Time(
-                                    _notificationTime.inHours,
-                                    _notificationTime.inMinutes.remainder(60),
-                                  ),
+                        trailing: Transform.scale(
+                          scale: 1.3,
+                          child: Semantics(
+                            label: 'Turn on notification reminders',
+                            hint: 'Press to Turn on notification reminders',
+                            child: CupertinoSwitch(
+                              activeColor: Theme.of(context).primaryColor,
+                              value: _canNotify,
+                              onChanged: ((value) {
+                                setState(
+                                  () {
+                                    _canNotify = value;
+                                    if (value == false) {
+                                      NotificationManger
+                                          .cancelNotificationDaily();
+                                      SharedPreferencesHelper
+                                          .saveAuthPermission(_canNotify);
+                                      return;
+                                    }
+                                    NotificationManger.showNotificationDaily(
+                                      title: "",
+                                      body: "Knock Knock! It's time to write",
+                                      time: Time(
+                                        _notificationTime.inHours,
+                                        _notificationTime.inMinutes
+                                            .remainder(60),
+                                      ),
+                                    );
+                                    SharedPreferencesHelper.saveAuthPermission(
+                                        _canNotify);
+                                  },
                                 );
-                                SharedPreferencesHelper.saveAuthPermission(
-                                    _canNotify);
-                              },
-                            );
-                          }),
+                              }),
+                            ),
+                          ),
                         ),
                         children: [
                           if (_canNotify == true)
@@ -176,27 +192,32 @@ class AccountScreen extends StatelessWidget {
                                 "Set Time",
                                 style: TextStyle(
                                     fontWeight: FontWeight.w700,
-                                    fontSize: 14.sp),
+                                    fontSize: 16.sp),
                               ),
-                              trailing: InkWell(
-                                onTap: (() {
-                                  _showDialog(
-                                      child: CupertinoTimerPicker(
-                                        mode: CupertinoTimerPickerMode.hm,
-                                        initialTimerDuration: _notificationTime,
-                                        onTimerDurationChanged:
-                                            (Duration newDuration) {
-                                          setState(() =>
-                                              _notificationTime = newDuration);
-                                        },
-                                      ),
-                                      context: context);
-                                }),
-                                child: Text(
-                                  "${_notificationTime.inHours.toString().padLeft(2, '0')}:${_notificationTime.inMinutes.remainder(60).toString().padLeft(2, '0')}",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 14.sp),
+                              trailing: Semantics(
+                                label: 'set notification timer',
+                                hint: 'Press to set notification timer',
+                                child: InkWell(
+                                  onTap: (() {
+                                    _showDialog(
+                                        child: CupertinoTimerPicker(
+                                          mode: CupertinoTimerPickerMode.hm,
+                                          initialTimerDuration:
+                                              _notificationTime,
+                                          onTimerDurationChanged:
+                                              (Duration newDuration) {
+                                            setState(() => _notificationTime =
+                                                newDuration);
+                                          },
+                                        ),
+                                        context: context);
+                                  }),
+                                  child: Text(
+                                    "${_notificationTime.inHours.toString().padLeft(2, '0')}:${_notificationTime.inMinutes.remainder(60).toString().padLeft(2, '0')}",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 16.sp),
+                                  ),
                                 ),
                               ),
                             )
