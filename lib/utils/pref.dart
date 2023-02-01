@@ -51,6 +51,20 @@ class SharedPreferencesHelper {
     preferences!.setStringList("notifytime", time);
   }
 
+  static void saveLocale({required bool hasLocale}) {
+    preferences!.setInt("hasLocale", hasLocale ? 1 : 0);
+  }
+
+  static bool hasSavedLocale() {
+    final index = preferences!.getInt("hasLocale");
+
+    if (index == null) {
+      return false;
+    }
+
+    return index == 1 ? true : false;
+  }
+
   static Duration getNotificationTime() {
     List<String>? time = preferences!.getStringList("notifytime");
     if (time == null) {

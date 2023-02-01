@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,7 +9,7 @@ import 'package:space/hive%20boxes/journal_box.dart';
 import 'package:space/notification%20manager/notification_manager.dart';
 import 'package:space/provider/journal/journal_provider.dart';
 import 'package:space/provider/journal/journal_editor_provider.dart';
-import 'package:space/screens/main_screen.dart';
+import 'package:space/screens/localization/language_select_screen.dart';
 import 'package:space/utils/pref.dart';
 import 'package:space/utils/App%20State/app_state_provider.dart';
 import 'package:timezone/data/latest_10y.dart';
@@ -22,7 +23,15 @@ void main() async {
   await JournalHiveBox.init(dateTime: DateTime.now());
   NotificationManger.init();
   GoogleFonts.config.allowRuntimeFetching = false;
-  runApp(const MyApp());
+  await EasyLocalization.ensureInitialized();
+  runApp(
+    EasyLocalization(
+        supportedLocales: const [Locale('en', 'US'), Locale('hi', 'IN')],
+        path: 'assets/translations',
+        fallbackLocale: const Locale('en', 'US'),
+        saveLocale: true,
+        child: const MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -53,6 +62,9 @@ class MyApp extends StatelessWidget {
             return ScreenUtilInit(
               builder: (BuildContext context, Widget? child) {
                 return MaterialApp(
+                  localizationsDelegates: context.localizationDelegates,
+                  supportedLocales: context.supportedLocales,
+                  locale: context.locale,
                   debugShowCheckedModeBanner: false,
                   title: 'Space',
                   darkTheme: ThemeData.dark().copyWith(
@@ -75,7 +87,7 @@ class MyApp extends StatelessWidget {
                   ),
                   themeMode:
                       theme.isDarkMode ? ThemeMode.dark : ThemeMode.light,
-                  home: const MainScreen(),
+                  home: const LanguageSelectScreen(),
                 );
               },
             );

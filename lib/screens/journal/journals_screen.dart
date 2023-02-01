@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:space/provider/journal/journal_provider.dart';
+import 'package:space/screens/localization/lanuage_string.dart';
 import 'package:space/widgets/journal/calendar_widget.dart';
 import 'package:space/widgets/journal/journal_widget.dart';
 
@@ -39,13 +41,13 @@ class _JournalsScreenState extends State<JournalsScreen> {
           child: Padding(
             padding: EdgeInsets.all(10.r),
             child: Text(
-              "Your Memories",
+              LanguageData.yourMemories,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 30.sp,
                 fontWeight: FontWeight.w500,
               ),
-            ),
+            ).tr(),
           ),
         ),
         Consumer<JournalProvider>(

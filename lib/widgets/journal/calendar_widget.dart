@@ -1,6 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:space/provider/journal/journal_provider.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -16,6 +16,9 @@ class CalendarWidget extends StatelessWidget {
           rowHeight: 80.h,
           headerStyle: HeaderStyle(
               formatButtonVisible: false,
+              titleTextFormatter: (date, locale) {
+                return DateFormat.yMMMM(context.locale.toString()).format(date);
+              },
               titleCentered: true,
               leftChevronIcon: Icon(
                 Icons.chevron_left,
@@ -49,7 +52,8 @@ class CalendarWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        DateFormat.E().format(DateTime.now()),
+                        DateFormat.E(context.locale.toString())
+                            .format(DateTime.now()),
                         style: TextStyle(
                           fontSize: 10.sp,
                           fontWeight: FontWeight.bold,
@@ -79,7 +83,8 @@ class CalendarWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        DateFormat.E().format(dateTime),
+                        DateFormat.E(context.locale.toString())
+                            .format(dateTime),
                         style: TextStyle(
                           fontSize: 10.sp,
                           fontWeight: FontWeight.bold,
@@ -136,7 +141,7 @@ class CalendarWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        DateFormat.E().format(day),
+                        DateFormat.E(context.locale.toString()).format(day),
                         style: TextStyle(
                           fontSize: 10.sp,
                           fontWeight: FontWeight.bold,

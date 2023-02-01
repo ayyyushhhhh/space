@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -5,6 +6,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:space/auth/local_auth/local_authentication.dart';
 import 'package:space/notification%20manager/notification_manager.dart';
+import 'package:space/screens/localization/lanuage_string.dart';
 import 'package:space/utils/pref.dart';
 
 import '../widgets/theme/theme_switch.dart';
@@ -77,7 +79,7 @@ class AccountScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "App Theme",
+                      LanguageData.appTheme.tr(),
                       style: TextStyle(fontSize: 16.sp),
                     ),
                     const ThemeSwitch(),
@@ -94,7 +96,7 @@ class AccountScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Use Biometric",
+                      LanguageData.useBiometric.tr(),
                       style: TextStyle(fontSize: 16.sp),
                     ),
                     StatefulBuilder(
@@ -146,7 +148,7 @@ class AccountScreen extends StatelessWidget {
                         textColor:
                             Theme.of(context).textTheme.titleLarge?.color,
                         title: Text(
-                          "Reminder",
+                          LanguageData.reminder.tr(),
                           style: TextStyle(fontSize: 16.sp),
                         ),
                         trailing: Transform.scale(
@@ -189,7 +191,7 @@ class AccountScreen extends StatelessWidget {
                           if (_canNotify == true)
                             ListTile(
                               title: Text(
-                                "Set Time",
+                                LanguageData.setTime.tr(),
                                 style: TextStyle(
                                     fontWeight: FontWeight.w700,
                                     fontSize: 16.sp),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,6 +9,7 @@ import 'package:space/auth/local_auth/local_authentication.dart';
 import 'package:space/screens/account_screen.dart';
 
 import 'package:space/screens/journal/journals_screen.dart';
+import 'package:space/screens/localization/lanuage_string.dart';
 import 'package:space/utils/App%20State/app_state_provider.dart';
 import 'package:space/utils/pref.dart';
 
@@ -93,7 +95,7 @@ class _MainScreenState extends State<MainScreen> {
                   tabs: [
                     GButton(
                       icon: CupertinoIcons.layers,
-                      text: 'Journals',
+                      text: LanguageData.journals.tr(),
                       iconColor: Theme.of(context).textTheme.titleLarge?.color,
                       iconActiveColor:
                           Theme.of(context).textTheme.titleLarge?.color,
@@ -101,7 +103,7 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                     GButton(
                       icon: CupertinoIcons.settings,
-                      text: 'Settings',
+                      text: LanguageData.settings.tr(),
                       iconColor: Theme.of(context).textTheme.titleLarge?.color,
                       iconActiveColor:
                           Theme.of(context).textTheme.titleLarge?.color,
