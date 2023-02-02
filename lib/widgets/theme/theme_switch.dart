@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:space/utils/App%20State/app_state_provider.dart';
+import 'package:space/utils/constants.dart';
 
 class ThemeSwitch extends StatelessWidget {
   const ThemeSwitch({super.key});
@@ -29,7 +30,8 @@ class ThemeSwitch extends StatelessWidget {
                 hint: 'Press to change  Theme',
                 child: CupertinoSwitch(
                   value: theme.isDarkMode,
-                  activeColor: Theme.of(context).primaryColor,
+                  activeColor: kPrimaryColor,
+                  thumbColor: !theme.isDarkMode ? kPrimaryColor : Colors.white,
                   onChanged: (bool value) {
                     theme.updateTheme(value);
                   },

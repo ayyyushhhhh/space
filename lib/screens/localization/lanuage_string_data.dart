@@ -17,7 +17,7 @@ class LanguageData {
   static String useBiometric = "use_biometric";
   static String reminder = "reminder";
   static String setTime = "set_time";
-  static String yourMemories = "your_memories";
+  static String yourThoughts = "your_thoughts";
   static String mon = "mon";
   static String tue = "tue";
   static String wed = "wed";
@@ -33,5 +33,5 @@ class LanguageData {
   static String friday = "friday";
   static String saturday = "saturday";
   static String sunday = "sunday";
-  static String setLang = "set_lang";
+  static String continueNext = "continue";
 }

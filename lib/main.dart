@@ -10,6 +10,7 @@ import 'package:space/notification%20manager/notification_manager.dart';
 import 'package:space/provider/journal/journal_provider.dart';
 import 'package:space/provider/journal/journal_editor_provider.dart';
 import 'package:space/screens/localization/language_select_screen.dart';
+import 'package:space/utils/constants.dart';
 import 'package:space/utils/pref.dart';
 import 'package:space/utils/App%20State/app_state_provider.dart';
 import 'package:timezone/data/latest_10y.dart';
@@ -68,7 +69,7 @@ class MyApp extends StatelessWidget {
                   debugShowCheckedModeBanner: false,
                   title: 'Space',
                   darkTheme: ThemeData.dark().copyWith(
-                    primaryColor: const Color(0xff7cbea6),
+                    primaryColor: kPrimaryColor,
                     cardColor: const Color(0xFF294261),
                     scaffoldBackgroundColor: const Color(0xff223254),
                     textTheme: GoogleFonts.poppinsTextTheme(
@@ -79,8 +80,9 @@ class MyApp extends StatelessWidget {
                     ),
                   ),
                   theme: ThemeData.light().copyWith(
-                    primaryColor: const Color(0xff7cbea6),
-                    scaffoldBackgroundColor: const Color(0xFFf6f6f6),
+                    primaryColor: kPrimaryColor,
+                    scaffoldBackgroundColor: Colors.white,
+                    cardColor: const Color(0xFFF2F2FA),
                     textTheme: GoogleFonts.poppinsTextTheme(
                       Theme.of(context).textTheme,
                     ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:space/provider/journal/journal_provider.dart';
+import 'package:space/utils/constants.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarWidget extends StatelessWidget {
@@ -131,10 +132,11 @@ class CalendarWidget extends StatelessWidget {
             },
             selectedBuilder: (context, day, focusedDay) {
               return Container(
-                margin: const EdgeInsets.all(10),
+                margin: const EdgeInsets.all(5),
+                padding: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Theme.of(context).cardColor,
+                  borderRadius: BorderRadius.circular(40),
+                  color: kPrimaryColor,
                 ),
                 child: Center(
                   child: Column(
@@ -150,7 +152,6 @@ class CalendarWidget extends StatelessWidget {
                       Text(
                         DateFormat.d().format(day),
                         style: TextStyle(
-                          //color: Colors.white,
                           fontSize: 20.sp,
                           fontWeight: FontWeight.bold,
                         ),

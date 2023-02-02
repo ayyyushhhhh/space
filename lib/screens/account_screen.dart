@@ -6,7 +6,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:space/auth/local_auth/local_authentication.dart';
 import 'package:space/notification%20manager/notification_manager.dart';
-import 'package:space/screens/localization/lanuage_string.dart';
+import 'package:space/screens/localization/lanuage_string_data.dart';
+import 'package:space/utils/constants.dart';
 import 'package:space/utils/pref.dart';
 
 import '../widgets/theme/theme_switch.dart';
@@ -108,7 +109,9 @@ class AccountScreen extends StatelessWidget {
                             label: 'Use Biometric to unlock app',
                             hint: 'Press to turn on/off feature',
                             child: CupertinoSwitch(
-                              activeColor: Theme.of(context).primaryColor,
+                              activeColor: kPrimaryColor,
+                              thumbColor:
+                                  !_canAuth ? kPrimaryColor : Colors.white,
                               value: _canAuth,
                               onChanged: ((value) {
                                 setState(
@@ -157,7 +160,9 @@ class AccountScreen extends StatelessWidget {
                             label: 'Turn on notification reminders',
                             hint: 'Press to Turn on notification reminders',
                             child: CupertinoSwitch(
-                              activeColor: Theme.of(context).primaryColor,
+                              activeColor: kPrimaryColor,
+                              thumbColor:
+                                  !_canNotify ? kPrimaryColor : Colors.white,
                               value: _canNotify,
                               onChanged: ((value) {
                                 setState(

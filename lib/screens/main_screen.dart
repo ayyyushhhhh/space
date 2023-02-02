@@ -7,13 +7,12 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:space/auth/local_auth/local_authentication.dart';
 import 'package:space/screens/account_screen.dart';
-
+import 'package:space/screens/journal/edit_journal_screen.dart';
 import 'package:space/screens/journal/journals_screen.dart';
-import 'package:space/screens/localization/lanuage_string.dart';
+import 'package:space/screens/localization/lanuage_string_data.dart';
 import 'package:space/utils/App%20State/app_state_provider.dart';
+import 'package:space/utils/constants.dart';
 import 'package:space/utils/pref.dart';
-
-import 'journal/add_journal_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -45,19 +44,14 @@ class _MainScreenState extends State<MainScreen> {
             label: 'Add Journal',
             hint: 'Press to add journal',
             child: FloatingActionButton(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
               backgroundColor: Theme.of(context).primaryColor,
               onPressed: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (BuildContext context) {
-                  return const AddJournalScreen();
+                  return const AddJournalPageWidget();
                 })).then((value) {
                   SystemChrome.setSystemUIOverlayStyle(
-                    SystemUiOverlayStyle(
-                        statusBarColor: Theme.of(context)
-                            .primaryColor //or set color with: Color(0xFF0000FF)
-                        ),
+                    const SystemUiOverlayStyle(statusBarColor: kSecondaryColor),
                   );
                 });
               },

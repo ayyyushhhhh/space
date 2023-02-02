@@ -4,7 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:space/provider/journal/journal_provider.dart';
-import 'package:space/screens/localization/lanuage_string.dart';
+import 'package:space/screens/localization/lanuage_string_data.dart';
+import 'package:space/utils/constants.dart';
 import 'package:space/widgets/journal/calendar_widget.dart';
 import 'package:space/widgets/journal/journal_widget.dart';
 
@@ -19,19 +20,19 @@ class _JournalsScreenState extends State<JournalsScreen> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: Theme.of(context).primaryColor));
+        const SystemUiOverlayStyle(statusBarColor: kSecondaryColor));
     return Scaffold(
         body: CustomScrollView(
       slivers: [
         SliverToBoxAdapter(
           child: Container(
-            height: 250.h,
+            height: 220.h,
             padding: EdgeInsets.only(top: 30.r),
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-              borderRadius: BorderRadius.vertical(
-                bottom:
-                    Radius.elliptical(MediaQuery.of(context).size.width, 90.r),
+            decoration: const BoxDecoration(
+              color: kSecondaryColor,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(40),
+                bottomRight: Radius.circular(40),
               ),
             ),
             child: const CalendarWidget(),
@@ -41,7 +42,7 @@ class _JournalsScreenState extends State<JournalsScreen> {
           child: Padding(
             padding: EdgeInsets.all(10.r),
             child: Text(
-              LanguageData.yourMemories,
+              LanguageData.yourThoughts,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 30.sp,

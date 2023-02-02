@@ -17,7 +17,7 @@
     "use_biometric":"Use Biometric",
     "reminder" : "Reminder",
     "set_time":"Set Time",
-    "your_memories" : "Your Memories",
+    "your_thoughts" : "Your Thoughts",
     "monday":"Monday",
     "tuesday":"Tuesday",
     "wednesday":"Wednesday",
@@ -33,5 +33,5 @@
     "sat":"Sat",
     "sun":"Sun",
     "select_lang" :"Select Language"    ,
-    "set_lang" :"Set Language"    
+    "continue" :"Continue"    
 }
