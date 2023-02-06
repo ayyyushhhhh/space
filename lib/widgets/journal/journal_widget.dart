@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:space/models/journals/journal_model.dart';
 import 'package:space/provider/journal/journal_provider.dart';
-import 'package:space/screens/journal/add_journal_screen.dart';
+import 'package:space/screens/journal/view_journal_screen.dart';
 
 class JournalWidget extends StatelessWidget {
   final JournalModel journalModel;
@@ -20,7 +20,7 @@ class JournalWidget extends StatelessWidget {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (BuildContext context) {
-              return AddJournalScreen(
+              return ViewJournalScreen(
                 journalModel: journalModel,
               );
             },

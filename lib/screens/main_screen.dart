@@ -7,7 +7,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:space/auth/local_auth/local_authentication.dart';
 import 'package:space/screens/account_screen.dart';
-import 'package:space/screens/journal/edit_journal_screen.dart';
+import 'package:space/screens/journal/add_journal_screen.dart';
 import 'package:space/screens/journal/journals_screen.dart';
 import 'package:space/screens/localization/lanuage_string_data.dart';
 import 'package:space/utils/App%20State/app_state_provider.dart';

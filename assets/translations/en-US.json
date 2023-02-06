@@ -33,5 +33,7 @@
     "sat":"Sat",
     "sun":"Sun",
     "select_lang" :"Select Language"    ,
-    "continue" :"Continue"    
+    "continue" :"Continue",
+    "switch": "Switch between Light Mode and Dark Mode",
+    "biometric" : "Login Using Your Biometrics"
 }

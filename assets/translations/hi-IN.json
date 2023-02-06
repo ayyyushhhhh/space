@@ -33,5 +33,7 @@
     "sat":"शनि",
     "sun":"रवि",
     "select_lang" :"भाषा चुने"  ,
-    "continue" :"जारी रखें"    
+    "continue" :"जारी रखें"  ,
+    "switch": "Switch between Light Mode and Dark Mode",
+    "biometric" : "Login Using Your Biometrics"  
 }

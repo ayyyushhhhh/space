@@ -34,4 +34,6 @@ class LanguageData {
   static String saturday = "saturday";
   static String sunday = "sunday";
   static String continueNext = "continue";
+  static String appthemeswitchDialog = "switch";
+  static String appthemeBiometricDialog = "biometric";
 }

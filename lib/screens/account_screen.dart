@@ -79,9 +79,19 @@ class AccountScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      LanguageData.appTheme.tr(),
-                      style: TextStyle(fontSize: 16.sp),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          LanguageData.appTheme.tr(),
+                          style: TextStyle(fontSize: 16.sp),
+                        ),
+                        Text(
+                          LanguageData.appthemeswitchDialog.tr(),
+                          style: TextStyle(fontSize: 8.sp),
+                        ),
+                      ],
                     ),
                     const ThemeSwitch(),
                   ],
@@ -96,9 +106,19 @@ class AccountScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      LanguageData.useBiometric.tr(),
-                      style: TextStyle(fontSize: 16.sp),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          LanguageData.useBiometric.tr(),
+                          style: TextStyle(fontSize: 16.sp),
+                        ),
+                        Text(
+                          LanguageData.appthemeBiometricDialog.tr(),
+                          style: TextStyle(fontSize: 8.sp),
+                        ),
+                      ],
                     ),
                     StatefulBuilder(
                       builder: (BuildContext context,

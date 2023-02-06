@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:space/screens/localization/lanuage_string_data.dart';
 import 'package:space/screens/main_screen.dart';
 import 'package:space/utils/constants.dart';
+import 'package:space/utils/pref.dart';
 import 'package:space/widgets/localization/select_language_button.dart';
 
 class LanguageSelectScreen extends StatefulWidget {
@@ -98,6 +99,7 @@ class _LanguageSelectScreenState extends State<LanguageSelectScreen> {
               onTap: () {
                 Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (BuildContext context) {
+                  SharedPreferencesHelper.saveLocale(hasLocale: true);
                   return const MainScreen();
                 }));
               },
