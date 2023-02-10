@@ -38,7 +38,7 @@ class MoodSelectWidget extends StatelessWidget {
                 ),
                 Text(
                   emoji.capitalize(),
-                  style: TextStyle(fontSize: 10.sp),
+                  style: TextStyle(fontSize: 10.sp, color: Colors.black),
                 ),
               ],
             ),
@@ -91,7 +91,7 @@ class MoodSelectWidget extends StatelessWidget {
                     children: [
                       _buildEmojiWidget(emoji: 'happy'),
                       _buildEmojiWidget(emoji: 'hungry'),
-                      _buildEmojiWidget(emoji: 'hungry'),
+                      _buildEmojiWidget(emoji: 'hush'),
                       _buildEmojiWidget(emoji: 'joyful'),
                     ],
                   ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:space/utils/constants.dart';
 
 class JournalIconButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -14,14 +15,16 @@ class JournalIconButton extends StatelessWidget {
       margin: const EdgeInsets.all(5),
       width: 50.w,
       decoration: BoxDecoration(
-          color: Theme.of(context).cardColor,
-          borderRadius: BorderRadius.circular(10)),
+        color: kSecondaryColor,
+        borderRadius: BorderRadius.circular(60),
+      ),
       child: IconButton(
         padding: EdgeInsets.zero,
         onPressed: onPressed,
         icon: Icon(
           iconData,
           size: 45.r,
+          color: kPrimaryColor,
         ),
       ),
     );

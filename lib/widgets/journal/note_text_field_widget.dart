@@ -30,8 +30,8 @@ class NotesTextFieldWidget extends StatelessWidget {
               ),
             ),
             Container(
-              width: double.infinity,
               height: 400.h,
+              width: double.infinity,
               margin: const EdgeInsets.only(left: 10, right: 10),
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(20)),

@@ -1,4 +1,5 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -22,15 +23,15 @@ class AddJournalPageWidget extends StatefulWidget {
 class _AddJournalPageWidgetState extends State<AddJournalPageWidget> {
   TextEditingController titleEditingController = TextEditingController();
   TextEditingController notesEditingController = TextEditingController();
-  List<Widget> journalPages = [
-    const MoodSelectWidget(),
-  ];
+  late JournalModel journalModel;
+  List<Widget> journalPages = [];
 
   int index = 0;
 
   @override
   void initState() {
     super.initState();
+    journalPages.add(const MoodSelectWidget());
     journalPages.add(
       TitleTextFieldWidget(textEditingController: titleEditingController),
     );
@@ -41,81 +42,100 @@ class _AddJournalPageWidgetState extends State<AddJournalPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Stack(
-      alignment: Alignment.center,
-      clipBehavior: Clip.antiAlias,
-      children: [
-        Blur(
-          blur: 2,
-          blurColor: Colors.white,
-          child: Positioned.fill(
-            child: SvgPicture.asset(
-              "assets/illustrations/bg.svg",
-              alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              fit: BoxFit.fill,
-            ),
-          ),
-        ),
-        SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+    return Consumer<JournalEditorProvider>(
+      builder: (BuildContext context, value, Widget? child) {
+        return WillPopScope(
+          onWillPop: () async {
+            if (index == 0) {
+              Navigator.pop(context);
+            }
+            index -= 1;
+            value.updateIndex(index);
+            return false;
+          },
+          child: Scaffold(
+              body: Stack(
+            alignment: Alignment.center,
+            clipBehavior: Clip.antiAlias,
             children: [
-              journalPages[index],
-              SizedBox(
-                height: 20.h,
-              ),
-              InkWell(
-                onTap: () {
-                  if (index == 2) {
-                    JournalModel journalModel = JournalModel(
-                        journalId: 23455,
-                        createdOn: DateTime.now(),
-                        mood: Provider.of<JournalEditorProvider>(context,
-                                listen: false)
-                            .mood,
-                        title: titleEditingController.text,
-                        color: Colors.red,
-                        description: notesEditingController.text);
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (BuildContext context) {
-                      return ViewJournalScreen(
-                        journalModel: journalModel,
-                      );
-                    }));
-                  }
-                  setState(() {
-                    if (index < journalPages.length - 1) {
-                      index += 1;
-                    }
-                  });
-                },
-                child: Container(
-                  padding: const EdgeInsets.all(10),
-                  margin: const EdgeInsets.all(10),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: kPrimaryColor,
-                    borderRadius: BorderRadius.circular(40),
-                  ),
-                  child: Center(
-                    child: Text(
-                      index == 2 ? "Continue" : "Next",
-                      style: TextStyle(
-                        fontSize: 24.sp,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ).tr(),
+              Blur(
+                blur: 2,
+                blurColor: Colors.white,
+                child: Positioned.fill(
+                  child: SvgPicture.asset(
+                    "assets/illustrations/bg.svg",
+                    alignment: Alignment.center,
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    fit: BoxFit.fill,
                   ),
                 ),
-              )
+              ),
+              if (value.index <= 2)
+                SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      journalPages[value.index],
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          if (value.index == 2) {
+                            journalModel = JournalModel(
+                                journalId:
+                                    (Random.secure().nextInt(90000) + 10000),
+                                createdOn: DateTime.now(),
+                                mood: Provider.of<JournalEditorProvider>(
+                                        context,
+                                        listen: false)
+                                    .mood,
+                                title: titleEditingController.text,
+                                color: Color((Random().nextDouble() * 0xFFFFFF)
+                                        .toInt())
+                                    .withOpacity(1.0),
+                                description: notesEditingController.text);
+                          }
+                          if (index == 1 && titleEditingController.text == "") {
+                            return;
+                          }
+                          if (index == 2 && notesEditingController.text == "") {
+                            return;
+                          }
+                          index += 1;
+                          value.updateIndex(index);
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          margin: const EdgeInsets.all(10),
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: kPrimaryColor,
+                            borderRadius: BorderRadius.circular(40),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Next",
+                              style: TextStyle(
+                                fontSize: 24.sp,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              if (value.index == 3)
+                ViewJournalScreen(journalModel: journalModel),
             ],
-          ),
-        ),
-      ],
-    ));
+          )),
+        );
+      },
+    );
   }
 }

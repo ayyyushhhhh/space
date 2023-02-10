@@ -62,7 +62,7 @@ class JournalWidget extends StatelessWidget {
         ),
         child: Container(
           margin: const EdgeInsets.all(10),
-          height: 120.h,
+          height: 140.h,
           width: double.infinity,
           decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(
@@ -100,10 +100,10 @@ class JournalWidget extends StatelessWidget {
                             width: 10.w,
                           ),
                           Container(
-                            padding: const EdgeInsets.all(2),
+                            padding: const EdgeInsets.all(5),
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                color: Theme.of(context).primaryColor),
+                                borderRadius: BorderRadius.circular(40),
+                                color: journalModel.color),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
