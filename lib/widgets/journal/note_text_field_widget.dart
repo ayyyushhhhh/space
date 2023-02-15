@@ -19,14 +19,20 @@ class NotesTextFieldWidget extends StatelessWidget {
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: Text(
                 "How do you feel?",
-                style: TextStyle(fontSize: 36.sp, fontWeight: FontWeight.w700),
+                style: TextStyle(
+                    fontSize: 36.sp,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.black),
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Text(
                 "Write about your experience in brief.",
-                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black),
               ),
             ),
             Container(

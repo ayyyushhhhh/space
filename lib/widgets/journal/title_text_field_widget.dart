@@ -20,14 +20,21 @@ class TitleTextFieldWidget extends StatelessWidget {
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: Text(
                 "Title",
-                style: TextStyle(fontSize: 36.sp, fontWeight: FontWeight.w700),
+                style: TextStyle(
+                  fontSize: 36.sp,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.black,
+                ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Text(
-                "Tell, Why are you ${value.mood}?",
-                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
+                "Why are you ${value.mood}?",
+                style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black),
               ),
             ),
             Container(

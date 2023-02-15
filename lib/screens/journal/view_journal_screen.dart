@@ -111,90 +111,85 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                       .updateIndex(0);
                 },
                 child: Container(
-                  height: 50.h,
+                  height: 60.h,
                   width: double.infinity,
                   margin: const EdgeInsets.all(10),
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: kSecondaryColor),
+                      borderRadius: BorderRadius.circular(10),
+                      color: kTextFieldColor),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SvgPicture.asset(
-                        "assets/emojis/${widget.journalModel.mood}.svg",
+                        "assets/emojis/${journalModel.mood}.svg",
                         height: 35.h,
                         width: 35.w,
                       ),
-                      Text(
-                        widget.journalModel.mood.capitalize(),
-                        style: TextStyle(fontSize: 16.sp),
-                      ),
                       SizedBox(
-                        width: 100.w,
+                        width: 10.w,
                       ),
-                      const Icon(CupertinoIcons.right_chevron)
+                      Text(
+                        journalModel.mood.capitalize(),
+                        style: TextStyle(fontSize: 16.sp, color: Colors.black),
+                      ),
+                      const Expanded(
+                        child: SizedBox(),
+                      ),
+                      const Icon(
+                        CupertinoIcons.right_chevron,
+                        color: Colors.black,
+                      )
                     ],
                   ),
                 ),
               ),
-              Semantics(
-                label: 'Enter Title not more than 40 letters',
-                hint: 'Press to enter journal title',
+              InkWell(
+                onTap: () {
+                  Provider.of<JournalEditorProvider>(context, listen: false)
+                      .updateIndex(1);
+                },
                 child: Container(
                   width: double.infinity,
+                  height: 50.h,
+                  padding: const EdgeInsets.all(10),
                   margin: const EdgeInsets.only(left: 10, right: 10),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: TextField(
-                    readOnly: true,
-                    controller:
-                        TextEditingController(text: widget.journalModel.title),
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.all(20),
-                      fillColor: Theme.of(context).cardColor,
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: BorderSide.none,
-                      ),
-                      hintText: "Title",
-                    ),
-                  ),
+                      borderRadius: BorderRadius.circular(10),
+                      color: kTextFieldColor),
+                  child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        widget.journalModel.title,
+                        style: const TextStyle(color: Colors.black),
+                      )),
                 ),
               ),
               Expanded(
-                child: Container(
-                  width: double.infinity,
-                  margin: const EdgeInsets.all(10),
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                  ),
-                  child: TextField(
-                    controller: TextEditingController(
-                        text: widget.journalModel.description),
-                    readOnly: true,
-                    keyboardType: TextInputType.multiline,
-                    textInputAction: TextInputAction.newline,
-                    textAlignVertical: TextAlignVertical.top,
-                    expands: true,
-                    decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.all(10),
-                      fillColor: Theme.of(context).cardColor,
-                      filled: true,
-                      border: const OutlineInputBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
+                flex: 1,
+                child: InkWell(
+                  onTap: () {
+                    Provider.of<JournalEditorProvider>(context, listen: false)
+                        .updateIndex(2);
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    margin: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
+                    decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        color: kTextFieldColor),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: Text(
+                          journalModel.description,
+                          style: const TextStyle(color: Colors.black),
                         ),
-                        borderSide: BorderSide.none,
                       ),
-                      hintText: "Notes",
                     ),
-                    maxLines: null,
                   ),
                 ),
               ),
@@ -206,7 +201,7 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
   }
 
   void _saveJournal() {
-    Provider.of<JournalEditorProvider>(context, listen: false).index = 0;
+    Provider.of<JournalEditorProvider>(context, listen: false).updateIndex(0);
     Provider.of<JournalProvider>(context, listen: false)
         .updateJournalList(journalModel);
   }

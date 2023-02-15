@@ -97,11 +97,12 @@ class _LanguageSelectScreenState extends State<LanguageSelectScreen> {
             ),
             InkWell(
               onTap: () {
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (BuildContext context) {
-                  SharedPreferencesHelper.saveLocale(hasLocale: true);
-                  return const MainScreen();
-                }));
+                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    SharedPreferencesHelper.saveLocale(hasLocale: true);
+                    return const MainScreen();
+                  },
+                ), (Route<dynamic> route) => false);
               },
               child: Container(
                 padding: const EdgeInsets.all(10),

@@ -9,8 +9,8 @@ import 'package:space/hive%20boxes/journal_box.dart';
 import 'package:space/notification%20manager/notification_manager.dart';
 import 'package:space/provider/journal/journal_provider.dart';
 import 'package:space/provider/journal/journal_editor_provider.dart';
+import 'package:space/screens/journal/affirmation_screen.dart';
 import 'package:space/screens/localization/language_select_screen.dart';
-import 'package:space/screens/main_screen.dart';
 import 'package:space/utils/constants.dart';
 import 'package:space/utils/pref.dart';
 import 'package:space/utils/App%20State/app_state_provider.dart';
@@ -71,8 +71,8 @@ class MyApp extends StatelessWidget {
                   title: 'Space',
                   darkTheme: ThemeData.dark().copyWith(
                     primaryColor: kPrimaryColor,
-                    cardColor: const Color(0xFF294261),
-                    scaffoldBackgroundColor: const Color(0xff223254),
+                    cardColor: kDarkModeCardColor,
+                    scaffoldBackgroundColor: kDarkModeScaffoldColor,
                     textTheme: GoogleFonts.poppinsTextTheme(
                       Theme.of(context).textTheme,
                     ).apply(
@@ -82,8 +82,8 @@ class MyApp extends StatelessWidget {
                   ),
                   theme: ThemeData.light().copyWith(
                     primaryColor: kPrimaryColor,
-                    scaffoldBackgroundColor: Colors.white,
-                    cardColor: const Color(0xFFF2F2FA),
+                    scaffoldBackgroundColor: kLightModeScaffoldColor,
+                    cardColor: kLightModeCardColor,
                     textTheme: GoogleFonts.poppinsTextTheme(
                       Theme.of(context).textTheme,
                     ),
@@ -92,7 +92,7 @@ class MyApp extends StatelessWidget {
                       theme.isDarkMode ? ThemeMode.dark : ThemeMode.light,
                   home: SharedPreferencesHelper.hasSavedLocale() == true
                       ? const LanguageSelectScreen()
-                      : const MainScreen(),
+                      : const AffirmationScreen(),
                 );
               },
             );

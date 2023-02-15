@@ -1,15 +1,11 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:space/auth/local_auth/local_authentication.dart';
 import 'package:space/screens/account_screen.dart';
 import 'package:space/screens/journal/add_journal_screen.dart';
 import 'package:space/screens/journal/journals_screen.dart';
-import 'package:space/screens/localization/lanuage_string_data.dart';
 import 'package:space/utils/App%20State/app_state_provider.dart';
 import 'package:space/utils/constants.dart';
 import 'package:space/utils/pref.dart';
@@ -40,11 +36,18 @@ class _MainScreenState extends State<MainScreen> {
         return Scaffold(
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
-          floatingActionButton: Semantics(
-            label: 'Add Journal',
-            hint: 'Press to add journal',
-            child: FloatingActionButton(
-              backgroundColor: Theme.of(context).primaryColor,
+          floatingActionButton: SizedBox(
+            width: 60.h,
+            height: 60.h,
+            child: RawMaterialButton(
+              fillColor: kPrimaryColor,
+              shape: const CircleBorder(),
+              elevation: 0.0,
+              child: Icon(
+                Icons.add,
+                size: 40.sp,
+                color: Colors.white,
+              ),
               onPressed: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (BuildContext context) {
@@ -55,61 +58,31 @@ class _MainScreenState extends State<MainScreen> {
                   );
                 });
               },
-              child: Icon(
-                Icons.add,
-                color: Theme.of(context).textTheme.titleLarge?.color,
-              ),
             ),
           ),
-          bottomNavigationBar: Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).scaffoldBackgroundColor,
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 20.r,
-                  color: Colors.black.withOpacity(.1),
-                )
-              ],
+          bottomNavigationBar: NavigationBarTheme(
+            data: NavigationBarThemeData(
+              backgroundColor: getColorbyTheme(context),
+              indicatorColor: kPrimaryColor,
             ),
-            child: SafeArea(
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
-                child: GNav(
-                  rippleColor: Colors.grey[300]!,
-                  hoverColor: Colors.grey[100]!,
-                  gap: 8,
-                  activeColor: Colors.black,
-                  iconSize: 24.r,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  duration: const Duration(milliseconds: 400),
-                  tabBackgroundColor: Theme.of(context).primaryColor,
-                  color: Colors.black,
-                  tabs: [
-                    GButton(
-                      icon: CupertinoIcons.layers,
-                      text: LanguageData.journals.tr(),
-                      iconColor: Theme.of(context).textTheme.titleLarge?.color,
-                      iconActiveColor:
-                          Theme.of(context).textTheme.titleLarge?.color,
-                      textColor: Theme.of(context).textTheme.titleLarge?.color,
-                    ),
-                    GButton(
-                      icon: CupertinoIcons.settings,
-                      text: LanguageData.settings.tr(),
-                      iconColor: Theme.of(context).textTheme.titleLarge?.color,
-                      iconActiveColor:
-                          Theme.of(context).textTheme.titleLarge?.color,
-                      textColor: Theme.of(context).textTheme.titleLarge?.color,
-                    ),
-                  ],
-                  selectedIndex: value.pageState,
-                  onTabChange: (index) {
-                    value.updatePage(index);
-                  },
+            child: NavigationBar(
+              labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+              height: 60.h,
+              elevation: 10,
+              onDestinationSelected: (int index) {
+                value.updatePage(index);
+              },
+              selectedIndex: value.pageState,
+              destinations: const <Widget>[
+                NavigationDestination(
+                  icon: Icon(Icons.notes),
+                  label: 'Journals',
                 ),
-              ),
+                NavigationDestination(
+                  icon: Icon(Icons.settings),
+                  label: 'Settings',
+                ),
+              ],
             ),
           ),
           body: _screens[value.pageState],

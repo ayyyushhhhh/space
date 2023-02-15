@@ -44,10 +44,13 @@ class _AddJournalPageWidgetState extends State<AddJournalPageWidget> {
   Widget build(BuildContext context) {
     return Consumer<JournalEditorProvider>(
       builder: (BuildContext context, value, Widget? child) {
+        index = value.index;
+
         return WillPopScope(
           onWillPop: () async {
             if (index == 0) {
               Navigator.pop(context);
+              return false;
             }
             index -= 1;
             value.updateIndex(index);
@@ -71,13 +74,13 @@ class _AddJournalPageWidgetState extends State<AddJournalPageWidget> {
                   ),
                 ),
               ),
-              if (value.index <= 2)
+              if (index <= 2)
                 SingleChildScrollView(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      journalPages[value.index],
+                      journalPages[index],
                       SizedBox(
                         height: 10.h,
                       ),
@@ -105,6 +108,7 @@ class _AddJournalPageWidgetState extends State<AddJournalPageWidget> {
                             return;
                           }
                           index += 1;
+
                           value.updateIndex(index);
                         },
                         child: Container(
@@ -130,8 +134,7 @@ class _AddJournalPageWidgetState extends State<AddJournalPageWidget> {
                     ],
                   ),
                 ),
-              if (value.index == 3)
-                ViewJournalScreen(journalModel: journalModel),
+              if (index == 3) ViewJournalScreen(journalModel: journalModel),
             ],
           )),
         );
