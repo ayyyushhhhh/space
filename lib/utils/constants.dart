@@ -17,3 +17,10 @@ Color? getColorbyTheme(BuildContext context) {
   }
   return kLightModeScaffoldColor;
 }
+
+Color? getTextColorbyTheme(BuildContext context) {
+  if (Provider.of<AppStateProvider>(context, listen: false).isDarkMode) {
+    return Colors.white;
+  }
+  return kPrimaryTextColor;
+}

@@ -61,8 +61,7 @@ class AccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Theme.of(context)
-          .scaffoldBackgroundColor, //or set color with: Color(0xFF0000FF)
+      statusBarColor: Theme.of(context).scaffoldBackgroundColor,
     ));
     return SafeArea(
       child: Scaffold(

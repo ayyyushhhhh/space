@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:space/models/journals/journal_model.dart';
 import 'package:space/provider/journal/journal_provider.dart';
 import 'package:space/screens/journal/view_journal_screen.dart';
+import 'package:space/utils/constants.dart';
 
 class JournalWidget extends StatelessWidget {
   final JournalModel journalModel;
@@ -23,13 +24,14 @@ class JournalWidget extends StatelessWidget {
             builder: (BuildContext context) {
               return ViewJournalScreen(
                 journalModel: journalModel,
+                readOnly: true,
               );
             },
           ),
         ).then((value) {
-          SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-              statusBarColor: Theme.of(context)
-                  .primaryColor //or set color with: Color(0xFF0000FF)
+          SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+              statusBarColor:
+                  kSecondaryColor //or set color with: Color(0xFF0000FF)
               ));
         });
       },
@@ -62,12 +64,13 @@ class JournalWidget extends StatelessWidget {
           ],
         ),
         child: Container(
-          margin: const EdgeInsets.all(10),
-          height: 140.h,
+          margin:
+              const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+          height: 120.h,
           width: double.infinity,
           decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(
-                Radius.circular(10),
+                Radius.circular(20),
               ),
               color: Theme.of(context).cardColor),
           child: Row(
@@ -77,8 +80,8 @@ class JournalWidget extends StatelessWidget {
                 width: 20.w,
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    bottomLeft: Radius.circular(10),
+                    topLeft: Radius.circular(20),
+                    bottomLeft: Radius.circular(20),
                   ),
                   color: journalModel.color,
                 ),
@@ -95,7 +98,7 @@ class JournalWidget extends StatelessWidget {
                           Text(
                             DateFormat.jm().format(journalModel.createdOn),
                             style: TextStyle(
-                                fontSize: 10.sp, fontWeight: FontWeight.bold),
+                                fontSize: 10.sp, fontWeight: FontWeight.w400),
                           ),
                           SizedBox(
                             width: 10.w,
@@ -113,7 +116,8 @@ class JournalWidget extends StatelessWidget {
                                   journalModel.mood.capitalize(),
                                   style: TextStyle(
                                       fontSize: 10.sp,
-                                      fontWeight: FontWeight.w500),
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.white),
                                 ),
                                 SvgPicture.asset(
                                   "assets/emojis/${journalModel.mood}.svg",
@@ -129,7 +133,9 @@ class JournalWidget extends StatelessWidget {
                         journalModel.title,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                            fontSize: 20.sp, fontWeight: FontWeight.bold),
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500,
+                            color: getTextColorbyTheme(context)),
                       ),
                       SizedBox(
                         height: 40,
@@ -139,7 +145,9 @@ class JournalWidget extends StatelessWidget {
                           softWrap: true,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                              fontSize: 10.sp, fontWeight: FontWeight.w400),
+                              fontSize: 10.sp,
+                              fontWeight: FontWeight.w400,
+                              color: getTextColorbyTheme(context)),
                         ),
                       ),
                     ],

@@ -19,8 +19,9 @@ class JournalsScreen extends StatefulWidget {
 class _JournalsScreenState extends State<JournalsScreen> {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-        const SystemUiOverlayStyle(statusBarColor: kSecondaryColor));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: kSecondaryColor,
+        systemNavigationBarColor: getColorbyTheme(context)));
     return Scaffold(
         body: CustomScrollView(
       slivers: [
@@ -45,7 +46,7 @@ class _JournalsScreenState extends State<JournalsScreen> {
               LanguageData.yourThoughts,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 30.sp,
+                fontSize: 24.sp,
                 fontWeight: FontWeight.w500,
               ),
             ).tr(),

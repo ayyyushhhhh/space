@@ -31,21 +31,25 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      systemNavigationBarColor: Colors.blue,
+      statusBarColor: Colors.pink,
+    ));
     return Consumer<AppStateProvider>(
       builder: (BuildContext context, value, Widget? child) {
         return Scaffold(
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
           floatingActionButton: SizedBox(
-            width: 60.h,
-            height: 60.h,
+            width: 70.h,
+            height: 70.h,
             child: RawMaterialButton(
               fillColor: kPrimaryColor,
               shape: const CircleBorder(),
               elevation: 0.0,
               child: Icon(
                 Icons.add,
-                size: 40.sp,
+                size: 50.sp,
                 color: Colors.white,
               ),
               onPressed: () {
@@ -60,6 +64,31 @@ class _MainScreenState extends State<MainScreen> {
               },
             ),
           ),
+          // bottomNavigationBar: Container(
+          //   height: 70.h,
+          //   padding: const EdgeInsets.all(5),
+          //   decoration: const BoxDecoration(
+          //     color: Colors.white,
+          //     borderRadius: BorderRadius.only(
+          //       topLeft: Radius.circular(20),
+          //       topRight: Radius.circular(20),
+          //     ),
+          //   ),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.start,
+          //     children: [
+          //       SizedBox(
+          //         width: 20.w,
+          //       ),
+          //       _renderBottomNavBarWidget(
+          //           iconData: Icons.notes,
+          //           label: 'Journals',
+          //           currentIndex: 0,
+          //           selectedIndex: value.pageState),
+          //     ],
+          //   ),
+          // ),
+
           bottomNavigationBar: NavigationBarTheme(
             data: NavigationBarThemeData(
               backgroundColor: getColorbyTheme(context),
@@ -95,5 +124,50 @@ class _MainScreenState extends State<MainScreen> {
     if (SharedPreferencesHelper.getAuthPermission() == true) {
       await LocalAuthApi.authenticate();
     }
+  }
+
+  Widget _renderBottomNavBarWidget(
+      {required IconData iconData,
+      required String label,
+      required int currentIndex,
+      required int selectedIndex}) {
+    Color widgetColor =
+        currentIndex == selectedIndex ? Colors.white : Colors.black;
+    Color containercolor =
+        currentIndex == selectedIndex ? kPrimaryColor : Colors.transparent;
+    return Container(
+      padding: const EdgeInsets.all(5),
+      decoration: const BoxDecoration(
+        color: kPrimaryColor,
+        borderRadius: BorderRadius.all(
+          Radius.circular(30),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          SizedBox(
+            width: 10.w,
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Icon(
+                iconData,
+                size: 20.r,
+                color: widgetColor,
+              ),
+              Text(
+                label,
+                style: TextStyle(fontSize: 14.sp, color: widgetColor),
+              )
+            ],
+          ),
+          SizedBox(
+            width: 10.w,
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -15,8 +15,10 @@ import 'package:space/widgets/journal/journal_icon_button.dart';
 
 class ViewJournalScreen extends StatefulWidget {
   final JournalModel journalModel;
+  final bool readOnly;
 
-  const ViewJournalScreen({super.key, required this.journalModel});
+  const ViewJournalScreen(
+      {super.key, required this.journalModel, required this.readOnly});
 
   @override
   State<ViewJournalScreen> createState() => _ViewJournalScreenState();
@@ -43,7 +45,8 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
             children: [
               Container(
                 color: Theme.of(context).scaffoldBackgroundColor,
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.only(
+                    left: 20, right: 20, top: 10, bottom: 10),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,6 +54,12 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        if (widget.readOnly)
+                          JournalIconButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              iconData: Icons.close),
                         const Spacer(),
                         SizedBox(
                           width: 10.w,
@@ -78,7 +87,10 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                           hint: 'Press to save journal',
                           child: JournalIconButton(
                             onPressed: () {
-                              _saveJournal();
+                              if (!widget.readOnly) {
+                                _saveJournal();
+                              }
+
                               Navigator.pop(context);
                             },
                             iconData: CupertinoIcons.check_mark,
@@ -107,13 +119,16 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
               ),
               InkWell(
                 onTap: () {
-                  Provider.of<JournalEditorProvider>(context, listen: false)
-                      .updateIndex(0);
+                  if (widget.readOnly == false) {
+                    Provider.of<JournalEditorProvider>(context, listen: false)
+                        .updateIndex(0);
+                  }
                 },
                 child: Container(
                   height: 60.h,
                   width: double.infinity,
-                  margin: const EdgeInsets.all(10),
+                  margin: const EdgeInsets.only(
+                      left: 20, right: 20, top: 10, bottom: 10),
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
@@ -122,13 +137,16 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      SizedBox(
+                        width: 10.w,
+                      ),
                       SvgPicture.asset(
                         "assets/emojis/${journalModel.mood}.svg",
                         height: 35.h,
                         width: 35.w,
                       ),
                       SizedBox(
-                        width: 10.w,
+                        width: 20.w,
                       ),
                       Text(
                         journalModel.mood.capitalize(),
@@ -147,14 +165,17 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
               ),
               InkWell(
                 onTap: () {
-                  Provider.of<JournalEditorProvider>(context, listen: false)
-                      .updateIndex(1);
+                  if (widget.readOnly == false) {
+                    Provider.of<JournalEditorProvider>(context, listen: false)
+                        .updateIndex(1);
+                  }
                 },
                 child: Container(
                   width: double.infinity,
-                  height: 50.h,
+                  height: 60.h,
                   padding: const EdgeInsets.all(10),
-                  margin: const EdgeInsets.only(left: 10, right: 10),
+                  margin: const EdgeInsets.only(
+                      left: 20, right: 20, top: 10, bottom: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: kTextFieldColor),
@@ -170,12 +191,15 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                 flex: 1,
                 child: InkWell(
                   onTap: () {
-                    Provider.of<JournalEditorProvider>(context, listen: false)
-                        .updateIndex(2);
+                    if (widget.readOnly == false) {
+                      Provider.of<JournalEditorProvider>(context, listen: false)
+                          .updateIndex(2);
+                    }
                   },
                   child: Container(
                     width: double.infinity,
-                    margin: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.only(
+                        left: 20, right: 20, top: 10, bottom: 20),
                     padding: const EdgeInsets.all(10),
                     decoration: const BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(10)),

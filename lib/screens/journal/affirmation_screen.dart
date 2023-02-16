@@ -29,13 +29,13 @@ class AffirmationScreen extends StatelessWidget {
                   end: Alignment.bottomCenter,
                   colors: [Colors.white, Colors.transparent],
                 ).createShader(
-                    Rect.fromLTRB(0, 0, rect.width, rect.height * 1.20));
+                    Rect.fromLTRB(0, 0, rect.width, rect.height * 1.50));
               },
               blendMode: BlendMode.dstIn,
               child: SvgPicture.asset(
                 "assets/illustrations/lets_dig_in.svg",
-                height: 400.h,
-                width: 300.w,
+                height: 520.h,
+                width: 350.w,
               ),
             ),
             SizedBox(
@@ -46,6 +46,7 @@ class AffirmationScreen extends StatelessWidget {
               "${affirmations[Random().nextInt(affirmations.length)]}"
               "\"",
               textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 14, color: kSecondaryTextColor),
             ),
             SizedBox(
               height: 10.h,

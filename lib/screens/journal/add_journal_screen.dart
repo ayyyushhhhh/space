@@ -134,7 +134,11 @@ class _AddJournalPageWidgetState extends State<AddJournalPageWidget> {
                     ],
                   ),
                 ),
-              if (index == 3) ViewJournalScreen(journalModel: journalModel),
+              if (index == 3)
+                ViewJournalScreen(
+                  journalModel: journalModel,
+                  readOnly: false,
+                ),
             ],
           )),
         );

@@ -38,7 +38,9 @@ class MoodSelectWidget extends StatelessWidget {
                 ),
                 Text(
                   emoji.capitalize(),
-                  style: TextStyle(fontSize: 10.sp, color: Colors.black),
+                  style: TextStyle(
+                      fontSize: 10.sp,
+                      color: mood.mood == emoji ? Colors.white : Colors.black),
                 ),
               ],
             ),
