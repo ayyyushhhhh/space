@@ -41,8 +41,8 @@ class AccountScreen extends StatelessWidget {
               child: const Text('Set'),
               onPressed: () {
                 NotificationManger.showNotificationDaily(
-                  title: "",
-                  body: "Knock Knock! It's time to write",
+                  title: "Had a Rough Day? ",
+                  body: "Why don't you write it out?",
                   time: Time(
                     _notificationTime.inHours,
                     _notificationTime.inMinutes.remainder(60),
@@ -60,9 +60,12 @@ class AccountScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Theme.of(context).scaffoldBackgroundColor,
-    ));
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Theme.of(context).scaffoldBackgroundColor,
+        systemNavigationBarColor: getColorbyTheme(context),
+      ),
+    );
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -194,17 +197,17 @@ class AccountScreen extends StatelessWidget {
                                           .saveAuthPermission(_canNotify);
                                       return;
                                     }
+                                    SharedPreferencesHelper.saveAuthPermission(
+                                        _canNotify);
                                     NotificationManger.showNotificationDaily(
-                                      title: "",
-                                      body: "Knock Knock! It's time to write",
+                                      title: "Have Something to Write?",
+                                      body: "Add it to your Journal!",
                                       time: Time(
                                         _notificationTime.inHours,
                                         _notificationTime.inMinutes
                                             .remainder(60),
                                       ),
                                     );
-                                    SharedPreferencesHelper.saveAuthPermission(
-                                        _canNotify);
                                   },
                                 );
                               }),

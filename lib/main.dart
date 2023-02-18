@@ -15,7 +15,7 @@ import 'package:space/utils/pref.dart';
 import 'package:space/utils/App%20State/app_state_provider.dart';
 import 'package:timezone/data/latest_10y.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   initializeTimeZones();
   final dir = await getApplicationDocumentsDirectory();

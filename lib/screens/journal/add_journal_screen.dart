@@ -62,7 +62,7 @@ class _AddJournalPageWidgetState extends State<AddJournalPageWidget> {
             clipBehavior: Clip.antiAlias,
             children: [
               Blur(
-                blur: 2,
+                blur: 4,
                 blurColor: Colors.white,
                 child: Positioned.fill(
                   child: SvgPicture.asset(
@@ -70,7 +70,7 @@ class _AddJournalPageWidgetState extends State<AddJournalPageWidget> {
                     alignment: Alignment.center,
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
-                    fit: BoxFit.fill,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),

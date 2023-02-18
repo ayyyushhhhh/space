@@ -70,7 +70,10 @@ class MoodSelectWidget extends StatelessWidget {
             children: [
               Text(
                 "How Are You Feeling Right Now?",
-                style: TextStyle(fontSize: 18.sp, color: Colors.black),
+                style: TextStyle(fontSize: 20.sp, color: Colors.black),
+              ),
+              SizedBox(
+                height: 5.h,
               ),
               Column(
                 children: [

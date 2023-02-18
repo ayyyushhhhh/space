@@ -98,20 +98,23 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                         ),
                       ],
                     ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
                     Text(
                       DateFormat('EEEE', context.locale.toString())
                           .format(journalModel.createdOn),
                       style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30.sp,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 28.sp,
                           color: kPrimaryColor),
                     ).tr(),
                     Text(
                       DateFormat('d, MMMM, yyyy', context.locale.toString())
                           .format(journalModel.createdOn),
                       style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 18.sp,
                       ),
                     ),
                   ],
@@ -132,7 +135,7 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: kTextFieldColor),
+                      color: getTextFieldColorbyTheme(context)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -150,14 +153,17 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                       ),
                       Text(
                         journalModel.mood.capitalize(),
-                        style: TextStyle(fontSize: 16.sp, color: Colors.black),
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          color: getTextColorbyTheme(context),
+                        ),
                       ),
                       const Expanded(
                         child: SizedBox(),
                       ),
-                      const Icon(
+                      Icon(
                         CupertinoIcons.right_chevron,
-                        color: Colors.black,
+                        color: getTextColorbyTheme(context),
                       )
                     ],
                   ),
@@ -178,12 +184,12 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                       left: 20, right: 20, top: 10, bottom: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: kTextFieldColor),
+                      color: getTextFieldColorbyTheme(context)),
                   child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
                         widget.journalModel.title,
-                        style: const TextStyle(color: Colors.black),
+                        style: TextStyle(color: getTextColorbyTheme(context)),
                       )),
                 ),
               ),
@@ -201,16 +207,17 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                     margin: const EdgeInsets.only(
                         left: 20, right: 20, top: 10, bottom: 20),
                     padding: const EdgeInsets.all(10),
-                    decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: kTextFieldColor),
+                    decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(10)),
+                        color: getTextFieldColorbyTheme(context)),
                     child: Align(
                       alignment: Alignment.topLeft,
                       child: SingleChildScrollView(
                         scrollDirection: Axis.vertical,
                         child: Text(
                           journalModel.description,
-                          style: const TextStyle(color: Colors.black),
+                          style: TextStyle(color: getTextColorbyTheme(context)),
                         ),
                       ),
                     ),

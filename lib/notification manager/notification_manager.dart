@@ -17,7 +17,7 @@ class NotificationManger {
 
   static Future init({bool initSchedule = false}) async {
     AndroidInitializationSettings androidSettings =
-        const AndroidInitializationSettings("@mipmap/ic_launcher");
+        const AndroidInitializationSettings("@mipmap/not_launcher");
     InitializationSettings initializationSettings =
         InitializationSettings(android: androidSettings);
 
