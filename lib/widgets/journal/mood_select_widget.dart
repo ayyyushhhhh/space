@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/cli_commands.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:space/provider/journal/journal_editor_provider.dart';
 import 'package:space/utils/constants.dart';
+import 'package:space/utils/utils_functions.dart';
 
 class MoodSelectWidget extends StatelessWidget {
   const MoodSelectWidget({super.key});
@@ -37,7 +37,7 @@ class MoodSelectWidget extends StatelessWidget {
                   height: 5.h,
                 ),
                 Text(
-                  emoji.capitalize(),
+                  emoji.toTitleCase(),
                   style: TextStyle(
                       fontSize: 10.sp,
                       color: mood.mood == emoji ? Colors.white : Colors.black),

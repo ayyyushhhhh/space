@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_native_splash/cli_commands.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/svg.dart';
@@ -11,6 +10,7 @@ import 'package:space/models/journals/journal_model.dart';
 import 'package:space/provider/journal/journal_provider.dart';
 import 'package:space/screens/journal/view_journal_screen.dart';
 import 'package:space/utils/constants.dart';
+import 'package:space/utils/utils_functions.dart';
 
 class JournalWidget extends StatelessWidget {
   final JournalModel journalModel;
@@ -113,7 +113,7 @@ class JournalWidget extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
-                                  journalModel.mood.capitalize(),
+                                  journalModel.mood.toTitleCase(),
                                   style: TextStyle(
                                       fontSize: 10.sp,
                                       fontWeight: FontWeight.w400,

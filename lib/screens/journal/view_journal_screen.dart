@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/cli_commands.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,6 +10,7 @@ import 'package:space/models/journals/journal_model.dart';
 import 'package:space/provider/journal/journal_editor_provider.dart';
 import 'package:space/provider/journal/journal_provider.dart';
 import 'package:space/utils/constants.dart';
+import 'package:space/utils/utils_functions.dart';
 import 'package:space/widgets/journal/journal_icon_button.dart';
 
 class ViewJournalScreen extends StatefulWidget {
@@ -152,7 +152,7 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                         width: 20.w,
                       ),
                       Text(
-                        journalModel.mood.capitalize(),
+                        journalModel.mood.toTitleCase(),
                         style: TextStyle(
                           fontSize: 16.sp,
                           color: getTextColorbyTheme(context),
