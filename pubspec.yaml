@@ -4,7 +4,7 @@ description: Space is a mental health journaling app for you! Our app is designe
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.4+5
+version: 1.0.5+6
 
 environment:
   sdk: '>=2.18.6 <3.0.0'
@@ -27,9 +27,11 @@ dependencies:
   flutter_local_notifications: ^13.0.0
   timezone: ^0.9.1
   flutter_slidable: ^2.0.0
-  google_nav_bar: ^5.0.6
   flutter_svg: ^1.1.6
   easy_localization: ^3.0.1
+  flutter_native_splash: ^2.2.18
+  permission_handler: ^10.2.0
+  url_launcher: ^6.1.9
   
 
 dev_dependencies:
@@ -47,6 +49,7 @@ flutter:
   assets:
     - assets/translations/
     - google_fonts/
+    - assets/res/
     - assets/emojis/
     - assets/illustrations/
 

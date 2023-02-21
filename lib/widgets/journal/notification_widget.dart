@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:space/notification%20manager/notification_manager.dart';
 import 'package:space/screens/localization/lanuage_string_data.dart';
 import 'package:space/utils/constants.dart';
@@ -57,6 +58,12 @@ class NotificationWidget extends StatelessWidget {
     );
   }
 
+  void requestNotificationPermission() async {
+    if (await Permission.notification.isDenied) {
+      await Permission.notification.request();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -91,12 +98,14 @@ class NotificationWidget extends StatelessWidget {
                       setState(
                         () {
                           _canNotify = value;
+
                           if (value == false) {
                             NotificationManger.cancelNotificationDaily();
                             SharedPreferencesHelper.saveAuthPermission(
                                 _canNotify);
                             return;
                           }
+                          requestNotificationPermission();
                           SharedPreferencesHelper.saveAuthPermission(
                               _canNotify);
                           _showNotification();

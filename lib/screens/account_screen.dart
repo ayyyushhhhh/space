@@ -7,6 +7,7 @@ import 'package:space/auth/local_auth/local_authentication.dart';
 import 'package:space/screens/localization/lanuage_string_data.dart';
 import 'package:space/utils/constants.dart';
 import 'package:space/utils/pref.dart';
+import 'package:space/utils/utils_functions.dart';
 import 'package:space/widgets/journal/notification_widget.dart';
 
 import '../widgets/theme/theme_switch.dart';
@@ -115,6 +116,34 @@ class AccountScreen extends StatelessWidget {
                 ),
               ),
               NotificationWidget(),
+              InkWell(
+                onTap: () {
+                  openPlayStore();
+                },
+                child: Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).cardColor,
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(10))),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Rate Us",
+                        style: TextStyle(fontSize: 16.sp),
+                      ),
+                      Text(
+                        "We would love to know what you think of our app",
+                        style: TextStyle(fontSize: 8.sp),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),
