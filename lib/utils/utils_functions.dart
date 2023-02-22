@@ -10,9 +10,15 @@ extension StringCasingExtension on String {
 }
 
 Future<void> openPlayStore() async {
-  Uri url = Uri.parse(
-      "https://play.google.com/store/apps/details?id=com.scarecrowhouse.space");
-  if (!await launchUrl(url)) {
-    throw Exception('Could not launch $url');
+  String playStoreLink =
+      "https://play.google.com/store/apps/details?id=com.scarecrowhouse.space";
+
+  final uri = Uri.parse(playStoreLink);
+  if (await canLaunchUrl(uri)) {
+    await launchUrl(
+      uri,
+      mode: LaunchMode.externalApplication,
+    );
+    return;
   }
 }
