@@ -12,11 +12,20 @@ const Color kDarkModeCardColor = Color(0xFF294261);
 const Color kLightModeScaffoldColor = Colors.white;
 const Color kLightModeCardColor = Color(0xFFF2F2FA);
 const Color kDarkModeTextFieldColor = Color(0xFF3C3C56);
+const Color kLightModeBottomNavBarColor = Color(0xFFF2F2FA);
+const Color kDarkModeBottomNavBarColor = Color(0xFF232c3d);
 Color? getColorbyTheme(BuildContext context) {
   if (Provider.of<AppStateProvider>(context, listen: false).isDarkMode) {
     return kDarkModeScaffoldColor;
   }
   return kLightModeScaffoldColor;
+}
+
+Color? getBottomNavBarColorbyTheme(BuildContext context) {
+  if (Provider.of<AppStateProvider>(context, listen: false).isDarkMode) {
+    return kDarkModeBottomNavBarColor;
+  }
+  return kLightModeBottomNavBarColor;
 }
 
 Color? getTextColorbyTheme(BuildContext context) {

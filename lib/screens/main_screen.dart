@@ -7,6 +7,8 @@ import 'package:space/screens/journal/add_journal_screen.dart';
 import 'package:space/screens/journal/journals_screen.dart';
 import 'package:space/utils/App%20State/app_state_provider.dart';
 import 'package:space/utils/constants.dart';
+import 'package:space/widgets/Bottom%20Nav%20Bar/bottom_nar_bar.dart';
+import 'package:space/widgets/Bottom%20Nav%20Bar/bottom_nav_bar_widget.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -56,34 +58,26 @@ class _MainScreenState extends State<MainScreen> {
               },
             ),
           ),
-          bottomNavigationBar: NavigationBarTheme(
-            data: NavigationBarThemeData(
-              backgroundColor: getColorbyTheme(context),
-              indicatorColor: kPrimaryColor,
-            ),
-            child: NavigationBar(
-              labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-              height: 60.h,
-              elevation: 10,
-              onDestinationSelected: (int index) {
-                value.updatePage(index);
-              },
-              selectedIndex: value.pageState,
-              destinations: const <Widget>[
-                NavigationDestination(
-                  icon: Icon(
-                    Icons.notes,
-                  ),
-                  label: 'Journals',
-                ),
-                NavigationDestination(
-                  icon: Icon(Icons.settings),
-                  label: 'Settings',
-                ),
-              ],
-            ),
-          ),
+          extendBody: true,
           body: _screens[value.pageState],
+          bottomNavigationBar: BottomRoundedNavBar(
+            items: [
+              BottomNavBarWidget(
+                iconData: Icons.notes,
+                iconSize: 20.r,
+                label: 'Journals',
+              ),
+              BottomNavBarWidget(
+                iconData: Icons.settings,
+                iconSize: 20.r,
+                label: 'Settings',
+              ),
+            ],
+            currentIndex: value.pageState,
+            onChanged: (int index) {
+              value.updatePage(index);
+            },
+          ),
         );
       },
     );

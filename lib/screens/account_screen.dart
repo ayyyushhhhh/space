@@ -23,7 +23,7 @@ class AccountScreen extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         statusBarColor: Theme.of(context).scaffoldBackgroundColor,
-        systemNavigationBarColor: getColorbyTheme(context),
+        systemNavigationBarColor: getBottomNavBarColorbyTheme(context),
       ),
     );
     return SafeArea(

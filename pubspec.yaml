@@ -32,6 +32,7 @@ dependencies:
   flutter_native_splash: ^2.2.18
   permission_handler: ^10.2.0
   url_launcher: ^6.1.9
+  custom_navigation_bar: ^0.8.2
   
 
 dev_dependencies:
