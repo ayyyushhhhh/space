@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -63,7 +64,7 @@ class _MainScreenState extends State<MainScreen> {
           bottomNavigationBar: BottomRoundedNavBar(
             items: [
               BottomNavBarWidget(
-                iconData: Icons.notes,
+                iconData: CupertinoIcons.layers,
                 iconSize: 20.r,
                 label: 'Journals',
               ),

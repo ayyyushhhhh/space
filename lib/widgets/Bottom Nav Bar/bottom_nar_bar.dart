@@ -15,27 +15,28 @@ class BottomRoundedNavBar extends StatelessWidget {
       required this.onChanged,
       this.height = 80});
 
-  Color _buildColor(int index) {
+  Color _buildColor(int index, BuildContext context) {
     if (index == currentIndex) {
       return Colors.white;
     }
+
     return Colors.black;
   }
 
-  _buildBottomNavbarWidget(int index) {
+  _buildBottomNavbarWidget(int index, BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Icon(
           items[index].iconData,
-          color: _buildColor(index),
+          color: _buildColor(index, context),
           size: items[index].iconSize,
         ),
         Text(
           items[index].label,
           style: TextStyle(
-            color: _buildColor(index),
+            color: _buildColor(index, context),
           ),
         ),
       ],
@@ -76,7 +77,7 @@ class BottomRoundedNavBar extends StatelessWidget {
                 ),
                 padding: const EdgeInsets.symmetric(
                     horizontal: 10.0, vertical: 10.0),
-                child: _buildBottomNavbarWidget(i),
+                child: _buildBottomNavbarWidget(i, context),
               ),
             )
         ],
