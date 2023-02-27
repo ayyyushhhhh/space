@@ -60,8 +60,11 @@ class _JournalsScreenState extends State<JournalsScreen> {
             if (journals.isEmpty) {
               return SliverToBoxAdapter(
                   child: Padding(
-                      padding: EdgeInsets.all(10.r),
-                      child: const Center(child: Text("Oops Nothing Found!"))));
+                padding: EdgeInsets.all(10.r),
+                child: const Center(
+                  child: Text("Oops Nothing Found!"),
+                ),
+              ));
             }
             return SliverList(
               delegate: SliverChildBuilderDelegate(
@@ -73,6 +76,9 @@ class _JournalsScreenState extends State<JournalsScreen> {
             );
           },
         ),
+        SliverToBoxAdapter(
+          child: SizedBox(height: 80.h),
+        )
       ],
     ));
   }

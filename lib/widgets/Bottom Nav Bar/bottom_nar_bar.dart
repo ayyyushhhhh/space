@@ -23,7 +23,7 @@ class BottomRoundedNavBar extends StatelessWidget {
     return Colors.black;
   }
 
-  _buildBottomNavbarWidget(int index, BuildContext context) {
+  Widget _buildBottomNavbarWidget(int index, BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
