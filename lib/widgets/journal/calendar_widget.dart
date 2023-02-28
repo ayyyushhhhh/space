@@ -15,6 +15,7 @@ class CalendarWidget extends StatelessWidget {
       builder: (BuildContext context, value, Widget? child) {
         return TableCalendar(
           rowHeight: 80.h,
+          headerVisible: true,
           headerStyle: HeaderStyle(
               formatButtonVisible: false,
               titleTextFormatter: (date, locale) {
@@ -118,33 +119,6 @@ class CalendarWidget extends StatelessWidget {
                   ),
                 ),
               );
-
-              // return Center(
-              //   child: Column(
-              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //     children: [
-              //       Text(
-              //         DateFormat.E().format(dateTime),
-              //         style: TextStyle(
-              //           color: Colors.blueGrey,
-              //           fontSize: 10.sp,
-              //           fontWeight: FontWeight.bold,
-              //         ),
-              //       ),
-              //       const SizedBox(
-              //         height: 5,
-              //       ),
-              //       Text(
-              //         DateFormat.d().format(dateTime),
-              //         style: TextStyle(
-              //           // color: Colors.white,
-              //           fontSize: 10.sp,
-              //           fontWeight: FontWeight.bold,
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // );
             },
             selectedBuilder: (context, day, focusedDay) {
               return Container(

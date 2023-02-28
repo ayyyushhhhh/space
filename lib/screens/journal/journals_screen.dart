@@ -80,7 +80,7 @@ class _JournalsScreenState extends State<JournalsScreen> {
         ),
         SliverToBoxAdapter(
           child: SizedBox(height: 80.h),
-        )
+        ),
       ],
     ));
   }
