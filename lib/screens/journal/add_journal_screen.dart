@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -27,7 +26,6 @@ class _AddJournalPageWidgetState extends State<AddJournalPageWidget>
   final TextEditingController _notesEditingController = TextEditingController();
   late JournalModel _journalModel;
   final List<Widget> _journalPages = [];
-
   int _index = 0;
 
   @override
@@ -77,73 +75,66 @@ class _AddJournalPageWidgetState extends State<AddJournalPageWidget>
                 ),
               ),
               if (_index <= 2)
-                PageTransitionSwitcher(
-                  duration: const Duration(milliseconds: 500),
-                  transitionBuilder: (Widget child,
-                      Animation<double> primaryAnimation,
-                      Animation<double> secondaryAnimation) {
-                    return SlideTransition(
-                      position: Tween<Offset>(
-                        begin: Offset.zero,
-                        end: const Offset(1.5, 0.0),
-                      ).animate(secondaryAnimation),
-                      child: FadeTransition(
-                        opacity: Tween<double>(
-                          begin: 0.0,
-                          end: 1.0,
-                        ).animate(primaryAnimation),
-                        child: child,
-                      ),
-                    );
-                  },
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        _journalPages[_index],
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            if (value.index == 2) {
-                              _journalModel = _createJournal(context);
-                            }
-                            if (_index == 1 &&
-                                _titleEditingController.text == "") {
-                              return;
-                            }
-                            if (_index == 2 &&
-                                _notesEditingController.text == "") {
-                              return;
-                            }
-                            _index += 1;
-
-                            value.updateIndex(_index);
+                SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 200),
+                          transitionBuilder:
+                              (Widget child, Animation<double> animation) {
+                            return SlideTransition(
+                              position: Tween(
+                                begin: const Offset(1, 0),
+                                end: Offset.zero,
+                              ).animate(animation),
+                              child: child,
+                            );
                           },
-                          child: Container(
-                            padding: const EdgeInsets.all(10),
-                            margin: const EdgeInsets.all(10),
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: kPrimaryColor,
-                              borderRadius: BorderRadius.circular(40),
-                            ),
-                            child: Center(
-                              child: Text(
-                                "Next",
-                                style: TextStyle(
-                                  fontSize: 24.sp,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                          child: _journalPages[value.index]),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          if (value.index == 2) {
+                            _journalModel = _createJournal(context);
+                          }
+                          if (_index == 1 &&
+                              _titleEditingController.text == "") {
+                            return;
+                          }
+                          if (_index == 2 &&
+                              _notesEditingController.text == "") {
+                            return;
+                          }
+                          _index += 1;
+
+                          value.updateIndex(_index);
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          margin: const EdgeInsets.all(10),
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: kPrimaryColor,
+                            borderRadius: BorderRadius.circular(40),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Next",
+                              style: TextStyle(
+                                fontSize: 24.sp,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
                           ),
-                        )
-                      ],
-                    ),
+                        ),
+                      )
+                    ],
                   ),
                 ),
               if (_index == 3)

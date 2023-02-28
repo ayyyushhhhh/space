@@ -64,7 +64,8 @@ class BottomRoundedNavBar extends StatelessWidget {
               onTap: () {
                 onChanged(i);
               },
-              child: Container(
+              child: AnimatedContainer(
+                width: 80.w,
                 decoration: BoxDecoration(
                   color: i == currentIndex ? kPrimaryColor : Colors.transparent,
                   shape: BoxShape.rectangle,
@@ -77,6 +78,8 @@ class BottomRoundedNavBar extends StatelessWidget {
                 ),
                 padding: const EdgeInsets.symmetric(
                     horizontal: 10.0, vertical: 10.0),
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.linearToEaseOut,
                 child: _buildBottomNavbarWidget(i, context),
               ),
             )

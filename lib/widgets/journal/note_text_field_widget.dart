@@ -10,7 +10,6 @@ class NotesTextFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<JournalEditorProvider>(
-      key: UniqueKey(),
       builder: (context, value, child) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:space/provider/journal/journal_provider.dart';
 import 'package:space/screens/localization/lanuage_string_data.dart';
@@ -61,8 +62,9 @@ class _JournalsScreenState extends State<JournalsScreen> {
               return SliverToBoxAdapter(
                   child: Padding(
                 padding: EdgeInsets.all(10.r),
-                child: const Center(
-                  child: Text("Oops Nothing Found!"),
+                child: SvgPicture.asset(
+                  "assets/illustrations/no_journals.svg",
+                  height: 200.h,
                 ),
               ));
             }

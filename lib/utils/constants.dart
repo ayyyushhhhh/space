@@ -41,3 +41,10 @@ Color? getTextFieldColorbyTheme(BuildContext context) {
   }
   return kLightModeTextFieldColor;
 }
+
+Brightness getSystemNavBarBrightness(BuildContext context) {
+  if (Provider.of<AppStateProvider>(context, listen: false).isDarkMode) {
+    return Brightness.light;
+  }
+  return Brightness.dark;
+}

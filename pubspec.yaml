@@ -34,6 +34,7 @@ dependencies:
   url_launcher: ^6.1.9
   custom_navigation_bar: ^0.8.2
   animations: ^2.0.7
+  expandable_page_view: ^1.0.17
   
 
 dev_dependencies:

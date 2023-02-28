@@ -11,7 +11,6 @@ class TitleTextFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<JournalEditorProvider>(
-      key: UniqueKey(),
       builder: (BuildContext context, value, Widget? child) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,

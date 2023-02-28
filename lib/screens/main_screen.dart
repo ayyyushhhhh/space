@@ -1,5 +1,4 @@
 import 'package:animations/animations.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -59,8 +58,7 @@ class _MainScreenState extends State<MainScreen> {
               }),
           extendBody: true,
           body: PageTransitionSwitcher(
-              reverse: true,
-              duration: const Duration(milliseconds: 500),
+              duration: const Duration(milliseconds: 200),
               transitionBuilder: (Widget child,
                   Animation<double> primaryAnimation,
                   Animation<double> secondaryAnimation) {
@@ -76,7 +74,7 @@ class _MainScreenState extends State<MainScreen> {
           bottomNavigationBar: BottomRoundedNavBar(
             items: [
               BottomNavBarWidget(
-                iconData: CupertinoIcons.layers,
+                iconData: Icons.layers,
                 iconSize: 20.r,
                 label: 'Journals',
               ),

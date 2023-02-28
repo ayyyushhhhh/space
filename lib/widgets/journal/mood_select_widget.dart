@@ -11,14 +11,13 @@ class MoodSelectWidget extends StatelessWidget {
 
   _buildEmojiWidget({required String emoji}) {
     return Consumer<JournalEditorProvider>(
-      key: UniqueKey(),
       builder: (context, mood, child) {
         return InkWell(
           onTap: () {
             mood.changeMood(emoji);
           },
           child: AnimatedContainer(
-            curve: Curves.easeInOut,
+            curve: Curves.linearToEaseOut,
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               color: mood.mood == emoji ? kPrimaryColor : Colors.white,
@@ -26,7 +25,7 @@ class MoodSelectWidget extends StatelessWidget {
                 Radius.circular(30),
               ),
             ),
-            duration: const Duration(milliseconds: 500),
+            duration: const Duration(milliseconds: 300),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
