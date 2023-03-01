@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:space/utils/App%20State/app_state_provider.dart';
-import 'package:space/utils/constants.dart';
+import 'package:space/provider/App%20State/app_state_provider.dart';
+import 'package:space/utils/ui_colors.dart';
 
 class ThemeSwitch extends StatelessWidget {
   const ThemeSwitch({super.key});

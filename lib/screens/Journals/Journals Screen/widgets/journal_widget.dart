@@ -8,8 +8,8 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:space/models/journals/journal_model.dart';
 import 'package:space/provider/journal/journal_provider.dart';
-import 'package:space/screens/journal/view_journal_screen.dart';
-import 'package:space/utils/constants.dart';
+import 'package:space/screens/Journals/View%20Journal%20Screen/view_journal_screen.dart';
+import 'package:space/utils/ui_colors.dart';
 import 'package:space/utils/utils_functions.dart';
 
 class JournalWidget extends StatelessWidget {

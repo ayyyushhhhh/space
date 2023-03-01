@@ -6,12 +6,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:space/models/journals/journal_model.dart';
 import 'package:space/provider/journal/journal_editor_provider.dart';
-import 'package:space/screens/journal/view_journal_screen.dart';
-import 'package:space/utils/constants.dart';
-import 'package:space/widgets/helper/blur.dart';
-import 'package:space/widgets/journal/mood_select_widget.dart';
-import 'package:space/widgets/journal/note_text_field_widget.dart';
-import 'package:space/widgets/journal/title_text_field_widget.dart';
+import 'package:space/screens/Journals/Add%20Journal%20Screen/widgets/blur.dart';
+import 'package:space/screens/Journals/View%20Journal%20Screen/view_journal_screen.dart';
+import 'package:space/utils/ui_colors.dart';
+import 'package:space/screens/Journals/Add%20Journal%20Screen/widgets/mood_select_widget.dart';
+import 'package:space/screens/Journals/Add%20Journal%20Screen/widgets/note_text_field_widget.dart';
+import 'package:space/screens/Journals/Add%20Journal%20Screen/widgets/title_text_field_widget.dart';
 
 class AddJournalPageWidget extends StatefulWidget {
   const AddJournalPageWidget({super.key});
@@ -25,27 +25,14 @@ class _AddJournalPageWidgetState extends State<AddJournalPageWidget>
   final TextEditingController _titleEditingController = TextEditingController();
   final TextEditingController _notesEditingController = TextEditingController();
   late JournalModel _journalModel;
-  final List<Widget> _journalPages = [];
+  final List<Widget> _journalPages = [const MoodSelectWidget()];
   int _index = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    _journalPages.add(const MoodSelectWidget());
-    _journalPages.add(
-      TitleTextFieldWidget(textEditingController: _titleEditingController),
-    );
-    _journalPages.add(
-      NotesTextFieldWidget(textEditingController: _notesEditingController),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     return Consumer<JournalEditorProvider>(
       builder: (BuildContext context, value, Widget? child) {
         _index = value.index;
-
         return WillPopScope(
           onWillPop: () async {
             if (_index == 0) {
@@ -81,19 +68,7 @@ class _AddJournalPageWidgetState extends State<AddJournalPageWidget>
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 200),
-                          transitionBuilder:
-                              (Widget child, Animation<double> animation) {
-                            return SlideTransition(
-                              position: Tween(
-                                begin: const Offset(1, 0),
-                                end: Offset.zero,
-                              ).animate(animation),
-                              child: child,
-                            );
-                          },
-                          child: _journalPages[value.index]),
+                      _journalPages[value.index],
                       SizedBox(
                         height: 10.h,
                       ),
@@ -105,10 +80,22 @@ class _AddJournalPageWidgetState extends State<AddJournalPageWidget>
                           if (_index == 1 &&
                               _titleEditingController.text == "") {
                             return;
+                          } else {
+                            _journalPages.add(
+                              TitleTextFieldWidget(
+                                  textEditingController:
+                                      _titleEditingController),
+                            );
                           }
                           if (_index == 2 &&
                               _notesEditingController.text == "") {
                             return;
+                          } else {
+                            _journalPages.add(
+                              NotesTextFieldWidget(
+                                  textEditingController:
+                                      _notesEditingController),
+                            );
                           }
                           _index += 1;
 

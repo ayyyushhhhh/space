@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:space/utils/constants.dart';
+import 'package:space/utils/ui_colors.dart';
 
 class JournalIconButton extends StatelessWidget {
   final VoidCallback onPressed;

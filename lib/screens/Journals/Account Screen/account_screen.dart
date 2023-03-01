@@ -5,12 +5,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:space/auth/local_auth/local_authentication.dart';
 import 'package:space/screens/localization/lanuage_string_data.dart';
-import 'package:space/utils/constants.dart';
+import 'package:space/utils/ui_colors.dart';
 import 'package:space/utils/pref.dart';
 import 'package:space/utils/utils_functions.dart';
-import 'package:space/widgets/journal/notification_widget.dart';
+import 'package:space/screens/Journals/Account%20Screen/widgets/notification_widget.dart';
 
-import '../widgets/theme/theme_switch.dart';
+import 'widgets/theme_switch.dart';
 
 // ignore: must_be_immutable
 class AccountScreen extends StatelessWidget {

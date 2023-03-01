@@ -10,10 +10,10 @@ import 'package:space/hive%20boxes/journal_box.dart';
 import 'package:space/notification%20manager/notification_manager.dart';
 import 'package:space/provider/journal/journal_provider.dart';
 import 'package:space/provider/journal/journal_editor_provider.dart';
-import 'package:space/screens/journal/affirmation_screen.dart';
-import 'package:space/utils/constants.dart';
+import 'package:space/screens/Journals/affirmation_screen.dart';
+import 'package:space/utils/ui_colors.dart';
 import 'package:space/utils/pref.dart';
-import 'package:space/utils/App%20State/app_state_provider.dart';
+import 'package:space/provider/App%20State/app_state_provider.dart';
 import 'package:timezone/data/latest_10y.dart';
 
 Future<void> main() async {

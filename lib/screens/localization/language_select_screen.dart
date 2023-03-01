@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:space/screens/localization/lanuage_string_data.dart';
-import 'package:space/screens/main_screen.dart';
-import 'package:space/utils/constants.dart';
+import 'package:space/screens/Main%20Screen/main_screen.dart';
+import 'package:space/utils/ui_colors.dart';
 import 'package:space/utils/pref.dart';
-import 'package:space/widgets/localization/select_language_button.dart';
+import 'package:space/screens/localization/widgets/select_language_button.dart';
 
 class LanguageSelectScreen extends StatefulWidget {
   const LanguageSelectScreen({super.key});

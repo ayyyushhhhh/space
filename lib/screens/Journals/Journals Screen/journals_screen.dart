@@ -6,9 +6,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:space/provider/journal/journal_provider.dart';
 import 'package:space/screens/localization/lanuage_string_data.dart';
-import 'package:space/utils/constants.dart';
-import 'package:space/widgets/journal/calendar_widget.dart';
-import 'package:space/widgets/journal/journal_widget.dart';
+import 'package:space/utils/ui_colors.dart';
+import 'package:space/screens/Journals/Journals%20Screen/widgets/calendar_widget.dart';
+import 'package:space/screens/Journals/Journals%20Screen/widgets/journal_widget.dart';
 
 class JournalsScreen extends StatefulWidget {
   const JournalsScreen({super.key});

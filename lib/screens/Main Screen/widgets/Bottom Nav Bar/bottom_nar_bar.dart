@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:space/utils/constants.dart';
-import 'package:space/widgets/Bottom%20Nav%20Bar/bottom_nav_bar_widget.dart';
+import 'package:space/utils/ui_colors.dart';
+import 'package:space/screens/Main%20Screen/widgets/Bottom%20Nav%20Bar/bottom_nav_bar_widget.dart';
 
 class BottomRoundedNavBar extends StatelessWidget {
   final List<BottomNavBarWidget> items;

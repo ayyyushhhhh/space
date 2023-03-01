@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:space/provider/journal/journal_provider.dart';
-import 'package:space/utils/constants.dart';
+import 'package:space/utils/ui_colors.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarWidget extends StatelessWidget {

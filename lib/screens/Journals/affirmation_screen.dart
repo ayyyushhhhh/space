@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:space/screens/main_screen.dart';
+import 'package:space/screens/Main%20Screen/main_screen.dart';
 import 'package:space/utils/affirmations.dart';
-import 'package:space/utils/constants.dart';
+import 'package:space/utils/ui_colors.dart';
 import 'package:space/utils/pref.dart';
 
 import '../../auth/local_auth/local_authentication.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:space/utils/App%20State/app_state_provider.dart';
+import 'package:space/provider/App%20State/app_state_provider.dart';
 
 const Color kPrimaryColor = Color(0xFF724CF9);
 const Color kSecondaryColor = Color(0xFFD2C6FF);

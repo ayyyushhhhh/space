@@ -3,13 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:space/provider/journal/journal_editor_provider.dart';
-import 'package:space/utils/constants.dart';
+import 'package:space/utils/ui_colors.dart';
 import 'package:space/utils/utils_functions.dart';
 
 class MoodSelectWidget extends StatelessWidget {
   const MoodSelectWidget({super.key});
 
-  _buildEmojiWidget({required String emoji}) {
+  Widget _buildEmojiWidget({required String emoji}) {
     return Consumer<JournalEditorProvider>(
       builder: (context, mood, child) {
         return InkWell(

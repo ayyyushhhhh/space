@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:space/notification%20manager/notification_manager.dart';
 import 'package:space/screens/localization/lanuage_string_data.dart';
-import 'package:space/utils/constants.dart';
+import 'package:space/utils/ui_colors.dart';
 import 'package:space/utils/pref.dart';
 
 // ignore: must_be_immutable
