@@ -16,8 +16,11 @@ class AffirmationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        systemNavigationBarColor: getColorbyTheme(context)));
+    SystemUiOverlayStyle(
+      statusBarColor: kSecondaryColor,
+      systemNavigationBarColor: getBottomNavBarColorbyTheme(context),
+      systemNavigationBarIconBrightness: getSystemNavBarBrightness(context),
+    );
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.all(10),

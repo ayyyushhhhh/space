@@ -22,8 +22,10 @@ class _JournalsScreenState extends State<JournalsScreen> {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-          statusBarColor: kSecondaryColor,
-          systemNavigationBarColor: getBottomNavBarColorbyTheme(context)),
+        statusBarColor: kSecondaryColor,
+        systemNavigationBarColor: getBottomNavBarColorbyTheme(context),
+        systemNavigationBarIconBrightness: getSystemNavBarBrightness(context),
+      ),
     );
     return Scaffold(
         body: CustomScrollView(

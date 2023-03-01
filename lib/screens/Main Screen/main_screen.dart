@@ -30,53 +30,53 @@ class _MainScreenState extends State<MainScreen> {
         return Scaffold(
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
-          // floatingActionButton: SizedBox(
-          //   width: 70.h,
-          //   height: 70.h,
-          //   child: RawMaterialButton(
-          //     fillColor: kPrimaryColor,
-          //     shape: const CircleBorder(),
-          //     elevation: 0.0,
-          //     onPressed: () {
-          //       Navigator.of(context)
-          //           .push(MaterialPageRoute(builder: (BuildContext context) {
-          //         return const AddJournalPageWidget();
-          //       }));
-          //     },
-          //     child: Icon(
-          //       Icons.add,
-          //       size: 50.sp,
-          //       color: Colors.white,
-          //     ),
-          //   ),
-          // ),
-          floatingActionButton: OpenContainer(
-            closedColor: kPrimaryColor,
-            closedShape: const CircleBorder(),
-            closedElevation: 0,
-            // closedShape: const CircleBorder(),
-            transitionType: ContainerTransitionType.fadeThrough,
-            closedBuilder: (BuildContext _, VoidCallback openContainer) {
-              return SizedBox(
-                width: 70.h,
-                height: 70.h,
-                child: RawMaterialButton(
-                  fillColor: kPrimaryColor,
-                  shape: const CircleBorder(),
-                  elevation: 0.0,
-                  onPressed: openContainer,
-                  child: Icon(
-                    Icons.add,
-                    size: 50.sp,
-                    color: Colors.white,
-                  ),
-                ),
-              );
-            },
-            openBuilder: (BuildContext _, VoidCallback __) {
-              return const AddJournalPageWidget();
-            },
+          floatingActionButton: SizedBox(
+            width: 70.h,
+            height: 70.h,
+            child: RawMaterialButton(
+              fillColor: kPrimaryColor,
+              shape: const CircleBorder(),
+              elevation: 0.0,
+              onPressed: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (BuildContext context) {
+                  return const AddJournalPageWidget();
+                }));
+              },
+              child: Icon(
+                Icons.add,
+                size: 50.sp,
+                color: Colors.white,
+              ),
+            ),
           ),
+          // floatingActionButton: OpenContainer(
+          //   closedColor: kPrimaryColor,
+          //   closedShape: const CircleBorder(),
+          //   closedElevation: 0,
+          //   // closedShape: const CircleBorder(),
+          //   transitionType: ContainerTransitionType.fadeThrough,
+          //   closedBuilder: (BuildContext _, VoidCallback openContainer) {
+          //     return SizedBox(
+          //       width: 70.h,
+          //       height: 70.h,
+          //       child: RawMaterialButton(
+          //         fillColor: kPrimaryColor,
+          //         shape: const CircleBorder(),
+          //         elevation: 0.0,
+          //         onPressed: openContainer,
+          //         child: Icon(
+          //           Icons.add,
+          //           size: 50.sp,
+          //           color: Colors.white,
+          //         ),
+          //       ),
+          //     );
+          //   },
+          //   openBuilder: (BuildContext _, VoidCallback __) {
+          //     return const AddJournalPageWidget();
+          //   },
+          // ),
           extendBody: true,
           body: PageTransitionSwitcher(
               duration: const Duration(milliseconds: 200),
