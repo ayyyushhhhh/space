@@ -8,6 +8,25 @@ class TitleTextFieldWidget extends StatelessWidget {
 
   const TitleTextFieldWidget({super.key, required this.textEditingController});
 
+  String _buildTitleText(BuildContext context) {
+    String mood =
+        Provider.of<JournalEditorProvider>(context, listen: false).mood;
+    if (mood == "happy") {
+      return "Super happy to hear that! Tell me everything";
+    } else if (mood == "loving") {
+      return "Ah, someone is on cloud nine. Excited to hear your story!";
+    } else if (mood == "sad") {
+      return "Did anything make you feel frustrated? I'm all ears.";
+    } else if (mood == "rofl") {
+      return "I'm happy to laugh with you! ";
+    } else if (mood == "worried") {
+      return "What do you think is making you feel so bad right now?";
+    } else if (mood == "joyful") {
+      return "What made you smile today? ";
+    }
+    return "Oh! I See, Let's talk about it.";
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<JournalEditorProvider>(
@@ -19,7 +38,7 @@ class TitleTextFieldWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: Text(
-                "Title",
+                _buildTitleText(context),
                 style: TextStyle(
                   fontSize: 36.sp,
                   fontWeight: FontWeight.w700,
@@ -27,16 +46,16 @@ class TitleTextFieldWidget extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Text(
-                "Oh! I See, Let's talk about it.",
-                style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black),
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.all(10.0),
+            //   child: Text(
+            //     "Oh! I See, Let's talk about it.",
+            //     style: TextStyle(
+            //         fontSize: 16.sp,
+            //         fontWeight: FontWeight.w500,
+            //         color: Colors.black),
+            //   ),
+            // ),
             Container(
               width: double.infinity,
               margin: const EdgeInsets.only(left: 10, right: 10),
