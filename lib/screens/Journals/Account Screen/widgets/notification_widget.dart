@@ -108,7 +108,10 @@ class NotificationWidget extends StatelessWidget {
                           requestNotificationPermission();
                           SharedPreferencesHelper.saveAuthPermission(
                               _canNotify);
-                          _showNotification();
+                          // CronNotificationScheduler()
+                          //     .pickRandomTitleForNotification(
+                          //   notificationCall: _showNotification(),
+                          // );
                         },
                       );
                     }),

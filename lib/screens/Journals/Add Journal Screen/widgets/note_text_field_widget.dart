@@ -20,7 +20,7 @@ class NotesTextFieldWidget extends StatelessWidget {
               child: Text(
                 "Tell me about your experience.",
                 style: TextStyle(
-                    fontSize: 36.sp,
+                    fontSize: 20.sp,
                     fontWeight: FontWeight.w700,
                     color: Colors.black),
               ),
@@ -28,16 +28,6 @@ class NotesTextFieldWidget extends StatelessWidget {
             SizedBox(
               height: 10.h,
             ),
-            // Padding(
-            //   padding: const EdgeInsets.all(10.0),
-            //   child: Text(
-            //     "Will you talk about your experience.?",
-            //     style: TextStyle(
-            //         fontSize: 16.sp,
-            //         fontWeight: FontWeight.w500,
-            //         color: Colors.black),
-            //   ),
-            // ),
             Container(
               height: 400.h,
               width: double.infinity,

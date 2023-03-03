@@ -23,6 +23,20 @@ class TitleTextFieldWidget extends StatelessWidget {
       return "What do you think is making you feel so bad right now?";
     } else if (mood == "joyful") {
       return "What made you smile today? ";
+    } else if (mood == "loving") {
+      return "Ah, someone is on cloud nine. Excited to hear your story!";
+    } else if (mood == "relieved") {
+      return "Great! Tell me.";
+    } else if (mood == "neutral") {
+      return "Sometimes it's okay not to be okay. I'm here if you want to share anything. ";
+    } else if (mood == "confused") {
+      return "You can tell me what's on your mind now; I won't judge you. ";
+    } else if (mood == "crying") {
+      return "Would you like to talk about it? I would happily listen to you. ";
+    } else if (mood == "amazed") {
+      return "What made you go like WOOOW! ";
+    } else if (mood == "hungry") {
+      return "We are on the same (plate) boat! ";
     }
     return "Oh! I See, Let's talk about it.";
   }
@@ -40,22 +54,15 @@ class TitleTextFieldWidget extends StatelessWidget {
               child: Text(
                 _buildTitleText(context),
                 style: TextStyle(
-                  fontSize: 36.sp,
+                  fontSize: 20.sp,
                   fontWeight: FontWeight.w700,
                   color: Colors.black,
                 ),
               ),
             ),
-            // Padding(
-            //   padding: const EdgeInsets.all(10.0),
-            //   child: Text(
-            //     "Oh! I See, Let's talk about it.",
-            //     style: TextStyle(
-            //         fontSize: 16.sp,
-            //         fontWeight: FontWeight.w500,
-            //         color: Colors.black),
-            //   ),
-            // ),
+            SizedBox(
+              height: 10.h,
+            ),
             Container(
               width: double.infinity,
               margin: const EdgeInsets.only(left: 10, right: 10),
