@@ -83,7 +83,7 @@ class NotificationWidget extends StatelessWidget {
               textColor: Theme.of(context).textTheme.titleLarge?.color,
               title: Text(
                 LanguageData.reminder.tr(),
-                style: TextStyle(fontSize: 16.sp),
+                style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w600),
               ),
               trailing: Transform.scale(
                 scale: 1.3,

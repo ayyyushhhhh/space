@@ -75,6 +75,7 @@ class MyApp extends StatelessWidget {
                   title: 'Space',
                   darkTheme: ThemeData.dark().copyWith(
                     primaryColor: kPrimaryColor,
+                    canvasColor: Colors.transparent,
                     cardColor: kDarkModeCardColor,
                     scaffoldBackgroundColor: kDarkModeScaffoldColor,
                     textTheme: GoogleFonts.poppinsTextTheme(
@@ -87,6 +88,7 @@ class MyApp extends StatelessWidget {
                   theme: ThemeData.light().copyWith(
                     primaryColor: kPrimaryColor,
                     scaffoldBackgroundColor: kLightModeScaffoldColor,
+                    canvasColor: Colors.transparent,
                     cardColor: kLightModeCardColor,
                     textTheme: GoogleFonts.poppinsTextTheme(
                       Theme.of(context).textTheme,

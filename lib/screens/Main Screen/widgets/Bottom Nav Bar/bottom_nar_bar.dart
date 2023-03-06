@@ -15,31 +15,27 @@ class BottomRoundedNavBar extends StatelessWidget {
       required this.onChanged,
       this.height = 80});
 
-  Color _buildColor(int index, BuildContext context) {
+  Color _buildIconColor(int index, BuildContext context) {
     if (index == currentIndex) {
-      return Colors.white;
+      return items[index].selectedIconColor;
     }
 
-    return Colors.black;
+    return const Color(0xFFB3B3B7);
+  }
+
+  Color _buildLineColor(int index, BuildContext context) {
+    if (index == currentIndex) {
+      return items[index].selectedIconColor;
+    }
+
+    return Colors.transparent;
   }
 
   Widget _buildBottomNavbarWidget(int index, BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Icon(
-          items[index].iconData,
-          color: _buildColor(index, context),
-          size: items[index].iconSize,
-        ),
-        Text(
-          items[index].label,
-          style: TextStyle(
-            color: _buildColor(index, context),
-          ),
-        ),
-      ],
+    return Icon(
+      items[index].iconData,
+      color: _buildIconColor(index, context),
+      size: items[index].iconSize,
     );
   }
 
@@ -47,40 +43,51 @@ class BottomRoundedNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: height.h,
-      padding: const EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
+      padding: const EdgeInsets.only(left: 10, right: 10),
+      width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         color: getBottomNavBarColorbyTheme(context),
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(50),
         ),
+        boxShadow: const [
+          BoxShadow(
+            color: Color.fromRGBO(0, 0, 0, 0.1),
+            offset: Offset(0.0, 2), //(x,y)
+            blurRadius: 21.0,
+          ),
+        ],
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           for (int i = 0; i < items.length; i++)
             GestureDetector(
               onTap: () {
                 onChanged(i);
               },
+              behavior: HitTestBehavior.opaque,
               child: AnimatedContainer(
                 width: 80.w,
-                decoration: BoxDecoration(
-                  color: i == currentIndex ? kPrimaryColor : Colors.transparent,
-                  shape: BoxShape.rectangle,
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                    bottomLeft: Radius.circular(30),
-                    bottomRight: Radius.circular(30),
-                  ),
-                ),
                 padding: const EdgeInsets.symmetric(
                     horizontal: 10.0, vertical: 10.0),
                 duration: const Duration(milliseconds: 500),
                 curve: Curves.linearToEaseOut,
-                child: _buildBottomNavbarWidget(i, context),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    _buildBottomNavbarWidget(i, context),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 25, right: 25),
+                      child: Divider(
+                        color: _buildLineColor(i, context),
+                        thickness: 3.w,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             )
         ],

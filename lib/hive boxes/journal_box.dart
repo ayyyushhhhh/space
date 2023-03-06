@@ -13,6 +13,7 @@ class JournalHiveBox {
     if (!Hive.isBoxOpen(DateFormat('d, MMMM, yyyy').format(dateTime))) {
       init(dateTime: dateTime);
     }
+
     return Hive.box(
       DateFormat('d, MMMM, yyyy').format(dateTime),
     );
@@ -24,16 +25,27 @@ class JournalHiveBox {
     }
   }
 
+  static Future<bool> _isBoxExist({required DateTime dateTime}) async {
+    bool isExist =
+        await Hive.boxExists(DateFormat('d, MMMM, yyyy').format(dateTime));
+
+    return isExist;
+  }
+
   static List<JournalModel> getListofJournals({required DateTime dateTime}) {
     List<JournalModel> journals = [];
+
     Box box = getBox(dateTime: dateTime);
-    var keys = box.keys;
-    for (var key in keys) {
-      journals.add(JournalModel.fromMap(jsonDecode(
-        jsonEncode(
-          box.get(key),
-        ),
-      ) as Map<String, dynamic>));
+    if (box.isOpen) {
+      var keys = box.keys;
+      for (var key in keys) {
+        journals.add(JournalModel.fromMap(jsonDecode(
+          jsonEncode(
+            box.get(key),
+          ),
+        ) as Map<String, dynamic>));
+      }
+      return journals;
     }
     return journals;
   }
@@ -63,5 +75,18 @@ class JournalHiveBox {
     }
 
     getBox(dateTime: dateTime).delete(journalModel.journalId);
+  }
+
+  static Future<int> getMonthNumofEntries({required DateTime dateTime}) async {
+    int entries = 0;
+    // int daysInMonth = dateTime.daysInMonth;
+    for (int i = 1; i <= dateTime.day; i++) {
+      DateTime date = DateTime(dateTime.year, dateTime.month, i);
+
+      if (await _isBoxExist(dateTime: date)) {
+        entries += JournalHiveBox.getListofJournals(dateTime: date).length;
+      }
+    }
+    return entries;
   }
 }

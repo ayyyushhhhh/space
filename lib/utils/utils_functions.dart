@@ -9,6 +9,14 @@ extension StringCasingExtension on String {
       .join(' ');
 }
 
+extension DaysInMonthExtension on DateTime {
+  int get daysInMonth {
+    return DateTime(year, month + 1, 1)
+        .difference(DateTime(year, month, 1))
+        .inDays;
+  }
+}
+
 Future<void> openPlayStore() async {
   String playStoreLink =
       "https://play.google.com/store/apps/details?id=com.scarecrowhouse.space";

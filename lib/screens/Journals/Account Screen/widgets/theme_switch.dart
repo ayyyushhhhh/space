@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:space/provider/App%20State/app_state_provider.dart';
 import 'package:space/utils/ui_colors.dart';
@@ -17,13 +16,6 @@ class ThemeSwitch extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Icon(
-              Icons.sunny,
-              color: Colors.yellow,
-            ),
-            SizedBox(
-              width: 10.w,
-            ),
             Transform.scale(
               scale: 1.3,
               child: Semantics(
@@ -31,8 +23,9 @@ class ThemeSwitch extends StatelessWidget {
                 hint: 'Press to change  Theme',
                 child: CupertinoSwitch(
                   value: theme.isDarkMode,
+                  trackColor: Colors.white,
                   activeColor: kPrimaryColor,
-                  thumbColor: !theme.isDarkMode ? kPrimaryColor : Colors.white,
+                  thumbColor: kPrimaryColor,
                   onChanged: (bool value) {
                     theme.updateTheme(value);
                     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -41,13 +34,6 @@ class ThemeSwitch extends StatelessWidget {
                   },
                 ),
               ),
-            ),
-            SizedBox(
-              width: 10.w,
-            ),
-            const Icon(
-              Icons.dark_mode,
-              color: Colors.blueAccent,
             ),
           ],
         );

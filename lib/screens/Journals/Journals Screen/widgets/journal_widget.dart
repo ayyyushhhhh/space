@@ -1,16 +1,15 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:space/models/journals/journal_model.dart';
 import 'package:space/provider/journal/journal_provider.dart';
 import 'package:space/screens/Journals/View%20Journal%20Screen/view_journal_screen.dart';
 import 'package:space/utils/ui_colors.dart';
-import 'package:space/utils/utils_functions.dart';
 
 class JournalWidget extends StatelessWidget {
   final JournalModel journalModel;
@@ -63,99 +62,90 @@ class JournalWidget extends StatelessWidget {
             ),
           ],
         ),
-        child: Container(
-          margin:
-              const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
-          height: 120.h,
-          width: double.infinity,
-          decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(20),
-              ),
-              color: Theme.of(context).cardColor),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                width: 20.w,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    bottomLeft: Radius.circular(20),
-                  ),
-                  color: journalModel.color,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(left: 20),
+              child: Text(
+                DateFormat.jm().format(journalModel.createdOn),
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w400,
+                  color: const Color(0xFF868686),
                 ),
               ),
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.all(10),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
+            ),
+            Container(
+              margin: const EdgeInsets.only(
+                  left: 20, right: 20, top: 10, bottom: 10),
+              padding: const EdgeInsets.all(10),
+              height: 100.h,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(15),
+                ),
+                color: kJournalCardLightModeColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: Color.fromRGBO(0, 0, 0, 0.1),
+                    offset: Offset(0.0, 4), //(x,y)
+                    blurRadius: 38.0,
+                  ),
+                ],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 60.w,
+                    height: 60.h,
+                    decoration: const BoxDecoration(
+                      color: kCalendarSecondaryColor,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    child: Center(
+                      child: SvgPicture.asset(
+                        "assets/emojis/${journalModel.mood}.svg",
+                        height: 50.h,
+                        width: 50.w,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            DateFormat.jm().format(journalModel.createdOn),
+                            journalModel.title,
+                            softWrap: true,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                fontSize: 16.sp, fontWeight: FontWeight.w600),
+                          ),
+                          Text(
+                            journalModel.description,
+                            softWrap: true,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
                             style: TextStyle(
                                 fontSize: 10.sp, fontWeight: FontWeight.w400),
                           ),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          Container(
-                            padding: const EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(40),
-                                color: journalModel.color),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  journalModel.mood.toTitleCase(),
-                                  style: TextStyle(
-                                      fontSize: 10.sp,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.white),
-                                ),
-                                SvgPicture.asset(
-                                  "assets/emojis/${journalModel.mood}.svg",
-                                  height: 20.h,
-                                  width: 20.w,
-                                ),
-                              ],
-                            ),
-                          ),
                         ],
                       ),
-                      Text(
-                        journalModel.title,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
-                            color: getTextColorbyTheme(context)),
-                      ),
-                      SizedBox(
-                        height: 40,
-                        child: Text(
-                          journalModel.description,
-                          maxLines: 2,
-                          softWrap: true,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              fontSize: 10.sp,
-                              fontWeight: FontWeight.w400,
-                              color: getTextColorbyTheme(context)),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

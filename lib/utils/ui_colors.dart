@@ -12,8 +12,17 @@ const Color kDarkModeCardColor = Color(0xFF294261);
 const Color kLightModeScaffoldColor = Colors.white;
 const Color kLightModeCardColor = Color(0xFFF2F2FA);
 const Color kDarkModeTextFieldColor = Color(0xFF3C3C56);
-const Color kLightModeBottomNavBarColor = Color(0xFFF2F2FA);
+const Color kLightModeBottomNavBarColor = Colors.white;
 const Color kDarkModeBottomNavBarColor = Color(0xFF3C3C56);
+const Color kCalendarPrimaryColor = Color(0xFFFF4D98);
+const Color kCalendarSecondaryColor = Color(0xfff0f0f4);
+const Color kJournalSecondayColor = Color(0xFFFFD9E9);
+const Color kTodoPrimaryColor = Color(0xFFFAB632);
+const Color kJournalPrimaryColor = Color(0xFFFF4D98);
+const Color kHomePrimaryColor = Color(0xFF6A61F1);
+const Color kAccountPrimaryColor = Color(0xFF6A61F1);
+const Color kJournalCardLightModeColor = Colors.white;
+
 Color? getColorbyTheme(BuildContext context) {
   if (Provider.of<AppStateProvider>(context, listen: false).isDarkMode) {
     return kDarkModeScaffoldColor;

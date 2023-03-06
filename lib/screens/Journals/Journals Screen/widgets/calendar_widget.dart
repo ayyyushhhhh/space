@@ -14,34 +14,11 @@ class CalendarWidget extends StatelessWidget {
     return Consumer<JournalProvider>(
       builder: (BuildContext context, value, Widget? child) {
         return TableCalendar(
-          rowHeight: 80.h,
-          headerVisible: true,
-          headerStyle: HeaderStyle(
-              formatButtonVisible: false,
-              titleTextFormatter: (date, locale) {
-                if (DateFormat.yMd().format(date) ==
-                    DateFormat.yMd().format(DateTime.now())) {
-                  return "Today, ${DateFormat.MMMd(context.locale.toString()).format(date)}";
-                }
-                return DateFormat.MMMEd(context.locale.toString()).format(date);
-              },
-              titleCentered: true,
-              leftChevronIcon: Icon(
-                Icons.chevron_left,
-                size: 30.r,
-                color: Colors.black,
-              ),
-              rightChevronIcon: Icon(
-                Icons.chevron_right,
-                size: 30.r,
-                color: Colors.black,
-              ),
-              titleTextStyle: TextStyle(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w500,
-                  color: kPrimaryTextColor)),
+          rowHeight: 100.h,
+          headerVisible: false,
           calendarFormat: CalendarFormat.week,
           focusedDay: value.getDate,
+          shouldFillViewport: false,
           firstDay: DateTime(2019, 06, 13),
           lastDay: DateTime(2025, 12, 31),
           selectedDayPredicate: (day) {
@@ -53,32 +30,35 @@ class CalendarWidget extends StatelessWidget {
           calendarBuilders: CalendarBuilders(
             todayBuilder: (context, dateTimeNow, datetime) {
               return Container(
-                margin: const EdgeInsets.all(5),
+                margin: const EdgeInsets.all(3),
+                padding: const EdgeInsets.all(5),
+                height: 70.h,
+                width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Colors.transparent,
+                  color: kCalendarSecondaryColor,
                 ),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      DateFormat.E(context.locale.toString())
-                          .format(DateTime.now()),
+                      DateFormat.d().format(dateTimeNow),
                       style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w400,
-                          color: kSecondaryTextColor),
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black),
                     ),
                     SizedBox(
                       height: 5.h,
                     ),
                     Text(
-                      DateFormat.d().format(DateTime.now()),
+                      DateFormat.E(context.locale.toString())
+                          .format(dateTimeNow),
                       style: TextStyle(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500,
-                          color: kPrimaryTextColor),
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black),
                     ),
                   ],
                 ),
@@ -86,34 +66,35 @@ class CalendarWidget extends StatelessWidget {
             },
             defaultBuilder: (context, dateTime, date) {
               return Container(
-                margin: const EdgeInsets.all(5),
+                margin: const EdgeInsets.all(3),
+                padding: const EdgeInsets.all(5),
+                height: 70.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Colors.transparent,
+                  color: kCalendarSecondaryColor,
                 ),
                 child: Center(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        DateFormat.E(context.locale.toString())
-                            .format(dateTime),
+                        DateFormat.d().format(dateTime),
                         style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w400,
-                          color: kSecondaryTextColor,
-                        ),
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black),
                       ),
                       SizedBox(
                         height: 5.h,
                       ),
                       Text(
-                        DateFormat.d().format(dateTime),
+                        DateFormat.E(context.locale.toString())
+                            .format(dateTime),
                         style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
-                            color: kPrimaryTextColor),
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black),
                       ),
                     ],
                   ),
@@ -125,14 +106,24 @@ class CalendarWidget extends StatelessWidget {
                 margin: const EdgeInsets.all(3),
                 padding: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(40),
-                  color: kPrimaryColor,
+                  borderRadius: BorderRadius.circular(10),
+                  color: kCalendarPrimaryColor,
                 ),
                 child: Center(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      Text(
+                        DateFormat.d().format(day),
+                        style: TextStyle(
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white),
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
                       Text(
                         DateFormat.E(context.locale.toString()).format(day),
                         style: TextStyle(
@@ -141,15 +132,16 @@ class CalendarWidget extends StatelessWidget {
                             color: Colors.white),
                       ),
                       SizedBox(
-                        height: 5.h,
+                        height: 15.h,
                       ),
-                      Text(
-                        DateFormat.d().format(day),
-                        style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white),
-                      ),
+                      Center(
+                        child: Container(
+                          height: 10,
+                          width: 10,
+                          decoration: const BoxDecoration(
+                              color: Colors.white, shape: BoxShape.circle),
+                        ),
+                      )
                     ],
                   ),
                 ),
