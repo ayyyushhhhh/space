@@ -23,8 +23,6 @@ class TitleTextFieldWidget extends StatelessWidget {
       return "What do you think is making you feel so bad right now?";
     } else if (mood == "joyful") {
       return "What made you smile today? ";
-    } else if (mood == "loving") {
-      return "Ah, someone is on cloud nine. Excited to hear your story!";
     } else if (mood == "relieved") {
       return "Great! Tell me.";
     } else if (mood == "neutral") {
@@ -37,6 +35,10 @@ class TitleTextFieldWidget extends StatelessWidget {
       return "What made you go like WOOOW! ";
     } else if (mood == "hungry") {
       return "We are on the same (plate) boat! ";
+    } else if (mood == "angry") {
+      return "You have your Space :) You can vent out here ";
+    } else if (mood == "sick") {
+      return "Hey, you'll be fine. How do you feel right now?";
     }
     return "Oh! I See, Let's talk about it.";
   }
