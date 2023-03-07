@@ -26,6 +26,21 @@ class SharedPreferencesHelper {
     return index;
   }
 
+  static void saveScores(int point) {
+    int points = getPoints();
+    preferences!.setInt("points", point + points);
+  }
+
+  static int getPoints() {
+    final scores = preferences!.getInt("points");
+
+    if (scores == null) {
+      return 0;
+    }
+
+    return scores;
+  }
+
   static void saveAuthPermission(bool canAuth) {
     int permissionIndex = 0;
     if (canAuth == true) {

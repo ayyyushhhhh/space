@@ -8,6 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:space/hive%20boxes/journal_box.dart';
 import 'package:space/notification%20manager/notification_manager.dart';
+import 'package:space/provider/User/points_provider.dart';
 import 'package:space/provider/journal/journal_provider.dart';
 import 'package:space/provider/journal/journal_editor_provider.dart';
 import 'package:space/screens/Journals/affirmation_screen.dart';
@@ -60,6 +61,11 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider<AppStateProvider>(
             create: (BuildContext context) {
               return AppStateProvider();
+            },
+          ),
+          ChangeNotifierProvider<PointsProvider>(
+            create: (BuildContext context) {
+              return PointsProvider();
             },
           ),
         ],

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:space/models/journals/journal_model.dart';
+import 'package:space/utils/utils_functions.dart';
 
 class JournalHiveBox {
   static Future<void> init({required DateTime dateTime}) async {
@@ -79,11 +80,13 @@ class JournalHiveBox {
 
   static Future<int> getMonthNumofEntries({required DateTime dateTime}) async {
     int entries = 0;
-    // int daysInMonth = dateTime.daysInMonth;
-    for (int i = 1; i <= dateTime.day; i++) {
+    int daysInMonth = dateTime.daysInMonth;
+    for (int i = 1; i <= daysInMonth; i++) {
       DateTime date = DateTime(dateTime.year, dateTime.month, i);
-
       if (await _isBoxExist(dateTime: date)) {
+        if (!Hive.isBoxOpen(DateFormat('d, MMMM, yyyy').format(date))) {
+          await Hive.openBox(DateFormat('d, MMMM, yyyy').format(date));
+        }
         entries += JournalHiveBox.getListofJournals(dateTime: date).length;
       }
     }

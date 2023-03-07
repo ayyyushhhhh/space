@@ -7,8 +7,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 import 'package:space/models/journals/journal_model.dart';
+import 'package:space/provider/User/points_provider.dart';
 import 'package:space/provider/journal/journal_editor_provider.dart';
 import 'package:space/provider/journal/journal_provider.dart';
+import 'package:space/utils/constants.dart';
 import 'package:space/utils/ui_colors.dart';
 import 'package:space/utils/utils_functions.dart';
 import 'package:space/screens/Journals/View%20Journal%20Screen/widgets/journal_icon_button.dart';
@@ -235,5 +237,6 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
     Provider.of<JournalEditorProvider>(context, listen: false).updateIndex(0);
     Provider.of<JournalProvider>(context, listen: false)
         .updateJournalList(journalModel);
+    Provider.of<PointsProvider>(context).setScore(point: kAddJournalPoint);
   }
 }

@@ -83,21 +83,27 @@ class _JournalsScreenState extends State<JournalsScreen> {
                 ),
                 Row(
                   children: [
-                    FutureBuilder(
-                      future: JournalHiveBox.getMonthNumofEntries(
-                        dateTime: DateTime.now(),
-                      ),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<dynamic> snapshot) {
-                        if (snapshot.hasData) {
-                          int entries = snapshot.data as int;
-                          return DataWidget(
-                              icon: Icons.arrow_back,
-                              value: entries,
-                              title: "Entries");
-                        }
-                        return const DataWidget(
-                            icon: Icons.arrow_back, value: 0, title: "Entries");
+                    Consumer<JournalProvider>(
+                      builder: (BuildContext context, value, Widget? child) {
+                        return FutureBuilder(
+                          future: JournalHiveBox.getMonthNumofEntries(
+                            dateTime: value.getDate,
+                          ),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<dynamic> snapshot) {
+                            if (snapshot.hasData) {
+                              int entries = snapshot.data as int;
+                              return DataWidget(
+                                  icon: Icons.arrow_back,
+                                  value: entries,
+                                  title: "Entries");
+                            }
+                            return const DataWidget(
+                                icon: Icons.arrow_back,
+                                value: 0,
+                                title: "Entries");
+                          },
+                        );
                       },
                     ),
                     SizedBox(
