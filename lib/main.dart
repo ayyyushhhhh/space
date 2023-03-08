@@ -23,7 +23,9 @@ Future<void> main() async {
   final dir = await getApplicationDocumentsDirectory();
   await SharedPreferencesHelper.init();
   Hive.init(dir.path);
-  await JournalHiveBox.init(dateTime: DateTime.now());
+
+  JournalHiveBox.init(dateTime: DateTime.now());
+
   NotificationManger.init();
   GoogleFonts.config.allowRuntimeFetching = false;
   await EasyLocalization.ensureInitialized();

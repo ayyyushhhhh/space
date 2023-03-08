@@ -29,76 +29,89 @@ class CalendarWidget extends StatelessWidget {
           },
           calendarBuilders: CalendarBuilders(
             todayBuilder: (context, dateTimeNow, datetime) {
-              return Container(
-                margin: const EdgeInsets.all(3),
-                padding: const EdgeInsets.all(5),
-                height: 70.h,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: kCalendarSecondaryColor,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      DateFormat.d().format(dateTimeNow),
-                      style: TextStyle(
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.black),
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.all(3),
+                    padding: const EdgeInsets.all(5),
+                    height: 70.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: kCalendarSecondaryColor,
                     ),
-                    SizedBox(
-                      height: 5.h,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          DateFormat.d().format(dateTimeNow),
+                          style: TextStyle(
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.black),
+                        ),
+                        SizedBox(
+                          height: 5.h,
+                        ),
+                        Text(
+                          DateFormat.E(context.locale.toString())
+                              .format(dateTimeNow),
+                          style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black),
+                        ),
+                      ],
                     ),
-                    Text(
-                      DateFormat.E(context.locale.toString())
-                          .format(dateTimeNow),
-                      style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black),
-                    ),
-                  ],
-                ),
+                  ),
+                  const Expanded(child: SizedBox()),
+                ],
               );
             },
             defaultBuilder: (context, dateTime, date) {
-              return Container(
-                margin: const EdgeInsets.all(3),
-                padding: const EdgeInsets.all(5),
-                height: 70.h,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: kCalendarSecondaryColor,
-                ),
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        DateFormat.d().format(dateTime),
-                        style: TextStyle(
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black),
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.all(3),
+                    padding: const EdgeInsets.all(5),
+                    height: 70.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: kCalendarSecondaryColor,
+                    ),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            DateFormat.d().format(dateTime),
+                            style: TextStyle(
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.black),
+                          ),
+                          SizedBox(
+                            height: 5.h,
+                          ),
+                          Text(
+                            DateFormat.E(context.locale.toString())
+                                .format(dateTime),
+                            style: TextStyle(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black),
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        height: 5.h,
-                      ),
-                      Text(
-                        DateFormat.E(context.locale.toString())
-                            .format(dateTime),
-                        style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
+                  const Expanded(child: SizedBox()),
+                ],
               );
             },
             selectedBuilder: (context, day, focusedDay) {
@@ -136,10 +149,18 @@ class CalendarWidget extends StatelessWidget {
                       ),
                       Center(
                         child: Container(
-                          height: 10,
-                          width: 10,
-                          decoration: const BoxDecoration(
-                              color: Colors.white, shape: BoxShape.circle),
+                          height: 10.h,
+                          width: 10.h,
+                          decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.4),
+                              shape: BoxShape.circle),
+                          child: Center(
+                              child: Container(
+                            height: 6.h,
+                            width: 6.h,
+                            decoration: const BoxDecoration(
+                                color: Colors.white, shape: BoxShape.circle),
+                          )),
                         ),
                       )
                     ],

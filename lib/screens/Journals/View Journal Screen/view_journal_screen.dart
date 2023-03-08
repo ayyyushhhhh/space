@@ -237,6 +237,7 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
     Provider.of<JournalEditorProvider>(context, listen: false).updateIndex(0);
     Provider.of<JournalProvider>(context, listen: false)
         .updateJournalList(journalModel);
-    Provider.of<PointsProvider>(context).setScore(point: kAddJournalPoint);
+    Provider.of<PointsProvider>(context, listen: false)
+        .setScore(point: kAddJournalPoint);
   }
 }

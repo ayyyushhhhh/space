@@ -136,7 +136,7 @@ class JournalWidget extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                             style: TextStyle(
-                                fontSize: 10.sp, fontWeight: FontWeight.w400),
+                                fontSize: 10.sp, fontWeight: FontWeight.w500),
                           ),
                         ],
                       ),
