@@ -2,11 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:space/models/journals/journal_model.dart';
 import 'package:space/provider/journal/journal_editor_provider.dart';
-import 'package:space/screens/Journals/Add%20Journal%20Screen/widgets/blur.dart';
 import 'package:space/screens/Journals/View%20Journal%20Screen/view_journal_screen.dart';
 import 'package:space/utils/ui_colors.dart';
 import 'package:space/screens/Journals/Add%20Journal%20Screen/widgets/mood_select_widget.dart';
@@ -44,85 +42,65 @@ class _AddJournalPageWidgetState extends State<AddJournalPageWidget>
             return false;
           },
           child: Scaffold(
-              body: Stack(
-            alignment: Alignment.center,
-            clipBehavior: Clip.antiAlias,
+              body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Blur(
-                blur: 10,
-                blurColor: Colors.white,
-                child: Positioned.fill(
-                  child: SvgPicture.asset(
-                    "assets/illustrations/bg.svg",
-                    alignment: Alignment.center,
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
               if (_index <= 2)
-                SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      _journalPages[value.index],
-                      SizedBox(
-                        height: 10.h,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          if (value.index == 2) {
-                            _journalModel = _createJournal(context);
-                          }
-                          if (_index == 1 &&
-                              _titleEditingController.text == "") {
-                            return;
-                          } else {
-                            _journalPages.add(
-                              TitleTextFieldWidget(
-                                  textEditingController:
-                                      _titleEditingController),
-                            );
-                          }
-                          if (_index == 2 &&
-                              _notesEditingController.text == "") {
-                            return;
-                          } else {
-                            _journalPages.add(
-                              NotesTextFieldWidget(
-                                  textEditingController:
-                                      _notesEditingController),
-                            );
-                          }
-                          _index += 1;
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _journalPages[value.index],
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        if (value.index == 2) {
+                          _journalModel = _createJournal(context);
+                        }
+                        if (_index == 1 && _titleEditingController.text == "") {
+                          return;
+                        } else {
+                          _journalPages.add(
+                            TitleTextFieldWidget(
+                                textEditingController: _titleEditingController),
+                          );
+                        }
+                        if (_index == 2 && _notesEditingController.text == "") {
+                          return;
+                        } else {
+                          _journalPages.add(
+                            NotesTextFieldWidget(
+                                textEditingController: _notesEditingController),
+                          );
+                        }
+                        _index += 1;
 
-                          value.updateIndex(_index);
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.all(10),
-                          margin: const EdgeInsets.all(10),
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: kPrimaryColor,
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          child: Center(
-                            child: Text(
-                              "Next",
-                              style: TextStyle(
-                                fontSize: 24.sp,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                              ),
+                        value.updateIndex(_index);
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        margin: const EdgeInsets.all(10),
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: kPrimaryColor,
+                          borderRadius: BorderRadius.circular(40),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Next",
+                            style: TextStyle(
+                              fontSize: 24.sp,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ),
-                      )
-                    ],
-                  ),
+                      ),
+                    )
+                  ],
                 ),
               if (_index == 3)
                 ViewJournalScreen(

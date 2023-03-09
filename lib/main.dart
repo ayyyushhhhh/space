@@ -11,7 +11,7 @@ import 'package:space/notification%20manager/notification_manager.dart';
 import 'package:space/provider/User/points_provider.dart';
 import 'package:space/provider/journal/journal_provider.dart';
 import 'package:space/provider/journal/journal_editor_provider.dart';
-import 'package:space/screens/Journals/affirmation_screen.dart';
+import 'package:space/screens/Main%20Screen/main_screen.dart';
 import 'package:space/utils/ui_colors.dart';
 import 'package:space/utils/pref.dart';
 import 'package:space/provider/App%20State/app_state_provider.dart';
@@ -104,7 +104,7 @@ class MyApp extends StatelessWidget {
                   ),
                   themeMode:
                       theme.isDarkMode ? ThemeMode.dark : ThemeMode.light,
-                  home: const AffirmationScreen(),
+                  home: const MainScreen(),
                 );
               },
             );
