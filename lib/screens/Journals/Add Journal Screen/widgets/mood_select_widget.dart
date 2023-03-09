@@ -12,39 +12,46 @@ class MoodSelectWidget extends StatelessWidget {
   Widget _buildEmojiWidget({required String emoji}) {
     return Consumer<JournalEditorProvider>(
       builder: (context, mood, child) {
-        return InkWell(
-          onTap: () {
-            mood.changeMood(emoji);
-          },
-          child: AnimatedContainer(
-            curve: Curves.linearToEaseOut,
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: mood.mood == emoji ? kPrimaryColor : Colors.white,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(30),
+        return Expanded(
+          child: InkWell(
+            onTap: () {
+              mood.changeMood(emoji);
+            },
+            child: AnimatedContainer(
+              curve: Curves.linearToEaseOut,
+              padding: EdgeInsets.zero,
+              margin: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: mood.mood == emoji
+                    ? kPrimaryColor
+                    : const Color(0xFFE6E6EB),
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(10),
+                ),
               ),
-            ),
-            duration: const Duration(milliseconds: 300),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SvgPicture.asset(
-                  "assets/emojis/$emoji.svg",
-                  height: 50.h,
-                  width: 50.w,
-                ),
-                SizedBox(
-                  height: 5.h,
-                ),
-                Text(
-                  emoji.toTitleCase(),
-                  style: TextStyle(
-                      fontSize: 10.sp,
-                      color: mood.mood == emoji ? Colors.white : Colors.black),
-                ),
-              ],
+              duration: const Duration(milliseconds: 300),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    "assets/emojis/$emoji.svg",
+                    height: 40.h,
+                    width: 40.w,
+                  ),
+                  SizedBox(
+                    height: 5.h,
+                  ),
+                  Text(
+                    emoji.toTitleCase(),
+                    style: TextStyle(
+                        fontSize: 9.sp,
+                        fontWeight: FontWeight.w500,
+                        color:
+                            mood.mood == emoji ? Colors.white : Colors.black),
+                  ),
+                ],
+              ),
             ),
           ),
         );
@@ -59,7 +66,7 @@ class MoodSelectWidget extends StatelessWidget {
       children: [
         Container(
           width: double.infinity,
-          padding: const EdgeInsets.all(10),
+          // padding: const EdgeInsets.all(10),
           margin: const EdgeInsets.all(10),
           decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(
@@ -67,66 +74,72 @@ class MoodSelectWidget extends StatelessWidget {
               ),
               color: Colors.white),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
                 "How Are You Feeling Right Now?",
-                style: TextStyle(fontSize: 20.sp, color: Colors.black),
+                style: TextStyle(
+                    fontSize: 33.sp,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600),
               ),
               SizedBox(
                 height: 5.h,
               ),
               Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      _buildEmojiWidget(emoji: 'amazed'),
-                      _buildEmojiWidget(emoji: 'angry'),
-                      _buildEmojiWidget(emoji: 'confused'),
-                      _buildEmojiWidget(emoji: 'crying'),
-                    ],
+                  SizedBox(
+                    height: 100.h,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        _buildEmojiWidget(emoji: 'amazed'),
+                        _buildEmojiWidget(emoji: 'angry'),
+                        _buildEmojiWidget(emoji: 'confused'),
+                        _buildEmojiWidget(emoji: 'crying'),
+                      ],
+                    ),
                   ),
                   SizedBox(
-                    height: 5.h,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      _buildEmojiWidget(emoji: 'happy'),
-                      _buildEmojiWidget(emoji: 'hungry'),
-                      _buildEmojiWidget(emoji: 'hush'),
-                      _buildEmojiWidget(emoji: 'joyful'),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 5.h,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      _buildEmojiWidget(emoji: 'loving'),
-                      _buildEmojiWidget(emoji: 'neutral'),
-                      _buildEmojiWidget(emoji: 'persist'),
-                      _buildEmojiWidget(emoji: 'relieved'),
-                    ],
+                    height: 100.h,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        _buildEmojiWidget(emoji: 'happy'),
+                        _buildEmojiWidget(emoji: 'hungry'),
+                        _buildEmojiWidget(emoji: 'hush'),
+                        _buildEmojiWidget(emoji: 'joyful'),
+                      ],
+                    ),
                   ),
                   SizedBox(
-                    height: 5.h,
+                    height: 100.h,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        _buildEmojiWidget(emoji: 'loving'),
+                        _buildEmojiWidget(emoji: 'neutral'),
+                        _buildEmojiWidget(emoji: 'persist'),
+                        _buildEmojiWidget(emoji: 'relieved'),
+                      ],
+                    ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      _buildEmojiWidget(emoji: 'rofl'),
-                      _buildEmojiWidget(emoji: 'sad'),
-                      _buildEmojiWidget(emoji: 'sick'),
-                      _buildEmojiWidget(emoji: 'worried'),
-                    ],
+                  SizedBox(
+                    height: 100.h,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        _buildEmojiWidget(emoji: 'rofl'),
+                        _buildEmojiWidget(emoji: 'sad'),
+                        _buildEmojiWidget(emoji: 'sick'),
+                        _buildEmojiWidget(emoji: 'worried'),
+                      ],
+                    ),
                   ),
                 ],
               ),
