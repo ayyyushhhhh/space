@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:space/provider/journal/journal_editor_provider.dart';
+import 'package:space/screens/Journals/Add%20Journal%20Screen/widgets/button_container.dart';
+import 'package:space/screens/Journals/Add%20Journal%20Screen/widgets/journal_progress_indication.dart';
 import 'package:space/utils/ui_colors.dart';
 import 'package:space/utils/utils_functions.dart';
 
@@ -61,92 +63,148 @@ class MoodSelectWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          width: double.infinity,
-          // padding: const EdgeInsets.all(10),
-          margin: const EdgeInsets.all(10),
-          decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(20),
-              ),
-              color: Colors.white),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                "How Are You Feeling Right Now?",
-                style: TextStyle(
-                    fontSize: 33.sp,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600),
-              ),
-              SizedBox(
-                height: 5.h,
-              ),
-              Column(
-                children: [
-                  SizedBox(
-                    height: 100.h,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        _buildEmojiWidget(emoji: 'amazed'),
-                        _buildEmojiWidget(emoji: 'angry'),
-                        _buildEmojiWidget(emoji: 'confused'),
-                        _buildEmojiWidget(emoji: 'crying'),
-                      ],
-                    ),
+    return Scaffold(
+      body: Container(
+        width: double.infinity,
+        // padding: const EdgeInsets.all(10),
+        margin: const EdgeInsets.all(20),
+
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: Consumer<JournalEditorProvider>(
+                    builder: (BuildContext context, value, Widget? child) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              value.clearJournalData();
+                              Navigator.pop(context);
+                            },
+                            child: Icon(
+                              Icons.close,
+                              size: 30.r,
+                            ),
+                          ),
+                          JournalProgressIndicator(
+                            value: 3,
+                            width: 200.w,
+                            height: 10.h,
+                            currentVal: value.index + 1,
+                          ),
+                          Text(
+                            "${value.index + 1}/3",
+                            style: TextStyle(
+                                fontSize: 14.sp, fontWeight: FontWeight.w600),
+                          ),
+                        ],
+                      );
+                    },
                   ),
-                  SizedBox(
-                    height: 100.h,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        _buildEmojiWidget(emoji: 'happy'),
-                        _buildEmojiWidget(emoji: 'hungry'),
-                        _buildEmojiWidget(emoji: 'hush'),
-                        _buildEmojiWidget(emoji: 'joyful'),
-                      ],
-                    ),
+                ),
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                          text: 'How Are You ',
+                          style: TextStyle(
+                              fontSize: 30.sp, fontWeight: FontWeight.w600)),
+                      TextSpan(
+                        text: 'Feeling ',
+                        style: TextStyle(
+                            fontSize: 30.sp,
+                            fontWeight: FontWeight.w600,
+                            color: kPrimaryColor),
+                      ),
+                      TextSpan(
+                        text: 'Right Now?',
+                        style: TextStyle(
+                          fontSize: 30.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    height: 100.h,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        _buildEmojiWidget(emoji: 'loving'),
-                        _buildEmojiWidget(emoji: 'neutral'),
-                        _buildEmojiWidget(emoji: 'persist'),
-                        _buildEmojiWidget(emoji: 'relieved'),
-                      ],
-                    ),
+                ),
+                SizedBox(
+                  height: 90.h,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      _buildEmojiWidget(emoji: 'amazed'),
+                      _buildEmojiWidget(emoji: 'angry'),
+                      _buildEmojiWidget(emoji: 'confused'),
+                      _buildEmojiWidget(emoji: 'crying'),
+                    ],
                   ),
-                  SizedBox(
-                    height: 100.h,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        _buildEmojiWidget(emoji: 'rofl'),
-                        _buildEmojiWidget(emoji: 'sad'),
-                        _buildEmojiWidget(emoji: 'sick'),
-                        _buildEmojiWidget(emoji: 'worried'),
-                      ],
-                    ),
+                ),
+                SizedBox(
+                  height: 90.h,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      _buildEmojiWidget(emoji: 'happy'),
+                      _buildEmojiWidget(emoji: 'hungry'),
+                      _buildEmojiWidget(emoji: 'hush'),
+                      _buildEmojiWidget(emoji: 'joyful'),
+                    ],
                   ),
-                ],
-              ),
-            ],
-          ),
+                ),
+                SizedBox(
+                  height: 90.h,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      _buildEmojiWidget(emoji: 'loving'),
+                      _buildEmojiWidget(emoji: 'neutral'),
+                      _buildEmojiWidget(emoji: 'persist'),
+                      _buildEmojiWidget(emoji: 'relieved'),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 90.h,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      _buildEmojiWidget(emoji: 'rofl'),
+                      _buildEmojiWidget(emoji: 'sad'),
+                      _buildEmojiWidget(emoji: 'sick'),
+                      _buildEmojiWidget(emoji: 'worried'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            InkWell(
+              onTap: () {
+                Provider.of<JournalEditorProvider>(context, listen: false)
+                    .updateIndex(1);
+              },
+              child: const ButtonContainer(label: "Next"),
+            ),
+            SizedBox(
+              height: 10.h,
+            )
+          ],
         ),
-      ],
+      ),
     );
   }
 }

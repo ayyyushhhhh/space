@@ -16,11 +16,10 @@ import 'package:space/utils/utils_functions.dart';
 import 'package:space/screens/Journals/View%20Journal%20Screen/widgets/journal_icon_button.dart';
 
 class ViewJournalScreen extends StatefulWidget {
-  final JournalModel journalModel;
   final bool readOnly;
-
+  final JournalModel? journalModel;
   const ViewJournalScreen(
-      {super.key, required this.journalModel, required this.readOnly});
+      {super.key, required this.readOnly, this.journalModel});
 
   @override
   State<ViewJournalScreen> createState() => _ViewJournalScreenState();
@@ -32,7 +31,12 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
   @override
   void initState() {
     super.initState();
-    journalModel = widget.journalModel;
+    if (widget.journalModel == null) {
+      journalModel =
+          Provider.of<JournalEditorProvider>(context, listen: false).journal!;
+    } else {
+      journalModel = widget.journalModel!;
+    }
   }
 
   @override
@@ -91,6 +95,9 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                             onPressed: () {
                               if (!widget.readOnly) {
                                 _saveJournal();
+                                Provider.of<JournalEditorProvider>(context,
+                                        listen: false)
+                                    .clearJournalData();
                               }
 
                               Navigator.pop(context);
@@ -190,7 +197,7 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                   child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        widget.journalModel.title,
+                        journalModel.title,
                         style: TextStyle(color: getTextColorbyTheme(context)),
                       )),
                 ),

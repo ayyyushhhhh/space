@@ -1,12 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:space/models/journals/journal_model.dart';
 import 'package:space/provider/journal/journal_editor_provider.dart';
-import 'package:space/screens/Journals/Add%20Journal%20Screen/widgets/button_container.dart';
-import 'package:space/screens/Journals/Add%20Journal%20Screen/widgets/linear_indicator.dart';
 import 'package:space/screens/Journals/View%20Journal%20Screen/view_journal_screen.dart';
 import 'package:space/screens/Journals/Add%20Journal%20Screen/widgets/mood_select_widget.dart';
 import 'package:space/screens/Journals/Add%20Journal%20Screen/widgets/note_text_field_widget.dart';
@@ -19,12 +13,13 @@ class AddJournalPageWidget extends StatefulWidget {
   State<AddJournalPageWidget> createState() => _AddJournalPageWidgetState();
 }
 
-class _AddJournalPageWidgetState extends State<AddJournalPageWidget>
-    with SingleTickerProviderStateMixin {
-  final TextEditingController _titleEditingController = TextEditingController();
-  final TextEditingController _notesEditingController = TextEditingController();
-  late JournalModel _journalModel;
-  final List<Widget> _journalPages = [const MoodSelectWidget()];
+class _AddJournalPageWidgetState extends State<AddJournalPageWidget> {
+  final List<Widget> _journalPages = [
+    const MoodSelectWidget(),
+    const TitleTextFieldWidget(),
+    const NotesTextFieldWidget(),
+    const ViewJournalScreen(readOnly: false),
+  ];
   int _index = 0;
 
   @override
@@ -35,88 +30,22 @@ class _AddJournalPageWidgetState extends State<AddJournalPageWidget>
         return WillPopScope(
           onWillPop: () async {
             if (_index == 0) {
+              value.clearJournalData();
               Navigator.pop(context);
+
               return false;
             }
             _index -= 1;
             value.updateIndex(_index);
             return false;
           },
-          child: Scaffold(
-              body: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                LinearPercentIndicator(
-                  backgroundColor: Colors.white,
-                  progressColor: Colors.amberAccent,
-                  percent: 0.3,
-                  fillColor: Colors.red,
-                  lineHeight: 10.h,
-                ),
-                if (_index <= 2) _journalPages[value.index],
-                if (_index <= 2)
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                if (_index <= 2)
-                  InkWell(
-                    onTap: () {
-                      if (value.index == 2) {
-                        _journalModel = _createJournal(context);
-                      }
-                      if (_index == 1 && _titleEditingController.text == "") {
-                        return;
-                      } else {
-                        _journalPages.add(
-                          TitleTextFieldWidget(
-                              textEditingController: _titleEditingController),
-                        );
-                      }
-                      if (_index == 2 && _notesEditingController.text == "") {
-                        return;
-                      } else {
-                        _journalPages.add(
-                          NotesTextFieldWidget(
-                              textEditingController: _notesEditingController),
-                        );
-                      }
-                      _index += 1;
-
-                      value.updateIndex(_index);
-                    },
-                    child: const ButtonContainer(
-                      label: 'Next',
-                    ),
-                  ),
-                // Column(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   crossAxisAlignment: CrossAxisAlignment.center,
-                //   mainAxisSize: MainAxisSize.min,
-                //   children: const [],
-                // ),
-                if (_index == 3)
-                  ViewJournalScreen(
-                    journalModel: _journalModel,
-                    readOnly: false,
-                  ),
-              ],
-            ),
-          )),
+          child: PageView(
+            // physics: const NeverScrollableScrollPhysics(),
+            controller: value.pageController,
+            children: _journalPages,
+          ),
         );
       },
     );
-  }
-
-  JournalModel _createJournal(BuildContext context) {
-    return JournalModel(
-        journalId: (Random.secure().nextInt(90000) + 10000),
-        createdOn: DateTime.now(),
-        mood: Provider.of<JournalEditorProvider>(context, listen: false).mood,
-        title: _titleEditingController.text,
-        color:
-            Color((Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0),
-        description: _notesEditingController.text);
   }
 }

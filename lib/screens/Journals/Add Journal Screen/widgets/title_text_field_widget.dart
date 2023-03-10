@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:space/provider/journal/journal_editor_provider.dart';
+import 'package:space/screens/Journals/Add%20Journal%20Screen/widgets/button_container.dart';
+import 'package:space/screens/Journals/Add%20Journal%20Screen/widgets/journal_progress_indication.dart';
 
 class TitleTextFieldWidget extends StatelessWidget {
-  final TextEditingController textEditingController;
-
-  const TitleTextFieldWidget({super.key, required this.textEditingController});
+  const TitleTextFieldWidget({super.key});
 
   String _buildTitleText(BuildContext context) {
     String mood =
@@ -45,52 +45,103 @@ class TitleTextFieldWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<JournalEditorProvider>(
-      builder: (BuildContext context, value, Widget? child) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
+    JournalEditorProvider journalEditorProvider =
+        Provider.of<JournalEditorProvider>(context, listen: false);
+    return Scaffold(
+        body: SingleChildScrollView(
+      child: Container(
+        margin: const EdgeInsets.all(20),
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height * 0.9,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 10, right: 10),
-              child: Text(
-                _buildTitleText(context),
-                style: TextStyle(
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.black,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Container(
-              width: double.infinity,
-              margin: const EdgeInsets.only(left: 10, right: 10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: TextField(
-                readOnly: value.readOnly,
-                controller: textEditingController,
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.all(20),
-                  fillColor: Theme.of(context).cardColor,
-                  filled: true,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide.none,
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          journalEditorProvider.updateIndex(0);
+                        },
+                        child: Icon(
+                          Icons.arrow_back,
+                          size: 30.r,
+                        ),
+                      ),
+                      JournalProgressIndicator(
+                        value: 3,
+                        width: 200.w,
+                        height: 10.h,
+                        currentVal: journalEditorProvider.index + 1,
+                      ),
+                      Text(
+                        "${journalEditorProvider.index + 1}/3",
+                        style: TextStyle(
+                            fontSize: 14.sp, fontWeight: FontWeight.w600),
+                      ),
+                    ],
                   ),
-                  hintText: "Title",
                 ),
-                maxLength: 50,
-              ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Text(
+                        _buildTitleText(context),
+                        style: TextStyle(
+                          fontSize: 30.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 40.h,
+                    ),
+                    Container(
+                      width: double.infinity,
+                      margin: const EdgeInsets.only(left: 10, right: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: TextField(
+                        controller:
+                            journalEditorProvider.titleEditingController,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.all(20),
+                          fillColor: Theme.of(context).cardColor,
+                          filled: true,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: BorderSide.none,
+                          ),
+                          hintText: "Title",
+                        ),
+                        maxLength: 50,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            InkWell(
+              onTap: () {
+                if (journalEditorProvider.titleEditingController.text != "") {
+                  journalEditorProvider.updateIndex(2);
+                }
+              },
+              child: const ButtonContainer(label: "Next"),
             ),
           ],
-        );
-      },
-    );
+        ),
+      ),
+    ));
   }
 }
