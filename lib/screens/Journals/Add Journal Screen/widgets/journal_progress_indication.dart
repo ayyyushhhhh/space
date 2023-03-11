@@ -12,40 +12,94 @@ class JournalProgressIndicator extends StatelessWidget {
       required this.height,
       required this.currentVal});
 
-  Widget _buildProgressContainer(int index) {
-    double topLeft = 20;
-    double topRight = 20;
-    double bottomLeft = 20;
-    double bottomRight = 20;
-    if (index == 0) {
-      topLeft = 20;
-      topRight = 20;
-      bottomLeft = 20;
-      bottomRight = 20;
-    } else if (index <= 1) {
-      topLeft = 0;
-      topRight = 20;
-      bottomLeft = 0;
-      bottomRight = 20;
-    } else if (index <= 2) {
-      topLeft = 0;
-      topRight = 20;
-      bottomLeft = 0;
-      bottomRight = 20;
+  List<Widget> _buildProgressContainer() {
+    if (currentVal == 1) {
+      return [
+        Container(
+          width: width / value,
+          height: height,
+          decoration: const BoxDecoration(
+            color: Color(0xFF5349DB),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+              bottomLeft: Radius.circular(20),
+              bottomRight: Radius.circular(20),
+            ),
+          ),
+        )
+      ];
+    } else if (currentVal == 2) {
+      return [
+        Container(
+          width: width / value,
+          height: height,
+          decoration: const BoxDecoration(
+            color: Color(0xFF5349DB),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(0),
+              bottomLeft: Radius.circular(20),
+              bottomRight: Radius.circular(0),
+            ),
+          ),
+        ),
+        Container(
+          width: width / value,
+          height: height,
+          decoration: const BoxDecoration(
+            color: Color(0xFF5349DB),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(0),
+              topRight: Radius.circular(20),
+              bottomLeft: Radius.circular(0),
+              bottomRight: Radius.circular(20),
+            ),
+          ),
+        )
+      ];
     }
-    return Container(
-      width: width / value,
-      height: height,
-      decoration: BoxDecoration(
-        color: const Color(0xFF5349DB),
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(topLeft),
-          topRight: Radius.circular(topRight),
-          bottomLeft: Radius.circular(bottomLeft),
-          bottomRight: Radius.circular(bottomRight),
+    return [
+      Container(
+        width: width / value,
+        height: height,
+        decoration: const BoxDecoration(
+          color: Color(0xFF5349DB),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(0),
+            bottomLeft: Radius.circular(20),
+            bottomRight: Radius.circular(0),
+          ),
         ),
       ),
-    );
+      Container(
+        width: width / value,
+        height: height,
+        decoration: const BoxDecoration(
+          color: Color(0xFF5349DB),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(0),
+            topRight: Radius.circular(0),
+            bottomLeft: Radius.circular(0),
+            bottomRight: Radius.circular(0),
+          ),
+        ),
+      ),
+      Container(
+        width: width / value,
+        height: height,
+        decoration: const BoxDecoration(
+          color: Color(0xFF5349DB),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(0),
+            topRight: Radius.circular(20),
+            bottomLeft: Radius.circular(0),
+            bottomRight: Radius.circular(20),
+          ),
+        ),
+      )
+    ];
   }
 
   @override
@@ -60,12 +114,9 @@ class JournalProgressIndicator extends StatelessWidget {
         ),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          for (int i = 0; i < currentVal; i++) _buildProgressContainer(i),
-        ],
-      ),
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: _buildProgressContainer()),
     );
   }
 }
