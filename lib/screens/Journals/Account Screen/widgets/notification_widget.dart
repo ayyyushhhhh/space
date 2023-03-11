@@ -79,6 +79,11 @@ class NotificationWidget extends StatelessWidget {
               (BuildContext context, void Function(void Function()) setState) {
             return ExpansionTile(
               tilePadding: EdgeInsets.zero,
+              childrenPadding: EdgeInsets.zero,
+              leading: const Icon(
+                Icons.alarm,
+                color: Colors.black,
+              ),
               initiallyExpanded: true,
               textColor: Theme.of(context).textTheme.titleLarge?.color,
               title: Text(
