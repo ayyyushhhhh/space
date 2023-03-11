@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:space/screens/Journals/Account%20Screen/widgets/account_widget.dart';
 import 'package:space/screens/Journals/Account%20Screen/widgets/biometric_switch.dart';
+import 'package:space/screens/Journals/Account%20Screen/widgets/notification_switch.dart';
 import 'package:space/screens/Journals/Journals%20Screen/widgets/switch_container.dart';
 import 'package:space/screens/localization/lanuage_string_data.dart';
 import 'package:space/utils/ui_colors.dart';
@@ -60,8 +61,8 @@ class AccountScreen extends StatelessWidget {
               NotificationWidget(),
               SwitchContainer(
                 leadingIcon: Icons.language,
-                title: LanguageData.useBiometric.tr(),
-                description: LanguageData.appthemeBiometricDialog.tr(),
+                title: LanguageData.selectLang.tr(),
+                description: "Chose Your Language",
                 switchWidget: Icon(
                   Icons.chevron_right,
                   size: 25.r,
@@ -72,11 +73,8 @@ class AccountScreen extends StatelessWidget {
               SwitchContainer(
                 leadingIcon: Icons.notifications_active_outlined,
                 title: "Notifications",
-                description: LanguageData.appthemeBiometricDialog.tr(),
-                switchWidget: Icon(
-                  Icons.chevron_right,
-                  size: 25.r,
-                ),
+                description: "Do you need daily Notifications?",
+                switchWidget: const NotificationSwitch(),
                 backgroundColor: Theme.of(context).cardColor,
                 textColor: Colors.black,
               ),

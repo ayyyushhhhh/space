@@ -13,7 +13,7 @@ import 'package:space/utils/pref.dart';
 class NotificationWidget extends StatelessWidget {
   NotificationWidget({super.key});
 
-  bool _canNotify = SharedPreferencesHelper.getNotificationPermission();
+  bool _canNotify = SharedPreferencesHelper.getReminderNotificationPermission();
   Duration _notificationTime = SharedPreferencesHelper.getNotificationTime();
   void _showDialog({
     required Widget child,

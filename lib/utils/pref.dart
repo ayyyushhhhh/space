@@ -49,7 +49,7 @@ class SharedPreferencesHelper {
     preferences!.setInt("authpermission", permissionIndex);
   }
 
-  static void saveNotificationPermission(bool canNotify) {
+  static void saveReminderNotificationPermission(bool canNotify) {
     int permissionIndex = 0;
     if (canNotify == true) {
       permissionIndex = 1;
@@ -89,8 +89,26 @@ class SharedPreferencesHelper {
     return Duration(hours: int.parse(time[0]), minutes: int.parse(time[1]));
   }
 
+  static bool getReminderNotificationPermission() {
+    final index = preferences!.getInt("notifypermission");
+
+    if (index == null) {
+      return false;
+    }
+
+    return index == 1 ? true : false;
+  }
+
+  static void saveNotificationPermission(bool canNotify) {
+    int permissionIndex = 0;
+    if (canNotify == true) {
+      permissionIndex = 1;
+    }
+    preferences!.setInt("notification", permissionIndex);
+  }
+
   static bool getNotificationPermission() {
-    final index = preferences!.getInt("authpermission");
+    final index = preferences!.getInt("notification");
 
     if (index == null) {
       return false;
