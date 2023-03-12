@@ -59,7 +59,7 @@ class CalendarWidget extends StatelessWidget {
                           DateFormat.E(context.locale.toString())
                               .format(dateTimeNow),
                           style: TextStyle(
-                              fontSize: 14.sp,
+                              fontSize: 13.sp,
                               fontWeight: FontWeight.w400,
                               color: Colors.black),
                         ),
@@ -102,7 +102,7 @@ class CalendarWidget extends StatelessWidget {
                             DateFormat.E(context.locale.toString())
                                 .format(dateTime),
                             style: TextStyle(
-                                fontSize: 14.sp,
+                                fontSize: 13.sp,
                                 fontWeight: FontWeight.w400,
                                 color: Colors.black),
                           ),
@@ -140,7 +140,7 @@ class CalendarWidget extends StatelessWidget {
                       Text(
                         DateFormat.E(context.locale.toString()).format(day),
                         style: TextStyle(
-                            fontSize: 14.sp,
+                            fontSize: 13.sp,
                             fontWeight: FontWeight.w400,
                             color: Colors.white),
                       ),

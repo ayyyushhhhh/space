@@ -20,6 +20,7 @@ class BiometricSwitch extends StatelessWidget {
             hint: 'Press to turn on/off feature',
             child: CupertinoSwitch(
               activeColor: kPrimaryColor,
+              trackColor: Colors.white,
               thumbColor: !canAuth ? kPrimaryColor : Colors.white,
               value: canAuth,
               onChanged: ((value) {

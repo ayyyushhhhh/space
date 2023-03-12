@@ -23,6 +23,7 @@ class NotificationSwitch extends StatelessWidget {
                 hint: 'Switch to accept Notification',
                 child: CupertinoSwitch(
                   value: canNotify,
+                  trackColor: Colors.white,
                   activeColor: kPrimaryColor,
                   thumbColor: !canNotify ? kPrimaryColor : Colors.white,
                   onChanged: (bool value) {

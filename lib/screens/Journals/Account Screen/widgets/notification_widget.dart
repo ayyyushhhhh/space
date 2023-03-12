@@ -97,6 +97,7 @@ class NotificationWidget extends StatelessWidget {
                   hint: 'Press to Turn on notification reminders',
                   child: CupertinoSwitch(
                     activeColor: kPrimaryColor,
+                    trackColor: Colors.white,
                     thumbColor: !_canNotify ? kPrimaryColor : Colors.white,
                     value: _canNotify,
                     onChanged: ((value) {
