@@ -8,6 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:space/hive%20boxes/journal_box.dart';
 import 'package:space/notification%20manager/notification_manager.dart';
+import 'package:space/provider/ToDo/to_do_provider.dart';
 import 'package:space/provider/User/points_provider.dart';
 import 'package:space/provider/journal/journal_provider.dart';
 import 'package:space/provider/journal/journal_editor_provider.dart';
@@ -68,6 +69,11 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider<PointsProvider>(
             create: (BuildContext context) {
               return PointsProvider();
+            },
+          ),
+          ChangeNotifierProvider<TodoProvider>(
+            create: (BuildContext context) {
+              return TodoProvider();
             },
           ),
         ],

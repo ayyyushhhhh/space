@@ -1,4 +1,8 @@
+import 'dart:convert';
+
+import 'package:easy_localization/easy_localization.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:space/models/To%20Do/to_do_model.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class SharedPreferencesHelper {
@@ -6,6 +10,34 @@ class SharedPreferencesHelper {
 
   static Future<void> init() async {
     preferences = await SharedPreferences.getInstance();
+  }
+
+  static Future<void> saveToDoList({required List<ToDoModel> todos}) async {
+    List<String> todoList = [];
+    for (ToDoModel task in todos) {
+      todoList.add(jsonEncode(task));
+    }
+    await preferences?.setStringList(
+        DateFormat.yMd().format(DateTime.now()), todoList);
+  }
+
+  static List<ToDoModel> getTodoList({required DateTime dateTime}) {
+    List<ToDoModel> tasks = [];
+    final taskMap = preferences!.getStringList(
+      DateFormat.yMd().format(dateTime),
+    );
+
+    if (taskMap == null) {
+      return tasks;
+    }
+
+    for (String pricing in taskMap) {
+      tasks.add(
+        ToDoModel.fromMap(
+            jsonDecode(jsonDecode(pricing)) as Map<String, dynamic>),
+      );
+    }
+    return tasks;
   }
 
   static void saveTheme(bool isDark) {
